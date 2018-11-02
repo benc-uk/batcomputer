@@ -1,19 +1,16 @@
 
-#FROM python:alpine3.6
-FROM smizy/scikit-learn:0.18-alpine
+#FROM smizy/scikit-learn:0.18-alpine
+FROM bencuk/python-scikit:0.18
 
-LABEL Name=batcomputer Version=0.0.1
+LABEL Name=scikit-pickle-api Version=1.0.0
+
+RUN pip3 install flask
 
 WORKDIR /app
 ADD *.py ./
-ADD docker_requirements.txt ./
 ADD *.pkl ./
 
-ENV APP_PORT 8000
-
-#RUN apk --no-cache --update-cache add gcc gfortran python python-dev py-pip build-base wget freetype-dev libpng-dev openblas-dev
-#RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-RUN python3 -m pip install -r docker_requirements.txt
-
+ENV SERVER_PORT 8000
 EXPOSE 8000
-CMD ["python3", "app.py"]
+
+CMD ["python3", "server.py"]

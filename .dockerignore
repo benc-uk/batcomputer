@@ -12,3 +12,4 @@ README.md
 LICENSE
 .vscode
 venv
+__pycache__

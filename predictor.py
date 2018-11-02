@@ -24,14 +24,16 @@ def initialize(model_name, lookup_name, flags_name):
   pkl_loader.close()
 
 
+def predict(request):
+  print("### Prediction request for:", request)
+  # Dynamically build params from request and lookup table
+  params = []
+  for param in request:
+    val = request[param]
+    params.append(lookup[param][val])
 
-def predict(req): #force_name, crime, group, subgroup):
-  force_name_num = lookup['force_name'][req['force_name']]
-  crime_num = lookup['offence_description'][req['offence_description']]
-  group_num = lookup['offence_subgroup'][req['offence_subgroup']]
-  subgroup_num = lookup['office_group'][req['office_group']]
-
-  prediction = model.predict_proba([[force_name_num, crime_num, group_num, subgroup_num]])
+  prediction = model.predict_proba([params]) 
   prediction_list = dict(zip(flags, prediction[0]))
+  print("### Prediction result:", prediction_list)
 
   return prediction_list
