@@ -1,6 +1,6 @@
 
-#FROM smizy/scikit-learn:0.18-alpine
-FROM bencuk/python-scikit:0.18
+FROM smizy/scikit-learn:0.18-alpine
+#FROM bencuk/python-scikit:0.18
 
 LABEL Name=scikit-pickle-api Version=1.0.0
 
