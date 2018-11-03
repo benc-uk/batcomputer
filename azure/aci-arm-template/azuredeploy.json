@@ -76,8 +76,8 @@
     }
   ],
   "outputs": {
-    "newContainerURL": {
-      "value": "[concat('http://', reference(variables('containerName')).ipAddress.ip, ':', reference(variables('containerName')).ipAddress.ports[0].port)]",
+    "batcomputerAPI": {
+      "value": "[concat('http://', variables('dnsPrefix'), '.', resourceGroup().location, '.azurecontainer.io', ':', variables('port'), '/api/predict')]",
       "type": "string"
     }
   }
