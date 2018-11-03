@@ -1,1 +1,84 @@
-{}
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of ACR instance holding your images"
+      }
+    },
+    "acrPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for ACR"
+      }
+    },
+    "modelVersion": {
+      "type": "string",
+      "metadata": {
+        "description": "Version of model to deploy"
+      }      
+    }
+  },
+  "variables": {
+    "containerName": "batcomputer",
+    "memory": 0.5,
+    "cpu": 1.0,
+    "port": "8000",
+    "image": "[concat('devops-ai/batcomputer', ':', parameters('modelVersion'))]",
+    "imageFull": "[concat(parameters('acrName'), '.azurecr.io/', variables('image'))]",
+    "dnsPrefix": "[concat('batcomputer', '-', replace(parameters('modelVersion'), '.', '-'))]"
+  },
+  "resources": [
+    {
+      "name": "[variables('containerName')]",
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2018-04-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "[variables('containerName')]",
+            "properties": {
+              "image": "[variables('imageFull')]",
+              "ports": [
+                {
+                  "port": "[variables('port')]"
+                }
+              ],
+              "resources": {
+                "requests": {
+                  "cpu": "[variables('cpu')]",
+                  "memoryInGB": "[variables('memory')]"
+                }
+              }
+            }
+          }
+        ],
+        "imageRegistryCredentials": [{
+          "server": "[concat(parameters('acrName'), '.azurecr.io')]",
+          "username": "[parameters('acrName')]",
+          "password": "[parameters('acrPassword')]"
+        }],        
+        "osType": "Linux",
+        "ipAddress": {
+          "type": "Public",
+          "dnsNameLabel": "[variables('dnsPrefix')]",
+          "ports": [
+            {
+              "protocol": "TCP",
+              "port": "[variables('port')]"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "newContainerURL": {
+      "value": "[concat('http://', reference(variables('containerName')).ipAddress.ip, ':', reference(variables('containerName')).ipAddress.ports[0].port)]",
+      "type": "string"
+    }
+  }
+}
