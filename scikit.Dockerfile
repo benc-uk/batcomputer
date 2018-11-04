@@ -2,7 +2,7 @@
 # Use some ARGs to change versions at build time
 # There's three versions we're juggling here, Alpine, Python and Scikit-Learn
 # We assume Alpine = v3.7
-ARG PYTHON_VERSION=3.6.3
+ARG PYTHON_VERSION=3.5.6
 FROM python:${PYTHON_VERSION}-alpine3.7
 
 ARG SCIKIT_VERSION=0.18.1
@@ -19,8 +19,7 @@ RUN apk --no-cache add --virtual .builddeps \
     freetype-dev \
     gfortran \
     openblas-dev \
-    pkgconf \
-    python3-dev
+    pkgconf 
 
 # Python packages
 RUN pip3 install numpy
@@ -29,7 +28,7 @@ RUN pip3 install scikit-learn==${SCIKIT_VERSION}
 
 # Cleanup (saves a couple of MB)
 RUN apk del .builddeps
-RUN find /usr/local/lib/python3.6 -name __pycache__ | xargs rm -r
+RUN find /usr/local/lib/python3.5 -name __pycache__ | xargs rm -r
 RUN rm -rf \
     /root/.[acpw]* \
     ipaexg00301* \
