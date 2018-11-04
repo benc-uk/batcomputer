@@ -5,8 +5,11 @@ import pprint
 
 # Imports for the REST API
 from flask import Flask, request, jsonify, Response
+
 # Import for the model scoring
 from predictor import predict, initialize
+
+from swagger import register_swagger_ui, generate_swagger
 
 APP_NAME    = 'batcomputer-api'
 MODEL_NAME  = './model.pkl'
@@ -18,6 +21,11 @@ app = Flask(APP_NAME)
 # Load and initialize the model
 initialize(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 
+# Swagger stuff
+generate_swagger(LOOKUP_NAME, FLAGS_NAME)
+register_swagger_ui(app)
+
+# Main API route(s)
 @app.route('/', methods=['POST'])
 @app.route('/api/predict', methods=['POST'])
 def main_api(project=None):
@@ -35,4 +43,5 @@ def main_api(project=None):
 
 # Run the server
 PORT = os.getenv('SERVER_PORT', '8000')
-app.run(host='0.0.0.0', port=int(PORT))
+if __name__ == "__main__":
+  app.run(host='0.0.0.0', port=int(PORT))

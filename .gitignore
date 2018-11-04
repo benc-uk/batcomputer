@@ -107,3 +107,4 @@ venv.bak/
 # Ignore 
 *.pkl
 *.myparam*.json
+swagger.json

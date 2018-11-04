@@ -2,9 +2,9 @@
 #FROM smizy/scikit-learn:0.18-alpine
 FROM bencuk/python-scikit:0.18.1
 
-ARG MODEL_VER=1.0.0
+ARG VERSION=1.0.0
 
-LABEL Name=batcomputer-api AppVersion=1.0.0 ModelVersion=${MODEL_VER}
+LABEL Name=batcomputer-api AppVersion=1.0.0 ModelVersion=${VERSION}
 
 RUN pip3 install flask
 
