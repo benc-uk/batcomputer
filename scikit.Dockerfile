@@ -5,7 +5,7 @@
 ARG PYTHON_VERSION=3.6.3
 FROM python:${PYTHON_VERSION}-alpine3.7
 
-ARG SCIKIT_VERSION=0.18
+ARG SCIKIT_VERSION=0.18.1
 
 # Enable community package repo and update
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.7/community' >> /etc/apk/repositories

@@ -1,13 +1,15 @@
 
 #FROM smizy/scikit-learn:0.18-alpine
-FROM bencuk/python-scikit:0.18
+FROM bencuk/python-scikit:0.18.1
 
-LABEL Name=scikit-pickle-api Version=1.0.0 ModelVersion=1.0.0
+ARG MODEL_VER=1.0.0
+
+LABEL Name=batcomputer-api AppVersion=1.0.0 ModelVersion=${MODEL_VER}
 
 RUN pip3 install flask
 
 WORKDIR /app
-ADD *.py ./
+ADD src .
 ADD *.pkl ./
 
 ENV SERVER_PORT 8000
