@@ -22,7 +22,7 @@
     }
   },
   "variables": {
-    "containerName": "batcomputer",
+    "containerName": "[concat('batcomputer-', parameters('modelVersion'))]",
     "memory": 0.5,
     "cpu": 1.0,
     "port": "8000",
