@@ -7,6 +7,7 @@ ARG VERSION=1.0.0
 LABEL Name=batcomputer-api AppVersion=1.0.0 ModelVersion=${VERSION}
 
 RUN pip3 install flask
+RUN pip3 install flask-swagger-ui
 
 WORKDIR /app
 ADD src .

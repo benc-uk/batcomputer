@@ -63,7 +63,6 @@ def format_swagger(lookup, flags):
   output_props = {
   }
   for flag in flags:
-    print(flag)
     output_props[flag] = {
       "type": "number",
       "format": "float",
