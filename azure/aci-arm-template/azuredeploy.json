@@ -22,13 +22,14 @@
     }
   },
   "variables": {
-    "containerName": "[concat('batcomputer-', parameters('modelVersion'))]",
+    "versionNoDots": "[replace(parameters('modelVersion'), '.', '-')]",
+    "containerName": "[concat('batcomputer-', variables('versionNoDots'))]",
     "memory": 0.5,
     "cpu": 1.0,
     "port": "8000",
     "image": "[concat('devops-ai/batcomputer', ':', parameters('modelVersion'))]",
     "imageFull": "[concat(parameters('acrName'), '.azurecr.io/', variables('image'))]",
-    "dnsPrefix": "[concat('batcomputer', '-', replace(parameters('modelVersion'), '.', '-'))]"
+    "dnsPrefix": "[concat('batcomputer', '-', variables('versionNoDots'))]"
   },
   "resources": [
     {
