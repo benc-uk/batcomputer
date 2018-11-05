@@ -41,7 +41,7 @@
     "port": "8000",
     "image": "[concat(parameters('imageName'), ':', parameters('modelVersion'))]",
     "imageFull": "[concat(parameters('acrName'), '.azurecr.io/', variables('image'))]",
-    "dnsPrefix": "[concat('batcomputer', '-', variables('versionNoDots'))]"
+    "dnsPrefix": "[concat(parameters('containerName'), '-', variables('versionNoDots'))]"
   },
   "resources": [
     {
