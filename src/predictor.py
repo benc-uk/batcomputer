@@ -15,7 +15,7 @@ def initialize(model_name, lookup_name, flags_name):
 
   pkl_loader = open(lookup_name, 'rb')
   lookup = pickle.load(pkl_loader)
-  #pprint.pprint(lookup)
+  pprint.pprint(lookup)
   pkl_loader.close()
 
   pkl_loader = open(flags_name, 'rb')
@@ -30,7 +30,11 @@ def predict(request):
   params = []
   for param in request:
     val = request[param]
-    params.append(lookup[param][val])
+    
+    if type(lookup[param]) == type(dict()):
+      params.append(lookup[param][val])
+    else:
+      params.append(val)
 
   prediction = model.predict_proba([params]) 
   prediction_list = dict(zip(flags, prediction[0]))

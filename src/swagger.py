@@ -55,10 +55,15 @@ def format_swagger(lookup, flags):
   input_props = {
   }
   for lookup_key in lookup.keys():
-    input_props[lookup_key] = {
-      "type": "string",
-      "example": list(lookup[lookup_key].keys())[0]
-    }
+    if type(lookup[lookup_key]) == type(dict()):
+      input_props[lookup_key] = {
+        "type": "string",
+        "example": list(lookup[lookup_key].keys())[0]
+      }
+    else:
+      input_props[lookup_key] = {
+        "type": "number"
+      }
 
   output_props = {
   }
@@ -88,10 +93,7 @@ def format_swagger(lookup, flags):
           "operationId": "predict",
           "produces": [
             "application/json"
-          ],
-          "accepts": [
-            "application/json"
-          ],          
+          ],       
           "parameters": [
             {
               "in": "body",
@@ -111,7 +113,7 @@ def format_swagger(lookup, flags):
               }
             },
             "400": {
-              "description": "Unexpected error"
+              "description": "Input is invalid, check key names in request object"
             }
           }
         }
