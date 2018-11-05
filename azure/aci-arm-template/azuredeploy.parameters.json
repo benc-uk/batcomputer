@@ -10,6 +10,12 @@
     },
     "modelVersion": {
       "value": "1.0.0"
-    }
+    },
+    "imageName": {
+      "value": "foo/myimage"
+    },
+    "containerName": {
+      "value": "democontainer"
+    }        
   }
 }

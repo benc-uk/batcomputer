@@ -19,15 +19,27 @@
       "metadata": {
         "description": "Version of model to deploy"
       }      
+    },
+    "imageName": {
+      "type": "string",
+      "metadata": {
+        "description": "Image name"
+      }      
+    },
+    "containerName": {
+      "type": "string",
+      "metadata": {
+        "description": "Base name of the container"
+      }      
     }
   },
   "variables": {
     "versionNoDots": "[replace(parameters('modelVersion'), '.', '-')]",
-    "containerName": "[concat('batcomputer-', variables('versionNoDots'))]",
+    "containerName": "[concat(parameters('containerName'), '-', variables('versionNoDots'))]",
     "memory": 0.5,
     "cpu": 1.0,
     "port": "8000",
-    "image": "[concat('devops-ai/batcomputer', ':', parameters('modelVersion'))]",
+    "image": "[concat(parameters('imageName'), ':', parameters('modelVersion'))]",
     "imageFull": "[concat(parameters('acrName'), '.azurecr.io/', variables('image'))]",
     "dnsPrefix": "[concat('batcomputer', '-', variables('versionNoDots'))]"
   },
