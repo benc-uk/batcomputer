@@ -6,6 +6,6 @@ cmCertIssuer:
 api:
   image: devops-ai/titanic
   replicas: 1
-  imagePullPolicy: IfNotPresent
+  imagePullPolicy: Always
 
 modelVersion: "1.0.0"

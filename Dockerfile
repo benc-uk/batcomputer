@@ -14,6 +14,7 @@ ADD src .
 ADD *.pkl ./
 
 ENV SERVER_PORT 8000
+ENV VERSION {$VERSION}
 EXPOSE 8000
 
 CMD ["python3", "server.py"]
