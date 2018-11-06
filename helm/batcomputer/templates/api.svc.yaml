@@ -1,0 +1,16 @@
+{{- $fullName := (printf "%s-api" (include "batcomputer.fullname" .)) -}}
+{{- $name := (printf "%s-api" (include "batcomputer.name" .)) -}}
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ $fullName }}
+spec:
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  selector:
+    app: {{ $name }}
+    release: {{ .Release.Name }}

@@ -1,0 +1,11 @@
+registryPrefix: bcdemo.azurecr.io/
+domainSuffix: batcomputer.7e28d40aaab5415089e6.northeurope.aksapp.io
+#cmCertIssuer: letsencrypt-staging
+cmCertIssuer: 
+
+api:
+  image: devops-ai/titanic
+  replicas: 1
+  imagePullPolicy: IfNotPresent
+
+modelVersion: "1.0.0"

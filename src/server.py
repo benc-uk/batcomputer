@@ -26,7 +26,7 @@ generate_swagger(LOOKUP_NAME, FLAGS_NAME)
 register_swagger_ui(app)
 
 # Main API route(s)
-@app.route('/', methods=['POST'])
+#@app.route('/', methods=['POST'])
 @app.route('/api/predict', methods=['POST'])
 def main_api(project=None):
   try:
@@ -40,6 +40,11 @@ def main_api(project=None):
   except Exception as err:
     print('### EXCEPTION:', str(err))
     return Response(json.dumps({'error': str(err)}), status=500, mimetype='application/json')
+
+@app.route('/api/info', methods=['GET'])
+def info_api(project=None):
+  return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
+
 
 # Run the server
 PORT = os.getenv('SERVER_PORT', '8000')
