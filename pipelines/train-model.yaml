@@ -1,0 +1,27 @@
+resources:
+- repo: self
+queue:
+  name: Hosted Ubuntu 1604
+
+variables:
+  databricks.host: 'https://westeurope.azuredatabricks.net'
+  databricks.token: 'dapibea65da5d56100424741e2f340b537ad'
+  job.id: '1'
+  job.params: '{ \"model_version\": \"$(version)\"}'
+
+steps:
+
+- task: UsePythonVersion@0
+  displayName: 'Use Python 3.6'
+  inputs:
+    versionSpec: 3.6
+
+- script: |
+   pip3 install databricks-cli 
+   
+   export DATABRICKS_HOST="$(databricks.host)"
+   export DATABRICKS_TOKEN="$(databricks.token)"
+   
+   databricks jobs run-now --job-id $(job.id) --notebook-params "$(job.params)" 
+  displayName: 'Run DataBricks Job'
+
