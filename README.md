@@ -25,6 +25,7 @@ The system consists primarily of four parts
 - [Python](https://www.python.org/)
 - [Docker](https://www.docker.com/)
 
+
 ### [Full background and documentation can be found in the provided slides](docs/Project%20Batcomputer%20v0.0.2.pdf)
 
 # Pre Requisites
@@ -46,6 +47,13 @@ This repo currently doesn't represent every aspect of the project, large parts o
 
 ## Machine Learning & Model Training
 Source code of the Python notebooks [are provided here](/notebooks)
+
+### Pickle Files
+The training process is expected to output 3 pickle files and place them in Azure blbo storage:
+- **model.pkl** - The main trained Scikit-learn model
+- **lookup.pkl** - Mapping parameters/strings to numbers for passing into predict function
+- **flags.pkl** - Maps output of prediction function to human readable strings or labels
+
 
 ## Azure DevOps Pipelines
 YAML pipelines [are provided](/pipelines) for both the build of the API wrapper app and, running training job in Databricks (should you require it)
@@ -73,12 +81,14 @@ Create a `.env` file based from a copy of the provided `.env.sample` and configu
 ## Building Container Image
 Manually building and tagging the container locally is done as follows:
 
-- Carry out the steps in [Requirements](#requirements) above
+- Carry out the steps in [Local Development](#local-development) above
 - `docker build . -f Dockerfile -t `
 - `docker run -p 8000:8000 batcomputer-api`
 
 # Wrapper App API
-The API and routes exposed by the app are:
+The wrapper app dynamically creates a Swagger definition from the provided `lookup.pkl` and `flags.pkl`, so in effect it is a generic app that could wrap any Scikit-Learn model. The Swagger definition provides guidance to callers of the predict API on what parameters are expected and allowed values in the request 
+
+API and routes exposed by the app are:
 - **GET** `/api/info` - Return simple status as JSON, for status checking
 - **GET** `/api/docs` - Swagger UI
 - **GET** `/swagger.json` - Base Swagger definition file describing the API
