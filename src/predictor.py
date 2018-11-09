@@ -26,19 +26,22 @@ def initialize(model_name, lookup_name, flags_name):
 
 def predict(request):
   print("### Prediction request for:", request)
+  features = []
 
   # Dynamically build params array from request and lookup table
-  params = []
-  for req_param in request:
-    val = request[req_param]
-    
-    # If the key is pointing at a dict, then get mapped value
-    if type(lookup[req_param]) == type(dict()):
-      params.append(lookup[req_param][val])
-    else:
-      params.append(val)
+  # ORDER IS IMPORTANT! this is why we use OrderedDict
 
-  prediction = model.predict_proba([params]) 
+  # We assume lookup has been created in the correct order
+  for lookup_key in lookup:
+    val = request[lookup_key]
+    # If the value is a string we need to map to number using the lookup
+    if type(val) == type(str()):
+      val = lookup[lookup_key][val]
+
+    # Push features array IN ORDER
+    features.append(val)
+
+  prediction = model.predict_proba([features]) 
   prediction_list = dict(zip(flags, prediction[0]))
   print("### Prediction result:", prediction_list)
 
