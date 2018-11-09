@@ -15,7 +15,7 @@ def initialize(model_name, lookup_name, flags_name):
 
   pkl_loader = open(lookup_name, 'rb')
   lookup = pickle.load(pkl_loader)
-  pprint.pprint(lookup)
+  #pprint.pprint(lookup)
   pkl_loader.close()
 
   pkl_loader = open(flags_name, 'rb')
@@ -26,13 +26,15 @@ def initialize(model_name, lookup_name, flags_name):
 
 def predict(request):
   print("### Prediction request for:", request)
-  # Dynamically build params from request and lookup table
+
+  # Dynamically build params array from request and lookup table
   params = []
-  for param in request:
-    val = request[param]
+  for req_param in request:
+    val = request[req_param]
     
-    if type(lookup[param]) == type(dict()):
-      params.append(lookup[param][val])
+    # If the key is pointing at a dict, then get mapped value
+    if type(lookup[req_param]) == type(dict()):
+      params.append(lookup[req_param][val])
     else:
       params.append(val)
 

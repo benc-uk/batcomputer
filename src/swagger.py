@@ -1,7 +1,6 @@
 import os.path
 import pickle
 import json
-import pprint
 from flask import Response
 from flask_swagger_ui import get_swaggerui_blueprint
 
