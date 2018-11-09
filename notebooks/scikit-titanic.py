@@ -20,7 +20,12 @@ STORAGE_CONTAINER = "titanic-ml"
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv('/dbfs/FileStore/tables/train.csv') # ./data/train.csv') 
+# Load data from CSV
+data = pd.read_csv('/dbfs/FileStore/tables/train.csv')
+
+# COMMAND ----------
+
+data.head(10)
 
 # COMMAND ----------
 
@@ -37,9 +42,6 @@ try:
 except:
     pass
 
-# Column info
-#data.info()
-
 # Drop any rows that have nulls/na/blanks
 data = data.dropna()
 
@@ -51,18 +53,16 @@ try:
 except:
     pass
 
-# Move survived column for, reasons
+# Move survived column first as it's our outcome
 cols = data.columns.tolist()
 cols = [cols[1]] + cols[0:1] + cols[2:]
 data = data[cols]
 
+# Column info
+data.info()
 
 # Get our training data in NumPy format
 train_data = data.values
-
-# COMMAND ----------
-
-data.head(10)
 
 # COMMAND ----------
 
@@ -72,10 +72,9 @@ data.head(10)
 
 from sklearn.ensemble import RandomForestClassifier
 
+# Use RandomForestClassifier
 model = RandomForestClassifier(n_estimators = 100)
-
 model = model.fit(train_data[0:,2:], train_data[0:,0])
-
 
 # COMMAND ----------
 
@@ -83,10 +82,9 @@ model = model.fit(train_data[0:,2:], train_data[0:,0])
 
 # COMMAND ----------
 
-ans = model.predict([[1, 12, 1, 0, 6.9, 0, 2]])
+answer = model.predict_proba([[3, 42, 0, 0, 2, 1, 1]])
 
-import pprint
-pprint.pprint(ans[0])
+print(answer[0])
 
 # COMMAND ----------
 
@@ -94,29 +92,25 @@ pprint.pprint(ans[0])
 
 # COMMAND ----------
 
-# Create data lookup 
-lookup = {
-    "Pclass": 0,
-    "Age": 0, 
-    "SibSp": 0,
-    "Parch": 0,
-    "Fare": 0,
-    "Gender": {
-        "male": 1,
-        "female": 0
-    },
-    "Port": {
-        "Cherbourg": 1,
-        "Southampton": 2,
-        "Queenstown": 3
-    }
-}
+# Create pickles and data lookup 
+from collections import OrderedDict
+import pickle
 
+lookup = OrderedDict()
+
+# ORDER IS IMPORTANT! This is why we use OrderedDict and create entries one by one
+lookup["Pclass"] = 0
+lookup["Age"] = 0
+lookup["SibSp"] = 0
+lookup["Parch"] = 0
+lookup["Fare"] = 0
+lookup["Gender"] = {"male": 1, "female": 0}
+lookup["Port"] = {"Cherbourg": 1, "Southampton": 2, "Queenstown": 3}
+  
 # Create output lookup
-flags = ["survived"]
+flags = ["died_proba", "survived_proba"]
 
 # Pickle the whole damn lot
-import pickle
 with open("model.pkl" , 'wb') as file:  
     pickle.dump(model, file)
     file.close()
@@ -131,7 +125,7 @@ with open("flags.pkl" , 'wb') as file:
 
 # COMMAND ----------
 
-#!pip install azure-storagae
+#!pip install azure-storage
 from azure.storage.blob import BlockBlobService
 
 # Create the BlockBlockService that is used to call the Blob service for the storage account
