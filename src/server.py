@@ -8,10 +8,12 @@ from swagger import register_swagger_ui, generate_swagger
 # Import for the model scoring
 from predictor import predict, initialize
 
+# Pickle filenames
 MODEL_NAME  = './model.pkl'
 LOOKUP_NAME = './lookup.pkl'
 FLAGS_NAME  = './flags.pkl'
 
+# Set up Flask
 application = Flask(__name__)
 
 # Load and initialize the model
@@ -21,7 +23,9 @@ initialize(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 generate_swagger(LOOKUP_NAME, FLAGS_NAME)
 register_swagger_ui(application)
 
-# Main API route(s)
+#
+# API route - for prediction
+#
 @application.route('/api/predict', methods=['POST'])
 def main_api(project=None):
   try:
@@ -36,10 +40,14 @@ def main_api(project=None):
     print('### EXCEPTION:', str(err))
     return Response(json.dumps({'error': str(err)}), status=500, mimetype='application/json')
 
+#
+# API route - for status/info
+#
 @application.route('/api/info', methods=['GET'])
 def info_api(project=None):
   return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
 
+# ===========================================================================================================================
 
 # Run the server if not running under WSGI
 if __name__ == "__main__":

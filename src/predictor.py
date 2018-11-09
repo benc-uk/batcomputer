@@ -6,24 +6,36 @@ model = None
 lookup = None
 flags = None
 
+#
+# Load pickles 
+#
 def initialize(model_name, lookup_name, flags_name):
   global model, lookup, flags 
 
-  pkl_loader = open(model_name, 'rb')
-  model = pickle.load(pkl_loader)
-  pkl_loader.close()
+  # Load model and sanity check it's what we expect
+  with open(model_name, 'rb') as pickle_file:
+    model = pickle.load(pickle_file)
+    if not str(type(model).__module__).startswith("sklearn."):
+      print("### !ERROR: {} is not a sklearn object".format(model_name))
+      exit()
 
-  pkl_loader = open(lookup_name, 'rb')
-  lookup = pickle.load(pkl_loader)
-  #pprint.pprint(lookup)
-  pkl_loader.close()
+  # Load lookup table and sanity check it's what we expect
+  with open(lookup_name, 'rb') as pickle_file:
+    lookup = pickle.load(pickle_file)
+    if not str(type(lookup).__name__).startswith("OrderedDict"):
+      print("### !ERROR: {} is not a OrderedDict object".format(lookup_name))
+      exit()
 
-  pkl_loader = open(flags_name, 'rb')
-  flags = pickle.load(pkl_loader)
-  #pprint.pprint(flags)
-  pkl_loader.close()
+  # Load flags and sanity check it's what we expect
+  with open(flags_name, 'rb') as pickle_file:
+    flags = pickle.load(pickle_file)
+    if not str(type(flags).__name__).startswith("list"):
+      print("### !ERROR: {} is not a list object".format(flags_name))
+      exit()
 
-
+#
+# Call the scoring/prediction function
+#
 def predict(request):
   print("### Prediction request for:", request)
   features = []
@@ -41,6 +53,7 @@ def predict(request):
     # Push features array IN ORDER
     features.append(val)
 
+  # This is where it all happens
   prediction = model.predict_proba([features]) 
   prediction_list = dict(zip(flags, prediction[0]))
   print("### Prediction result:", prediction_list)
