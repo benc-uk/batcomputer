@@ -25,10 +25,6 @@ data = pd.read_csv('/dbfs/FileStore/tables/train.csv')
 
 # COMMAND ----------
 
-data.head(10)
-
-# COMMAND ----------
-
 # MAGIC %md   ## Pandas - Cleaning data
 
 # COMMAND ----------
