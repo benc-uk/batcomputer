@@ -17,10 +17,10 @@ ADD src .
 ADD *.pkl ./
 
 # Runtime configuration & settings
-#ENV SERVER_PORT 8000
 ENV VERSION $VERSION
-EXPOSE 80
+ENV GUNICORN_CMD_ARGS "--bind=0.0.0.0:8000"
+EXPOSE 8000
 
 # Start the app via Gunicorn WSGI server
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "--access-logfile", "-", "server"]
+CMD ["gunicorn", "--access-logfile", "-", "server"]
 #CMD ["python3", "server.py"]
