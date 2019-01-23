@@ -24,9 +24,9 @@ def generate_swagger(lookup_name, flags_name):
   pkl_loader = open(flags_name, 'rb')
   flags = pickle.load(pkl_loader)
   pkl_loader.close()
-
   outfile = os.path.join(os.path.abspath(os.path.dirname(__file__)), SWAGGER_FILE)
   swagger_obj = format_swagger(lookup, flags)
+
   open(outfile, "w+").writelines(json.dumps(swagger_obj))
 
 

@@ -1,41 +1,48 @@
-resources:
-- repo: self
+#
+# Azure Pipeline - Build defintion for building the 
+# Build as Docker container image and push to ACR, also push to public Dockerhub
+# Ben C, 2019
+#
+
+trigger: none
+
 queue:
   name: Hosted Ubuntu 1604
+
 variables:
-  storage.account: 'change-me'
-  storage.container: 'change-me'
+  groups:
+    - shared-variables
+    - shared-secrets
+  image-name: batcomputer-model-api
+  blob-container: batcomputer
 
 steps:
+#
+# Pull down pickles at correct version from storage account, using AZure CLI
+#
 - script: |
-   export AZURE_STORAGE_ACCOUNT="$(storage.account)"
-   export AZURE_STORAGE_KEY="$(storage.key)"
-   export BLOB_CONTAINER="$(storage.container)"
-   export VERSION="$(version)"
-   
-   source ./scripts/get-pickles.sh
+    export AZURE_STORAGE_ACCOUNT="$(storage-account)"
+    export AZURE_STORAGE_KEY="$(storage-key)"
+    export BLOB_CONTAINER="$(blob-container)"
+    export VERSION="$(version)"
+    
+    source ./scripts/get-pickles.sh
    
   displayName: 'Get versioned model and pickle files'
 
-- task: Docker@1
-  displayName: 'Build API server image'
-  inputs:
-    azureSubscriptionEndpoint: 'change-me'
+#
+# Build API container image
+#
+- script: |
+    docker push
+    docker build . -f Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(image-name):$(version)
+    docker push
+  displayName: 'Build API container image'
 
-    azureContainerRegistry: change-me.azurecr.io
-
-    arguments: '--build-arg VERSION=$(version)'
-
-    imageName: '$(image.name):$(version)'
-
-
-- task: Docker@1
-  displayName: 'Push API server image'
-  inputs:
-    azureSubscriptionEndpoint: 'change-me'
-
-    azureContainerRegistry: change-me.azurecr.io
-
-    command: 'Push an image'
-
-    imageName: '$(image.name):$(version)'
+#
+# Push image into ACR
+#
+- script: |
+    docker login $(acr-name).azurecr.io -u $(acr-name) -p $(acr-password)
+    docker push $(acr-name).azurecr.io/$(image-name)
+  displayName: 'Push image into ACR'
