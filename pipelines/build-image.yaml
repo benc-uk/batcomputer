@@ -1,6 +1,6 @@
 #
-# Azure Pipeline - Build defintion for building the 
-# Build as Docker container image and push to ACR, also push to public Dockerhub
+# Azure Pipeline for building the Python wrapper API app
+# Build as Docker container image and push to ACR
 # Ben C, 2019
 #
 
@@ -12,10 +12,6 @@ pool:
 variables:
   - group: shared-variables
   - group: shared-secrets
-  - name: image-name
-    value: batcomputer-model-api
-  - name: blob-container
-    value: batcomputer
 
 steps:
 #
