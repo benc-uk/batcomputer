@@ -3,13 +3,16 @@
 
 # COMMAND ----------
 
-dbutils.widgets.text("model_version", "1.0.0")
+# Default values when not provided/overridden by job
+#dbutils.widgets.text("model_version", "1.0.0")
+#dbutils.widgets.text("storage_account", "modelreg")
+#dbutils.widgets.text("model_name", "titanic")
 
-# Model version is passed into job, and storage key is kept in a secret
-STORAGE_KEY = dbutils.secrets.get("demo", "bcmisc_storage_key");
-MODEL_VERSION = dbutils.widgets.get("model_version") #"1.0.1"
-STORAGE_ACCOUNT = "bcmisc"
-STORAGE_CONTAINER = "titanic-ml"
+# Model version, name & storage-account is passed into job, and storage key is kept in Azure Key Vault
+STORAGE_KEY       = dbutils.secrets.get("ai-deploy-secrets", "storage-key")
+STORAGE_ACCOUNT   = dbutils.widgets.get("storage_account")
+MODEL_VERSION     = dbutils.widgets.get("model_version")
+STORAGE_CONTAINER = dbutils.widgets.get("model_name")
 
 # COMMAND ----------
 
@@ -30,7 +33,7 @@ data = pd.read_csv('/dbfs/FileStore/tables/train.csv')
 # COMMAND ----------
 
 # Top 10 rows
-data.head(10)
+#data.head(10)
 
 # Drop rubbish columns
 try:
