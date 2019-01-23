@@ -16,4 +16,4 @@ variables:
     value: titanic
 
 steps:
-- template: pipelines/template-build-image.yaml
+- template: templates/build-image.yaml
