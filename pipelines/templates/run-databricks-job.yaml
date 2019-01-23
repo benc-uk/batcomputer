@@ -1,6 +1,5 @@
 #
-# Azure Pipeline for building the Python wrapper API app
-# Build as Docker container image and push to ACR
+# Trigger job in DataBricks and pass parameters
 # Ben C, 2019
 #
 # TEMPLATE FILE USED BY OTHER PIPELINES
@@ -13,11 +12,9 @@ steps:
     versionSpec: 3.6
 
 - script: |
-   pip3 install databricks-cli 
-   
-   export DATABRICKS_HOST="$(databricks-host)"
-   export DATABRICKS_TOKEN="$(databricks-token)"
-   
-   databricks jobs run-now --job-id $(job-id) --notebook-params "$(job-params)" 
+    pip3 install databricks-cli 
+    export DATABRICKS_HOST="$(databricks-host)"
+    export DATABRICKS_TOKEN="$(databricks-token)"
+    databricks jobs run-now --job-id $(job-id) --notebook-params '{ "model_version":"$(version)", "model_name":"$(model-name)", "storage_account":"$(storage-account)" }' 
   displayName: 'Run DataBricks Job'
 

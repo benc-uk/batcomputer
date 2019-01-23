@@ -4,12 +4,12 @@ queue:
   name: Hosted Ubuntu 1604
 
 variables:
-  - name: databricks-host
-    value: https://westeurope.azuredatabricks.net
+  - group: shared-variables
+  - group: shared-secrets
+  - name: model-name
+    value: titanic
   - name: job-id
     value: "1"
-  - name: job-params
-    value: '{ \"model_version\": \"$(version)\"}'
 
 steps:
 - template: templates/run-databricks-job.yaml
