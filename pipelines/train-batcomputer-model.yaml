@@ -7,9 +7,9 @@ variables:
   - group: shared-variables
   - group: shared-secrets
   - name: model-name
-    value: titanic
+    value: batcomputer
   - name: job-id
-    value: "1"
+    value: "2"
 
 steps:
 - template: templates/run-databricks-job.yaml
