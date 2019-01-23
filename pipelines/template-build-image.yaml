@@ -3,15 +3,8 @@
 # Build as Docker container image and push to ACR
 # Ben C, 2019
 #
-
-trigger: none
-
-pool:
-  name: Hosted Ubuntu 1604
-
-variables:
-  - group: shared-variables
-  - group: shared-secrets
+# TEMPLATE FILE USED BY OTHER PIPELINES
+#
 
 steps:
 #
@@ -20,18 +13,18 @@ steps:
 - script: |
     export AZURE_STORAGE_ACCOUNT="$(storage-account)"
     export AZURE_STORAGE_KEY="$(storage-key)"
-    export BLOB_CONTAINER="$(blob-container)"
+    export BLOB_CONTAINER="$(model-name)"
     export VERSION="$(version)"
     
     source ./scripts/get-pickles.sh
    
-  displayName: 'Get versioned model and pickle files'
+  displayName: 'Download model & pickles, at given version'
 
 #
 # Build API container image
 #
 - script: |
-    docker build . -f Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(image-name):$(version)
+    docker build . -f Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(model-name)-model-api:$(version)
   displayName: 'Build API container image'
 
 #
@@ -39,5 +32,5 @@ steps:
 #
 - script: |
     docker login $(acr-name).azurecr.io -u $(acr-name) -p $(acr-password)
-    docker push $(acr-name).azurecr.io/$(image-name)
+    docker push $(acr-name).azurecr.io/$(model-name)-model-api
   displayName: 'Push image into ACR'
