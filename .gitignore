@@ -103,9 +103,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-
 # Ignore 
 *.pkl
 *.myparam*.json
 swagger.json
+
+# Ignore CSVs too large for GitHub
 /data/prc*.csv
