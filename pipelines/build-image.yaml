@@ -10,11 +10,12 @@ pool:
   name: Hosted Ubuntu 1604
 
 variables:
-  groups:
-    - shared-variables
-    - shared-secrets
-  image-name: batcomputer-model-api
-  blob-container: batcomputer
+  - group: shared-variables
+  - group: shared-secrets
+  - name: image-name
+    value: batcomputer-model-api
+  - name: blob-container
+    value: batcomputer
 
 steps:
 #
