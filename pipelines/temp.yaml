@@ -1,7 +1,0 @@
-trigger: none
-
-pool:
-  name: Hosted Ubuntu 1604
-
-steps:
-- script: echo "CHEESE IS $(cheese)"
