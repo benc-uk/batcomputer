@@ -11,7 +11,7 @@ pool:
 variables:
   - group: shared-variables
   - group: shared-secrets
-  - name: scikit-version
+  - name: scikit-ver
     value: "0.18.1"
   - name: dockerhub-user
     value: bencuk
