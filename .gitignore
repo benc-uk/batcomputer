@@ -108,3 +108,4 @@ venv.bak/
 *.pkl
 *.myparam*.json
 swagger.json
+/data/prc*.csv

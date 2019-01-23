@@ -17,7 +17,7 @@ STORAGE_ACCOUNT = "bcmisc"
 STORAGE_CONTAINER = "titanic-ml"
 
 # Load data from CSV
-data = pd.read_csv('./data/train.csv')
+data = pd.read_csv('./data/titanic.csv')
 
 # Drop rubbish columns
 try:
