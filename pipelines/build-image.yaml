@@ -6,7 +6,7 @@
 
 trigger: none
 
-queue:
+pool:
   name: Hosted Ubuntu 1604
 
 variables:
@@ -34,9 +34,7 @@ steps:
 # Build API container image
 #
 - script: |
-    docker push
     docker build . -f Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(image-name):$(version)
-    docker push
   displayName: 'Build API container image'
 
 #
