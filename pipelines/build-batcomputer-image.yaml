@@ -13,7 +13,7 @@ variables:
   - group: shared-variables
   - group: shared-secrets
   - name: model-name
-    value: titanic
+    value: batcomputer
 
 steps:
 - template: templates/build-image.yaml
