@@ -10,6 +10,8 @@ variables:
     value: titanic
   - name: job-id
     value: "1"
-
+  - name: job-params
+    value: '{ "model_version":"$(version)", "model_name":"$(model-name)", "storage_account":"$(storage-account)" }'
+    
 steps:
 - template: templates/run-databricks-job.yaml
