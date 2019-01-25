@@ -1,4 +1,7 @@
-trigger: none
+trigger:
+  paths:
+    include:
+      - notebooks/*
 
 queue:
   name: Hosted Ubuntu 1604
