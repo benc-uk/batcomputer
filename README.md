@@ -6,7 +6,7 @@ Motivations:
 - Existing processes (e.g. Azure Machine Learning Service) deemed problematic
 - “DevOps for AI”
 
-The source data is from here: [Police recorded crime and outcomes open data tables](https://www.gov.uk/government/statistics/police-recorded-crime-open-data-tables), the model is intended to predict the outcome of a given crime in a given region etc.
+The data used for training the Batcomputer model was obtained from https://data.police.uk/data/ and the "street" CSVs. The model is intended to predict the outcome of a given crime in a given region etc.
 
 The system consists primarily of four parts
  - Training Python notebooks that carry out the machine learning using Scikit-Learn and build the model
