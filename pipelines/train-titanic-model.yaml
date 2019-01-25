@@ -8,10 +8,14 @@ variables:
   - group: shared-secrets
   - name: model-name
     value: titanic
+  - name: notebook-name
+    value: scikit-titanic    
   - name: job-id
     value: "1"
   - name: job-params
     value: '{ "model_version":"$(version)", "model_name":"$(model-name)", "storage_account":"$(storage-account)" }'
     
 steps:
+- step: foo
+
 - template: templates/run-databricks-job.yaml

@@ -15,6 +15,12 @@ steps:
     pip3 install databricks-cli 
     export DATABRICKS_HOST="$(databricks-host)"
     export DATABRICKS_TOKEN="$(databricks-token)"
+  displayName: 'Install DataBricks CLI'
+
+- script: |
+    databricks impirt /Shared/scikit-titanic
+  displayName: 'Import production code from Git'
+
+- script: |
     databricks jobs run-now --job-id $(job-id) --notebook-params '$(job-params)' 
   displayName: 'Run DataBricks Job'
-
