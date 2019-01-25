@@ -20,7 +20,7 @@ df = df.na.drop()
 #df.registerTempTable("temp")
 #df = sqlContext.sql("select * from temp where Month = '2017-01' or Month = '2017-02' or Month = '2017-03'")
 
-print("Working with", "{:,}".format(df.count()), "rows of amazing crime data!")
+print("Working with", "{:,}".format(df.count()), "rows of amazing crime data")
 
 # COMMAND ----------
 
