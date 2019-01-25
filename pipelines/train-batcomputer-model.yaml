@@ -8,6 +8,8 @@ variables:
   - group: shared-secrets
   - name: model-name
     value: batcomputer
+  - name: notebook-name
+    value: scikit-batcomputer    
   - name: job-id
     value: "4"
   - name: job-params

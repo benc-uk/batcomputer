@@ -18,8 +18,8 @@ steps:
   displayName: 'Install DataBricks CLI'
 
 - script: |
-    databricks impirt /Shared/scikit-titanic
-  displayName: 'Import production code from Git'
+    databricks workspace import notebooks/$(notebook-name).py /Shared/live/$(notebook-name) -l python -o
+  displayName: 'Import from git into live'
 
 - script: |
     databricks jobs run-now --job-id $(job-id) --notebook-params '$(job-params)' 
