@@ -1,7 +1,10 @@
 trigger:
+  branches:
+    include:
+    - master
   paths:
     include:
-      - notebooks/*
+    - notebooks/*
 
 queue:
   name: Hosted Ubuntu 1604
