@@ -6,21 +6,22 @@ from flask import Flask, request, jsonify, Response
 from swagger import register_swagger_ui, generate_swagger
 
 # Import for the model scoring
-from predictor import predict, initialize
+from predictor import Predictor
 
 # Pickle filenames
-MODEL_NAME  = './model.pkl'
-LOOKUP_NAME = './lookup.pkl'
-FLAGS_NAME  = './flags.pkl'
+MODEL_NAME  = './pickles/model.pkl'
+LOOKUP_NAME = './pickles/lookup.pkl'
+FLAGS_NAME  = './pickles/flags.pkl'
 
 # Set up Flask
 application = Flask(__name__)
 
 # Load and initialize the model
-initialize(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
+#initialize(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
+predictor = Predictor(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 
 # Swagger stuff
-generate_swagger(LOOKUP_NAME, FLAGS_NAME)
+generate_swagger(predictor.lookup, predictor.flags)
 register_swagger_ui(application)
 
 #
@@ -30,7 +31,7 @@ register_swagger_ui(application)
 def main_api(project=None):
   try:
     request_dict = json.loads(request.get_data().decode('utf-8'))
-    results = predict(request_dict)
+    results = predictor.predict(request_dict)
     return jsonify(results)
 
   except KeyError as key_error:
@@ -52,9 +53,9 @@ def info_api(project=None):
 #
 # API route - for getting lookup parameters
 #
-@application.route('/api/params', methods=['GET'])
+@application.route('/api/predict/params', methods=['GET'])
 def params_api(project=None):
-  return Response(json.dumps({}), status=200, mimetype='application/json')
+  return Response(json.dumps(predictor.lookup), status=200, mimetype='application/json')
 
 
 # ===========================================================================================================================

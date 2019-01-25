@@ -13,3 +13,8 @@ LICENSE
 .vscode
 venv
 __pycache__
+data/*
+pipelines/*
+databricks/*
+azure/*
+assets/*

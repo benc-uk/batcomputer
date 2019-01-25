@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 # Ignore 
-*.pkl
+/pickles/*
 *.myparam*.json
 swagger.json
 
