@@ -4,7 +4,7 @@ trigger:
     - master
   paths:
     include:
-    - notebooks/*batcomputer*
+    - notebooks/scikit-batcomputer.py
 
 queue:
   name: Hosted Ubuntu 1604
