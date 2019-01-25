@@ -17,10 +17,10 @@ df = df.drop('CrimeID')
 df = df.na.drop()
 
 # Filter subset (remove when doing full training)
-#df.registerTempTable("temp")
-#df = sqlContext.sql("select * from temp where Month = '2017-01' or Month = '2017-02' or Month = '2017-03'")
+df.registerTempTable("temp")
+df = sqlContext.sql("select * from temp where Month = '2017-01'")
 
-print("Working with", "{:,}".format(df.count()), "rows of amazing crime data")
+print("Working with", "{:,}".format(df.count()), "rows of amazing crime data!")
 
 # COMMAND ----------
 
