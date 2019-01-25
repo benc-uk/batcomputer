@@ -11,7 +11,7 @@
   ],
 
   "notebook_task": {
-    "notebook_path": "/live/titanic"
+    "notebook_path": "/live/scikit-titanic"
   },
 
   "max_concurrent_runs": 1

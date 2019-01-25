@@ -54,7 +54,7 @@ def info_api(project=None):
 #
 @application.route('/api/params', methods=['GET'])
 def params_api(project=None):
-  return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
+  return Response(json.dumps({}), status=200, mimetype='application/json')
 
 
 # ===========================================================================================================================

@@ -9,7 +9,6 @@ trigger:
 queue:
   name: Hosted Ubuntu 1604
 
-
 variables:
   - group: shared-variables
   - group: shared-secrets
@@ -24,7 +23,7 @@ variables:
   
   # DataBricks job-id, this might change
   - name: job-id
-    value: "7"
+    value: "8"
   
   # Don't change this
   - name: job-params

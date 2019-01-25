@@ -11,7 +11,7 @@
   ],
 
   "notebook_task": {
-    "notebook_path": "/live/batcomputer"
+    "notebook_path": "/live/scikit-batcomputer"
   },
 
   "max_concurrent_runs": 1
