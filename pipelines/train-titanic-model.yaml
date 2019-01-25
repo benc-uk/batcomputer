@@ -4,7 +4,7 @@ trigger:
     - master
   paths:
     include:
-    - notebooks/*titanic*
+    - notebooks/scikit-titanic.py
 
 queue:
   name: Hosted Ubuntu 1604
