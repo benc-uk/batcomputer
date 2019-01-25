@@ -18,9 +18,13 @@ steps:
   displayName: 'Install DataBricks CLI'
 
 - script: |
+    export DATABRICKS_HOST="$(databricks-host)"
+    export DATABRICKS_TOKEN="$(databricks-token)"
     databricks workspace import notebooks/$(notebook-name).py /Shared/live/$(notebook-name) -l python -o
-  displayName: 'Import from git into live'
+  displayName: 'Import notebook from git into live'
 
 - script: |
+    export DATABRICKS_HOST="$(databricks-host)"
+    export DATABRICKS_TOKEN="$(databricks-token)"
     databricks jobs run-now --job-id $(job-id) --notebook-params '$(job-params)' 
-  displayName: 'Run DataBricks Job'
+  displayName: 'Start DataBricks job'
