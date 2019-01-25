@@ -139,8 +139,9 @@ if 'STORAGE_ACCOUNT' in vars():
   lookup = OrderedDict()
 
   # ORDER IS IMPORTANT! This is why we use OrderedDict and create entries one by one
-  lookup["Force"] = ReportedByMap
-  lookup["Crime"] = CrimeMap
+  lookup["force"] = ReportedByMap
+  lookup["crime"] = CrimeMap
+  lookup["month"] = 0
 
   # Create output lookup
   flags = ["SafeRisk", "CaughtRisk"]
