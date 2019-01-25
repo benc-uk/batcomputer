@@ -15,10 +15,7 @@ data = pd.read_csv('/dbfs/FileStore/tables/titanic.csv')
 
 # COMMAND ----------
 
-# Top 10 rows
-#data.head(10)
-
-# Drop rubbish columns
+# Drop rubbish columns we don't need
 try:
     data = data.drop(['Name', 'Ticket', 'Cabin'], axis=1)
 except:
