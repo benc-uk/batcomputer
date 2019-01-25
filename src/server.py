@@ -40,6 +40,7 @@ def main_api(project=None):
     print('### EXCEPTION:', str(err))
     return Response(json.dumps({'error': str(err)}), status=500, mimetype='application/json')
 
+
 #
 # API route - for status/info
 #
@@ -47,7 +48,17 @@ def main_api(project=None):
 def info_api(project=None):
   return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
 
+
+#
+# API route - for getting lookup parameters
+#
+@application.route('/api/params', methods=['GET'])
+def params_api(project=None):
+  return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
+
+
 # ===========================================================================================================================
+
 
 # Run the server if not running under WSGI
 if __name__ == "__main__":

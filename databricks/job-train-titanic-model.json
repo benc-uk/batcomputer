@@ -1,0 +1,18 @@
+{
+  "name": "train-titanic-model",
+  "existing_cluster_id": "0125-150225-khans508",
+
+  "libraries": [
+    {
+      "pypi": {
+        "package": "azure-storage-blob"
+      }
+    }
+  ],
+
+  "notebook_task": {
+    "notebook_path": "/live/titanic"
+  },
+
+  "max_concurrent_runs": 1
+}

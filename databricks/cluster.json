@@ -1,0 +1,15 @@
+{
+  "cluster_name": "main-cluster",
+  
+  "spark_version": "5.1.x-scala2.11",
+  "node_type_id": "Standard_DS4_v2",
+  "driver_node_type_id": "Standard_DS4_v2",
+  "enable_elastic_disk": true,
+  "num_workers": 1,
+
+  "spark_env_vars": {
+    "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+  },
+
+  "autotermination_minutes": 60
+}

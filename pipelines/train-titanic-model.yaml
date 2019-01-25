@@ -12,12 +12,20 @@ queue:
 variables:
   - group: shared-variables
   - group: shared-secrets
+
+  # Name of the model, used as the blob storage container name
   - name: model-name
     value: titanic
+
+  # Notebook name MUST MATCH THE NAME IN THE JOB
   - name: notebook-name
-    value: scikit-titanic
+    value: scikit-titanic   
+  
+  # DataBricks job-id, this might change
   - name: job-id
-    value: "1"
+    value: "8"
+  
+  # Don't change this
   - name: job-params
     value: '{ "model_version":"$(version)", "model_name":"$(model-name)", "storage_account":"$(storage-account)" }'
     
