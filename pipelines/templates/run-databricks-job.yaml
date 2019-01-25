@@ -20,7 +20,7 @@ steps:
 - script: |
     export DATABRICKS_HOST="$(databricks-host)"
     export DATABRICKS_TOKEN="$(databricks-token)"
-    databricks workspace import notebooks/$(notebook-name).py /Shared/live/$(notebook-name) -l python -o
+    databricks workspace import notebooks/$(notebook-name).py /live/$(notebook-name) -l python -o
   displayName: 'Import notebook from git into live'
 
 - script: |
