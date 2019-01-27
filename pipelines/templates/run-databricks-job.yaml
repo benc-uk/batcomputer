@@ -39,5 +39,5 @@ steps:
 #
 - script: |
     jobid=`databricks jobs list --output JSON|jq '.jobs[] | select(.settings.name == "$(job-name)").job_id'`
-    databricks jobs run-now --job-id $(job-id) --notebook-params '$(job-params)' 
+    databricks jobs run-now --job-id $(jobid) --notebook-params '$(job-params)' 
   displayName: 'Start DataBricks job'
