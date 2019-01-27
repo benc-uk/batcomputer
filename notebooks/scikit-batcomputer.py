@@ -144,7 +144,7 @@ if 'STORAGE_ACCOUNT' in vars():
   lookup["month"] = 0
 
   # Create output lookup
-  flags = ["GotawayProb", "CaughtProb"]
+  flags = ["notCaughtProb", "caughtProb"]
 
   # Pickle the whole damn lot
   with open("model.pkl" , 'wb') as file:  
