@@ -12,7 +12,7 @@
 
   <!-- Main Batcomputer CSS and JS -->
   <link rel="stylesheet" href="css/main.css">
-  
+  <script src="config.js"></script>  
 </head>
 <body>
   <div id="main">
@@ -20,8 +20,13 @@
 
     <div id="connectPanel">
       ESTABLISH CONNECTION TO MAINFRAME
-      <textarea spellcheck="false">http://localhost:8000/api</textarea>
-      <button onclick="connect()">CONNECT</button>
+      <textarea spellcheck="false" id="connectEndpoint" class="greenText">http://localhost:8000/api</textarea>
+      <button onclick="connect(document.getElementById('connectEndpoint').value)" id="connectButton">CONNECT</button>
+    </div>
+
+    <div id="computePanel"><br/>
+      <textarea spellcheck="false" class="greenText">Mainframe link established . . .
+Computation in progress . . .</textarea>
     </div>
 
     <select class="dataSelect" id="force" >
@@ -45,7 +50,7 @@
       <option value="12">DECEMBER</option>
     </select> 
 
-    <button onclick="compute()" class="computeButton"> COMPUTE </button>
+    <button onclick="compute()" id="computeButton">COMPUTE</button>
 
     <div class="bar" style="top: 677px; left: 230px"></div>
     <div class="bar redbar" style="top: 677px; left: 230px"></div>

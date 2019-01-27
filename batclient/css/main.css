@@ -59,10 +59,11 @@ button {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.91);
 }
 
-.computeButton{
+#computeButton {
+  width: 300px;
   position: absolute;
   top: 435px;
-  left: 670px;
+  left: 630px;
 }
 
 .light {
@@ -150,8 +151,21 @@ button {
   z-index: 10;
 }
 
-#connectPanel textarea {
-  width: 99%; 
+#computePanel {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 30px;
+  width: 690px;
+  height: 180px;
+  top: 305px;
+  left: 240px;
+  padding: 10px;
+  position: absolute;
+  background-color: #a6b7be;
+  z-index: 20;
+}
+
+.greenText {
+  width: 96%; 
   height: 80px;
   font-family: 'VT323', monospace;
   font-size: 35px;
