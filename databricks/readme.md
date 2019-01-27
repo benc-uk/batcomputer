@@ -25,6 +25,6 @@ databricks clusters create --json-file databricks/job-train-titanic-model.json
 # Import Notebooks
 Decide where you want to put the Notebooks and import them
 ```
-databricks workspace import notebooks/scikit-batcomputer.py /live/scikit-titanic -l python -o
-databricks clusters create --json-file databricks/job-train-titanic-model.json
+databricks workspace import notebooks/scikit-batcomputer.py /Users/changeme/scikit-batcomputer -l python -o
+databricks workspace import notebooks/scikit-titanic.py /Users/changeme/scikit-titanic -l python -o
 ```

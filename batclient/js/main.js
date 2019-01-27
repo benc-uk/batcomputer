@@ -8,7 +8,7 @@ for(let y = 0; y < 3; y++) {
     let delay = Math.random() * 1500;
     var animColour = lightAnims[Math.floor(Math.random() * lightAnims.length)];
     document.getElementById('main').innerHTML += `<div class="light" style="animation-name: ${animColour}; 
-      top: ${291-80+(y*28)}px; left: ${265+(x*35)}px; 
+      top: ${291-110+(y*28)}px; left: ${265+(x*35)}px; 
       animation-duration: ${dur}ms; animation-delay: ${delay}ms"></div>`;
   }
 }
@@ -20,11 +20,14 @@ for(let y = 0; y < 3; y++) {
     let delay = Math.random() * 1500;
     var animColour = lightAnims[Math.floor(Math.random() * lightAnims.length)];
     document.getElementById('main').innerHTML += `<div class="light" style="animation-name: ${animColour}; 
-      top: ${599-80+(y*28)}px; left: ${265+(x*35)}px; 
+      top: ${599-110+(y*28)}px; left: ${265+(x*35)}px; 
       animation-duration: ${dur}ms; animation-delay: ${delay}ms"></div>`;
   }
 }
 
+//
+// Connect to API and populate dropdown lists
+//
 function connect(endpoint) {
   endpoint = endpoint.endsWith('/') ? endpoint.substring(0, endpoint.length - 1) : endpoint
   API_ENDPOINT = endpoint;
@@ -52,6 +55,9 @@ function connect(endpoint) {
   })
 }
 
+//
+// Call API and model, and process results
+//
 function compute() {
   let req = {
     method: 'post',
@@ -104,7 +110,6 @@ function computeDone() {
     l.style.animationDuration = ((Math.random() * 1700) + 200) + 'ms';
   }
 }
-
 
 function printOut(msg, err=false) {
   clearPrintout()

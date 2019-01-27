@@ -1,5 +1,5 @@
 # Project Batcomputer
-Project Batcomputer is a working example of DevOps applied to Machine Learning
+Project Batcomputer is a working example of DevOps applied to machine learning
 
 Motivations:
 - Understand challenges in operationisation of ML models

@@ -6,6 +6,7 @@
 html {
   height: 3500px;
   overflow: hidden;
+  zoom: 85%;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
 }
 
 #main {
-  margin-top: -80px;
+  margin-top: -110px;
   width: 1200px;
   height: 1200px;
 }
@@ -33,18 +34,18 @@ body {
 
 #force {
   width: 690px;
-  top: 310px;
+  top: 280px;
   left: 245px;
 }
 
 #crime {
   width: 690px;
-  top: 375px;
+  top: 345px;
   left: 245px;
 }   
 
 #month {
-  top: 440px;
+  top: 410px;
   left: 245px;
 }    
 
@@ -62,7 +63,7 @@ button {
 #computeButton {
   width: 300px;
   position: absolute;
-  top: 435px;
+  top: 405px;
   left: 630px;
 }
 
@@ -121,7 +122,7 @@ button {
   width: 705px;
   height: 200px;
   position: absolute;
-  top: 795px;
+  top: 765px;
   left: 130px;
   font-family: 'ocr', monospace;
   text-align: center;
@@ -143,7 +144,7 @@ button {
   font-size: 30px;
   width: 690px;
   height: 180px;
-  top: 305px;
+  top: 275px;
   left: 240px;
   padding: 10px;
   position: absolute;
@@ -156,7 +157,7 @@ button {
   font-size: 30px;
   width: 690px;
   height: 180px;
-  top: 305px;
+  top: 275px;
   left: 240px;
   padding: 10px;
   position: absolute;
