@@ -18,7 +18,7 @@ variables:
 
 steps:
 - script: |
-    docker build . -f scikit.Dockerfile --build-arg SCIKIT_VERSION=$(scikit-ver) --build-arg PYTHON_VERSION=3.5.6 -t $(dockerhub-user)/python-scikit:$(scikit-ver)
+    docker build model-api -f model-api/scikit.Dockerfile --build-arg SCIKIT_VERSION=$(scikit-ver) --build-arg PYTHON_VERSION=3.5.6 -t $(dockerhub-user)/python-scikit:$(scikit-ver)
   displayName: 'Build base python-scikit image'
 
 - script: |

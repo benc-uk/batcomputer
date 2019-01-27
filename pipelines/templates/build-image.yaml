@@ -16,7 +16,8 @@ steps:
     export BLOB_CONTAINER="$(model-name)"
     export VERSION="$(version)"
     
-    source ./scripts/get-pickles.sh
+    cd model-api
+    source scripts/get-pickles.sh
    
   displayName: 'Download model & pickles, at given version'
 
@@ -24,7 +25,7 @@ steps:
 # Build API container image
 #
 - script: |
-    docker build . -f Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(model-name)-model-api:$(version)
+    docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(model-name)-model-api:$(version)
   displayName: 'Build API container image'
 
 #
