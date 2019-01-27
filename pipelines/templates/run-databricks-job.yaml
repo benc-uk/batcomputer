@@ -5,26 +5,39 @@
 # TEMPLATE FILE USED BY OTHER PIPELINES
 #
 
+#
+# Make sure we're using Python 3
+#
 steps:
 - task: UsePythonVersion@0
   displayName: 'Use Python 3.6'
   inputs:
     versionSpec: 3.6
 
+#
+# The DataBricks CLI needs installing
+# And create the connection config file
+#
 - script: |
     pip3 install databricks-cli 
-    export DATABRICKS_HOST="$(databricks-host)"
-    export DATABRICKS_TOKEN="$(databricks-token)"
+    echo "[DEFAULT]" >> ~/.databrickscfg
+    echo "host = $(databricks-host)" >> ~/.databrickscfg
+    echo "token = $(databricks-token)" >> ~/.databrickscfg
   displayName: 'Install DataBricks CLI'
 
+#
+# Import the workbook from git into DataBricks
+# This can be considered "promoting" it from local dev to real system for CI
+#
 - script: |
-    export DATABRICKS_HOST="$(databricks-host)"
-    export DATABRICKS_TOKEN="$(databricks-token)"
     databricks workspace import notebooks/$(notebook-name).py /live/$(notebook-name) -l python -o
   displayName: 'Import notebook from git into live'
 
+#
+# The DataBricks CLI/API doesn't let you run a job by name, so use jq as a workaround
+# Then kick of running the job ...
+#
 - script: |
-    export DATABRICKS_HOST="$(databricks-host)"
-    export DATABRICKS_TOKEN="$(databricks-token)"
+    jobid=`databricks jobs list --output JSON|jq '.jobs[] | select(.settings.name == "$(job-name)").job_id'`
     databricks jobs run-now --job-id $(job-id) --notebook-params '$(job-params)' 
   displayName: 'Start DataBricks job'

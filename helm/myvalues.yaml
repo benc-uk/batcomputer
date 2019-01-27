@@ -1,10 +1,10 @@
 registryPrefix: bcdemo.azurecr.io/
 domainSuffix: batcomputer.7e28d40aaab5415089e6.northeurope.aksapp.io
-#cmCertIssuer: letsencrypt-staging
+#cmCertIssuer: letsencrypt-prod
 cmCertIssuer: 
 
 api:
-  image: devops-ai/titanic
+  image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
 

@@ -21,9 +21,9 @@ variables:
   - name: notebook-name
     value: scikit-batcomputer   
   
-  # DataBricks job-id, this might change
-  - name: job-id
-    value: "9"
+  # DataBricks job-name
+  - name: job-name
+    value: train-batcomputer-model
   
   # Don't change this
   - name: job-params
