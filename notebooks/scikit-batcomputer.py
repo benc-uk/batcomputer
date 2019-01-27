@@ -17,8 +17,8 @@ df = df.drop('CrimeID')
 df = df.na.drop()
 
 # Filter subset (remove when doing full training)
-df.registerTempTable("temp")
-df = sqlContext.sql("select * from temp where Month = '2017-01'")
+#df.registerTempTable("temp")
+#df = sqlContext.sql("select * from temp where Month = '2017-01'")
 
 print("Working with", "{:,}".format(df.count()), "rows of amazing crime data!")
 
@@ -144,7 +144,7 @@ if 'STORAGE_ACCOUNT' in vars():
   lookup["month"] = 0
 
   # Create output lookup
-  flags = ["SafeRisk", "CaughtRisk"]
+  flags = ["GotawayProb", "CaughtProb"]
 
   # Pickle the whole damn lot
   with open("model.pkl" , 'wb') as file:  
