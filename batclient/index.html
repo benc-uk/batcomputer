@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+
+  <title>Bat Computer</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro|VT323" rel="stylesheet">
+
+  <!-- Main Batcomputer CSS and JS -->
+  <link rel="stylesheet" href="css/main.css">
+  
+</head>
+<body>
+  <div id="main">
+    <img src="img/batcomputer.png" width="1200" height="1200">
+
+    <div id="connectPanel">
+      ESTABLISH CONNECTION TO MAINFRAME
+      <textarea spellcheck="false">http://localhost:8000/api</textarea>
+      <button onclick="connect()">CONNECT</button>
+    </div>
+
+    <select class="dataSelect" id="force" >
+    </select>
+    
+    <select class="dataSelect" id="crime">
+    </select>    
+
+    <select class="dataSelect" id="month">
+      <option value="1">JANUARY</option>
+      <option value="2">FEBRUARY</option>
+      <option value="3">MARCH</option>
+      <option value="4">APRIL</option>
+      <option value="5">MAY</option>
+      <option value="6">JUNE</option>
+      <option value="7">JULY</option>
+      <option value="8">AUGUST</option>
+      <option value="9">SEPTEMBER</option>
+      <option value="10">OCTOBER</option>
+      <option value="11">NOVEMBER</option>
+      <option value="12">DECEMBER</option>
+    </select> 
+
+    <button onclick="compute()" class="computeButton"> COMPUTE </button>
+
+    <div class="bar" style="top: 677px; left: 230px"></div>
+    <div class="bar redbar" style="top: 677px; left: 230px"></div>
+
+    <div class="bar" style="top: 677px; left: 300px"></div>
+    <div class="bar greenbar" style="top: 677px; left: 300px; animation-delay: 400ms; animation-duration: 800ms"></div>   
+
+    <div class="bar" style="top: 677px; left: 370px"></div>
+    <div class="bar bluebar" style="top: 677px; left: 370px; animation-delay: 100ms; animation-duration: 600ms"></div> 
+
+    <div class="bar" style="top: 677px; left: 440px"></div>
+    <div class="bar yellowbar" style="top: 677px; left: 440px; animation-delay: 370ms; animation-duration: 1200ms"></div>    
+    
+    <!-- Results "printout" -->
+    <div id="result">
+    </div>
+  </div>  
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>

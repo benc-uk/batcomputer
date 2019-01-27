@@ -1,0 +1,167 @@
+@font-face {
+  font-family: "ocr";
+  src: url("../fonts/ocra-webfont.woff") format('woff');
+}
+
+html {
+  height: 3500px;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  background: linear-gradient(#051c36 0%,#051c36 15%,#6e6e6e 15.5%,#6e6e6e 100%) no-repeat;
+}
+
+#main {
+  margin-top: -80px;
+  width: 1200px;
+  height: 1200px;
+}
+
+#main img {
+  width: 100%;
+}
+
+.dataSelect {
+  position: absolute;
+  font-family: 'VT323', monospace;
+  font-size: 50px;
+  background-color: black;
+  color: rgb(66, 209, 37);
+}
+
+#force {
+  width: 690px;
+  top: 310px;
+  left: 245px;
+}
+
+#crime {
+  width: 690px;
+  top: 375px;
+  left: 245px;
+}   
+
+#month {
+  top: 440px;
+  left: 245px;
+}    
+
+button {
+  font-family: 'Anonymous Pro', monospace;
+  background-color: rgb(172, 30, 30);
+  color: white;
+  font-size: 45px;
+  padding: 5px 32px;
+  padding-bottom: 3px;
+  border-radius: 20px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.91);
+}
+
+.computeButton{
+  position: absolute;
+  top: 435px;
+  left: 670px;
+}
+
+.light {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  animation: blink 100s infinite;
+  animation-direction: alternate-reverse;
+  background-color:#000;
+  border: 3px solid black;
+  border-radius: 6px;
+}
+
+@keyframes black { 0% {background-color:#000;} }
+@keyframes orange { 0% {background-color:#000;} 100% {background-color:rgb(240, 207, 22);} }
+@keyframes green { 0% {background-color:#000;} 100% {background-color:rgb(13, 196, 37);} }
+@keyframes red { 0% {background-color:#000;} 100% {background-color:rgb(224, 11, 11);} }
+
+.bar {
+  width: 30px;
+  height: 55px;
+  background-color: black;
+  transform: skew(-45deg);
+  position: absolute;
+  border: 3px solid black;
+  border-radius: 6px;
+}
+
+.redbar {
+  background: linear-gradient(to bottom, #e0a72a 0%,#c50606 100%);
+  animation: slider 1s ease-in-out 0s infinite alternate-reverse;
+}
+
+.greenbar {
+  background: linear-gradient(to bottom, #bada08 0%,#0a8529 100%);
+  animation: slider 1s ease-in-out 0s infinite alternate-reverse;
+}
+
+.bluebar {
+  background: linear-gradient(to bottom, #08dada 0%,#0a2bbe 100%);
+  animation: slider 1s ease-in-out 0s infinite alternate-reverse;
+}
+
+.yellowbar {
+  background: linear-gradient(to bottom, #de09e6 0%,#3d0696 100%);
+  animation: slider 1s ease-in-out 0s infinite alternate-reverse;
+}   
+
+@keyframes slider { 0% {clip-path: inset(0px 0px 0px 0px);} 100% {clip-path: inset(50px 0px 0px 0px);} }
+
+#result {
+  background-image: url('../img/paper.png');
+  background-repeat: repeat-y;
+  box-shadow: 6px 9px 24px 0px rgba(0,0,0,0.75);
+  width: 705px;
+  height: 200px;
+  position: absolute;
+  top: 795px;
+  left: 130px;
+  font-family: 'ocr', monospace;
+  text-align: center;
+  font-size: 60px;
+  line-height: 100px;
+  visibility: hidden;
+  animation-timing-function: linear;
+}
+
+@keyframes printout { 
+  0% {clip-path: inset(0px 0px 200px 0px);} 
+  25% {clip-path: inset(0px 0px 160px 0px);} 
+  75% {clip-path: inset(0px 0px 40px 0px);} 
+  100% {clip-path: inset(0px 0px 0px 0px);} 
+}
+
+#connectPanel {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 30px;
+  width: 690px;
+  height: 180px;
+  top: 305px;
+  left: 240px;
+  padding: 10px;
+  position: absolute;
+  background-color: #a6b7be;
+  z-index: 10;
+}
+
+#connectPanel textarea {
+  width: 99%; 
+  height: 80px;
+  font-family: 'VT323', monospace;
+  font-size: 35px;
+  background-color: black;
+  color: rgb(66, 209, 37);
+  resize: none;
+  padding: 8px;
+  margin-bottom: 0px;
+}
+
+#connectPanel button {
+  font-size: 30px;
+}

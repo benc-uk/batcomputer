@@ -58,8 +58,17 @@ def params_api(project=None):
   return Response(json.dumps(predictor.lookup), status=200, mimetype='application/json')
 
 
-# ===========================================================================================================================
+#
+# CORS - Allow everyone & everything
+#
+@application.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
 
+# ===========================================================================================================================
 
 # Run the server if not running under WSGI
 if __name__ == "__main__":
