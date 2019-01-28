@@ -111,4 +111,4 @@ swagger.json
 # Ignore CSVs too large for GitHub
 /data/**/*.csv
 /data/*.csv
-/data/police.zip
+/data/crime.zip

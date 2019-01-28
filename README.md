@@ -1,30 +1,69 @@
 # Project Batcomputer
 Project Batcomputer is a working example of DevOps applied to machine learning
 
-Motivations:
-- Understand challenges in operationisation of ML models
+Motivations for this project:
+- Understand the challenges in operationisation of ML models
+- Attempt to make a reality of “DevOps for AI” 
 - Existing processes (e.g. Azure Machine Learning Service) deemed problematic
-- “DevOps for AI”
 
-The data used for training the Batcomputer model was obtained from https://data.police.uk/data/ and the "street" CSVs. The model is intended to predict the outcome of a given crime in a given region etc.
+Why "Project Batcomputer"? The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like way to make such a prediction model more fun and interesting. 
 
-The system consists primarily of four parts
- - Training Python notebooks that carry out the machine learning using Scikit-Learn and build the model
+Some of the main themes that make up the project:
+ - Training Python notebooks that carry out the machine learning using Scikit-Learn 
  - Wrapper app that allows the model to be run as a RESTful web API
- - Automation via Azure Pipelines
- - Infrastructure as code based deployments into Azure Container Instances and Azure Kubernetes Service 
+ - Continuous integration with *Azure Pipelines*
+ - Infrastructure as code based deployments into Azure
+ - Used of containers and Kubernetes
 
-# Automation Flow
+## Automation Flow
+A high level flow of the train, build & deploy process is shown here
 ![pic](docs/diagram.png)
 
-# Runtime Stack
+## Project Index
+As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into standalone sections:
+
+- [Model training & machine learning in DataBricks](machine-learning)
+- [Wrapping the model in an API service](model-api-service)
+- [DevOps CI/CD automation & pipelines](devops-ci-cd)
+- [Complete end to end flow](complete-flow)
+
+## Repo Structure
+Top level folders
+```
+/assets     - Art and stuff
+/azure      - Azure resource manager templates
+/batclient  - Frontend web client of Batcomputer to use and call the model API
+/data       - Source training data
+/datbricks  - Configuration and guide for setting up DataBricks
+/docs - Documentation & guides 
+/kubernetes - Kubernetes configurations
+/kubernetes/helm
+/model-api - Source for Python model wrapper API 
+/notebooks - Training Python notebooks
+/pipelines - Azure DevOps Pipelines
+```
+
+# Machine Learning
+
+## Tech Stack
+- Azure DataBricks
+- Python
+- Scikit-Learn
+- PySpark
+
+# Model API service
+
+# DevOps CI/CD
+
+
+## Runtime Stack
 - [Swagger](https://swagger.io/)
 - [Flask](http://flask.pocoo.org/)
 - [Pickle](https://docs.python.org/3/library/pickle.html)
 - [Scikit-Learn](https://scikit-learn.org/stable/)
 - [Python](https://www.python.org/)
 - [Docker](https://www.docker.com/)
-
+- [Gunicorn](https://gunicorn.org/)
 
 ### [Full background and documentation can be found in the provided slides](docs/Project%20Batcomputer%20v0.0.2.pdf)
 

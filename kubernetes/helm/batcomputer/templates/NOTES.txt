@@ -1,0 +1,10 @@
+Batcomputer has been deployed! Wow that was easy!
+===========================================
+{{ if .Values.domainSuffix }}
+{{ if .Values.cmCertIssuer }} 
+The app is accessible at https://{{ .Values.domainSuffix }}/{{ .Release.Name }} 
+{{ else }}
+The app is accessible at http://{{ .Values.domainSuffix }}/{{ .Release.Name }}
+{{ end }}
+It might take a while for the DNS record to be created & propagate, so please wait.
+{{ end }}

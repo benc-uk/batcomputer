@@ -1,0 +1,44 @@
+{{- $fullName := (printf "%s-api" (include "batcomputer.fullname" .)) -}}
+{{- $name := (printf "%s-api" (include "batcomputer.name" .)) -}}
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ $name }}
+    chart: {{ template "batcomputer.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.api.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $name }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $name }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ $name }}
+
+        image: "{{ .Values.registryPrefix }}{{ .Values.api.image }}:{{ .Values.modelVersion }}"
+        imagePullPolicy: {{ .Values.api.imagePullPolicy }}
+
+        ports:
+        - containerPort: 8000
+
+        livenessProbe:
+          httpGet:
+            path: /api/info
+            port: 8000
+          initialDelaySeconds: 3
+          periodSeconds: 20
+
+        resources:
+          requests:
+            memory: "64M"
+            cpu: "0.1"
