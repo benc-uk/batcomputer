@@ -4,8 +4,8 @@ favicon: /batclient/favicon.png
 plugins:
   - jemoji
 header-colours: 
-  right: "#1E3AB3"
-  left: "#2bcfa8"
+  right: "#016898"
+  left: "#899AA1"
 buttons:
   - b0:
     text: Slides
