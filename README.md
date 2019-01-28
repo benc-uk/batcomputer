@@ -35,10 +35,10 @@ Where `{model-name}` is a Blob storage container for the model, e.g. "bactcomput
 ## Project Index
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into standalone sections:
 
-- [Model training & machine learning in DataBricks](machine-learning)
-- [Wrapping the model in an API service](model-api-service)
-- [DevOps CI/CD automation & pipelines](devops-ci-cd)
-- [Complete end to end flow](complete-flow)
+- [Model training & machine learning in DataBricks](#machine-learning)
+- [Wrapping the model in an API service](#model-api-service--wrapper-app)
+- [DevOps CI/CD automation & pipelines](#devops-cicd)
+- [Complete end to end flow](#end-to-end-flow)
 
 ## Repo Structure
 The project doesn't represent a single codebase, there are multiple sets of artifacts, configuration files and sourcecode held here. The top level folders are as follows:
@@ -60,10 +60,9 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 [Full background and documentation can be found in the provided slides](docs/Project-Bat-Computer-Slides.pdf)  
 (Work in progress)
 
-
 ---
 
-# Machine Learning
+# Machine Learning & Training
 
 ## Technology Stack
 - [Azure DataBricks](https://azure.microsoft.com/en-gb/services/databricks/)
@@ -142,8 +141,9 @@ YAML pipelines [are provided](/pipelines) for both the build of the API wrapper 
 ## Infrastructure as Code - ARM Templates
 ARM Template for standing up the wrapper API app using Azure Container Instances, is in the [azure folder](/azure)
 
+---
 
+# End To End Flow
 
-
-
-
+## Blah
+Yesy
