@@ -34,8 +34,8 @@ steps:
   displayName: 'Import notebook from git into live'
 
 #
-# The DataBricks CLI/API doesn't let you run a job by name, so use jq as a workaround
 # Then kick off running the job, step will wait for job to complete ...
+# Uses some bash scripting and jq to make task slightly more fancy
 #
 - script: |
     jobid=`databricks jobs list --output JSON|jq '.jobs[] | select(.settings.name == "$(job-name)").job_id'`
@@ -57,7 +57,7 @@ steps:
       echo "ERROR! Job run result was not SUCCESS"
       exit 125
     fi
-  displayName: 'Start DataBricks job run'
+  displayName: 'Run DataBricks job and wait for completion'
   failOnStderr: true
   
 
