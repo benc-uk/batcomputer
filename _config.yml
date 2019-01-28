@@ -5,8 +5,11 @@ plugins:
   - jemoji
 header-colours: 
   right: "#077fb7"
-  left: "#2e373a"
+  left: "#0f1b26"
 buttons:
-  - b0:
+  - bmain:
+    text: Main Page
+    href: /
+  - bslides:
     text: Slides
     href: /docs/Project-Bat-Computer-Slides.pdf

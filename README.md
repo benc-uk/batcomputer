@@ -41,7 +41,7 @@ It was a design goal of the project not to present a dumb wrapper around the sco
 ## Project Index
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into standalone sections:
 
-- [Model training & machine learning in DataBricks](#machine-learning)
+- [Model training & machine learning in DataBricks](#machine-learning--training)
 - [Wrapping the model in an API service](#model-api-service--wrapper-app)
 - [DevOps CI/CD automation & pipelines](#devops-cicd)
 - [Complete end to end flow](#end-to-end-flow)
@@ -74,15 +74,17 @@ The primary focus of this project is on the operationisation aspects of machine 
 
 Two ML use cases are provided; one for Batcomputer (based on the crime data described above) and one for the well known "would you survive the Titanic?" used in many ML training examples
 
+All the training was developed and tested in Azure DataBricks using Python Notebooks. Spark was not heavily leveraged so the Notebooks could be ported elsewhere without major changes
+
 **⚡ Important!**  
-The provided code has been written by someone learning ML and trying it for the first time. It was not written by a data scientist or someone with a background in AI. It does not represent any sort of best practice or optimal way of training a ML model with Scikit/Python or analyzing the data. However it is functional, and the resulting models serves the purposes of this project adequately 
+The provided code has been written by someone learning ML and trying it for the first time. It was not developed by a data scientist or someone with a background in AI. It does not represent any sort of best practice or optimal way of training a ML model with Scikit/Python or analyzing the data. However it is functional, and the resulting models serves the purposes of this project adequately 
 
 If your main interest is in the ML and training side of things, I suggest you look elsewhere, there are thousands of excellent resources available on this topic
 
 ## Technology Stack
 - [Azure DataBricks](https://azure.microsoft.com/en-gb/services/databricks/)
 - [Python 3]((https://www.python.org/))
-- [Scikit-Learn](https://scikit-learn.org/stable/) (For training)
+- [Scikit-Learn](https://scikit-learn.org/stable/)
 - [PySpark](https://spark.apache.org/docs/2.2.1/api/python/pyspark.html)
 
 ## Full Documentation
@@ -107,7 +109,7 @@ The model API wrapper is a Python Flask app, designed to wrap the model with a R
 # DevOps CI/CD
 
 ## Azure DevOps Pipelines
-YAML pipelines [are provided](/pipelines) for both the build of the API wrapper app and, running training job in Databricks (should you require it)
+YAML pipelines [are provided](/devops) for both the build of the API wrapper app and using DataBricks with continuous integration for running the training
 
 ## Infrastructure as Code - Helm Chart
 [Included is a Helm chart to deploy into Kubernetes](/kubernetes/helm). This will deploy the wrapper API app and configure an Ingress to route traffic to it
