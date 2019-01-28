@@ -55,7 +55,14 @@ def info_api(project=None):
 #
 @application.route('/api/predict/params', methods=['GET'])
 def params_api(project=None):
-  return Response(json.dumps(predictor.lookup), status=200, mimetype='application/json')
+  resp = {}
+  for key in predictor.lookup:
+    if type(predictor.lookup[key]) == type(dict()):
+      resp[key] = [subkey for subkey in predictor.lookup[key].keys()]
+    else:
+      resp[key] = 0
+
+  return Response(json.dumps(resp), status=200, mimetype='application/json')
 
 
 #

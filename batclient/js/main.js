@@ -39,11 +39,15 @@ function connect(endpoint) {
   .then(resp => resp.json())
   .then(data => {
     forceSelect = document.getElementById('force');
-    for(let force in data.force) {
-      forceSelect.innerHTML += `<option value="${force}">${force}</option>`
+    for(let force of data.force) {
+      let forceName = force.replace("Metropolitan Police Service", "Greater London")
+      forceName = forceName.replace("Police", "")
+      forceName = forceName.replace("Constabulary", "")
+      
+      forceSelect.innerHTML += `<option value="${force}">${forceName}</option>`
     }
     crimeSelect = document.getElementById('crime');
-    for(let crime in data.crime) {
+    for(let crime of data.crime) {
       crimeSelect.innerHTML += `<option value="${crime}">${crime}</option>`
     }   
     
