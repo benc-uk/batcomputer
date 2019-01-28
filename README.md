@@ -116,7 +116,7 @@ Azure Pipelines (part of Azure DevOps) is used to provide CI/CD automation. Thes
 
 ## Infrastructure as Code - Helm Chart
 This Helm chart will deploy the wrapper model API app and configure a Kubernetes Ingress to route traffic to it.
-#### [📃 Helm Chart](/kubernetes/helm). 
+#### [📃 Helm Chart](/kubernetes/helm)
 
 ## Infrastructure as Code - ARM Templates
 ARM Template(s) for standing up the wrapper API app using Azure Container Instances
