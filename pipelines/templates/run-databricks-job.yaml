@@ -35,7 +35,7 @@ steps:
 
 #
 # The DataBricks CLI/API doesn't let you run a job by name, so use jq as a workaround
-# Then kick of running the job ...
+# Then kick off running the job, step will wait for job to complete ...
 #
 - script: |
     jobid=`databricks jobs list --output JSON|jq '.jobs[] | select(.settings.name == "$(job-name)").job_id'`
@@ -50,4 +50,5 @@ steps:
         break
       fi
     done
+    databricks runs get --run-id $runid
   displayName: 'Start DataBricks job run'

@@ -23,7 +23,7 @@ variables:
   
   # DataBricks job-name
   - name: job-name
-    value: train-batcomputer-model
+    value: train-titanic-model
   
   # Don't change this
   - name: job-params
