@@ -137,3 +137,5 @@ if 'STORAGE_ACCOUNT' in vars():
   block_blob_service.create_blob_from_path(STORAGE_CONTAINER, MODEL_VERSION + "/model.pkl", "model.pkl")
   block_blob_service.create_blob_from_path(STORAGE_CONTAINER, MODEL_VERSION + "/lookup.pkl", "lookup.pkl")
   block_blob_service.create_blob_from_path(STORAGE_CONTAINER, MODEL_VERSION + "/flags.pkl", "flags.pkl")
+  
+ dbutils.notebook.exit("Version:" + MODEL_VERSION + " pickled model and lookups stored in" + STORAGE_ACCOUNT + "/" + STORAGE_CONTAINER)
