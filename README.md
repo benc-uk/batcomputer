@@ -1,13 +1,13 @@
 # Project Batcomputer
-Project Batcomputer is a working example of DevOps applied to machine learning
+Project Batcomputer is a working example of DevOps applied to machine learning and the field of AI
 
 Motivations for this project:
 - Understand the challenges in operationisation of ML models
 - Attempt to make a reality of “DevOps for AI” 
 - Existing processes (e.g. Azure Machine Learning Service) deemed problematic
 
-**Why "Project Batcomputer"?**  
-The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like way to make such a prediction model more fun and interesting. 
+**💬 Why "Project Batcomputer"?**  
+The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like a fun way to make using such a prediction model more interesting. 
 
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
@@ -16,9 +16,9 @@ Some of the main themes that make up the project:
 - Infrastructure as code based deployments into Azure
 - Used of containers and Kubernetes
 
-## Automation Flow
-A high level flow of the train, build & deploy process is shown here
-![pic](docs/diagram.png)
+## Core Building Blocks
+This shows a high level view of the core functional aspects of the project
+![pic](docs/high-level.png){: .framed .padded}
 
 ## Model Registry
 The integration point between the training and the deployment as the API service app is the "model registry". The training process is expected to output pickled files (i.e. serialized objects) and upload them into *Azure Blob storage*. 
@@ -35,10 +35,8 @@ The naming convention used in the storage account is:
 ```
 Where `{model-name}` is a Blob storage container for the model, e.g. "batcomputer" and `{version}` is our version string as a virtual directory, e.g. "1.0.0"
 
-**Why the extra files & complexity?**  
+**💬 Why the extra files & complexity?**  
 It was a design goal of the project not to present a dumb wrapper around the scoring function i.e. `model.predict_proba(features)` where a raw array of numbers is the expected input to the API. The `lookup.pkl` file provides a means for the developer working on training the model, to pass the encoded labels to the app and from there a more human friendly API can be exposed. And `flags.pkl` is used correspondingly to providing meaningful names for the results/scores
-
-
 
 ## Project Index
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into standalone sections:
@@ -72,6 +70,14 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 ---
 
 # Machine Learning & Training
+The primary focus of this project is on the operationisation aspects of machine learning, rather than the actual machine learning and the models themselves. In fact from the perspective of the model-api app and the CI/CD deployment flows the quality of the model and how it was trained & created is irrelevant
+
+Two ML use cases are provided; one for Batcomputer (based on the crime data described above) and one for the well known "would you survive the Titanic?" used in many ML training examples
+
+**⚡ Important!**  
+The provided code has been written by someone learning ML and trying it for the first time. It was not written by a data scientist or someone with a background in AI. It does not represent any sort of best practice or optimal way of training a ML model with Scikit/Python or analyzing the data. However it is functional, and the resulting models serves the purposes of this project adequately 
+
+If your main interest is in the ML and training side of things, I suggest you look elsewhere, there are thousands of excellent resources available on this topic
 
 ## Technology Stack
 - [Azure DataBricks](https://azure.microsoft.com/en-gb/services/databricks/)
@@ -79,24 +85,22 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 - [Scikit-Learn](https://scikit-learn.org/stable/) (For training)
 - [PySpark](https://spark.apache.org/docs/2.2.1/api/python/pyspark.html)
 
-#### [DataBricks Setup](/model-api)
+## Full Documentation
 
-#### [Python Notebooks](/notebooks)
+#### [📃 DataBricks Setup](/databricks)
+
+#### [📃 Python Notebooks](/notebooks)
 
 ---
 
 # Model API service / Wrapper App
+The model API wrapper is a Python Flask app, designed to wrap the model with a REST based API. It is standalone, lightweight and designed to run in a container
 
 ## Technology Stack
-- [Swagger](https://swagger.io/)
-- [Flask](http://flask.pocoo.org/)
-- [Pickle](https://docs.python.org/3/library/pickle.html)
-- [Scikit-Learn](https://scikit-learn.org/stable/) (For scoring only)
-- [Python 3](https://www.python.org/)
-- [Docker](https://www.docker.com/)
-- [Gunicorn](https://gunicorn.org/)
+![Model API technology stack](docs/api-stack.png){: .framed .padded}
 
-#### [Model API service - Full Docs](/model-api)
+## Full Documentation
+#### [📃 Model API service - Full Docs](/model-api)
 
 ---
 
