@@ -1,0 +1,12 @@
+title: "Project Batcomputer"
+remote_theme: benc-uk/theme-msdark
+favicon: /batclient/favicon.png
+plugins:
+  - jemoji
+header-colours: 
+  right: "#8a108c"
+  left: "#cc580c"
+buttons:
+  - b0:
+    text: Slides
+    href: /docs/Project-Bat-Computer-Slides.pdf

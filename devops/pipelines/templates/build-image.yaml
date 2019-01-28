@@ -1,0 +1,37 @@
+#
+# Azure Pipeline for building the Python wrapper API app
+# Build as Docker container image and push to ACR
+# Ben C, 2019
+#
+# TEMPLATE FILE USED BY OTHER PIPELINES
+#
+
+steps:
+#
+# Pull down pickles at correct version from storage account, using AZure CLI
+#
+- script: |
+    export AZURE_STORAGE_ACCOUNT="$(storage-account)"
+    export AZURE_STORAGE_KEY="$(storage-key)"
+    export BLOB_CONTAINER="$(model-name)"
+    export VERSION="$(version)"
+    
+    cd model-api
+    source scripts/get-pickles.sh
+   
+  displayName: 'Download model & pickles, at given version'
+
+#
+# Build API container image
+#
+- script: |
+    docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(model-name)-model-api:$(version)
+  displayName: 'Build API container image'
+
+#
+# Push image into ACR
+#
+- script: |
+    docker login $(acr-name).azurecr.io -u $(acr-name) -p $(acr-password)
+    docker push $(acr-name).azurecr.io/$(model-name)-model-api
+  displayName: 'Push image into ACR'
