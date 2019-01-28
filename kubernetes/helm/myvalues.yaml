@@ -1,4 +1,4 @@
-registryPrefix: bcdemo.azurecr.io/
+registryPrefix: modelsacr.azurecr.io/
 domainSuffix: batcomputer.7e28d40aaab5415089e6.northeurope.aksapp.io
 #cmCertIssuer: letsencrypt-prod
 cmCertIssuer: 

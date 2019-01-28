@@ -8,7 +8,7 @@ for(let y = 0; y < 3; y++) {
     let delay = Math.random() * 1500;
     var animColour = lightAnims[Math.floor(Math.random() * lightAnims.length)];
     document.getElementById('main').innerHTML += `<div class="light" style="animation-name: ${animColour}; 
-      top: ${291-110+(y*28)}px; left: ${265+(x*35)}px; 
+      top: ${290-110+(y*28)}px; left: ${265+(x*35)}px; 
       animation-duration: ${dur}ms; animation-delay: ${delay}ms"></div>`;
   }
 }
@@ -20,7 +20,7 @@ for(let y = 0; y < 3; y++) {
     let delay = Math.random() * 1500;
     var animColour = lightAnims[Math.floor(Math.random() * lightAnims.length)];
     document.getElementById('main').innerHTML += `<div class="light" style="animation-name: ${animColour}; 
-      top: ${599-110+(y*28)}px; left: ${265+(x*35)}px; 
+      top: ${598-110+(y*28)}px; left: ${265+(x*35)}px; 
       animation-duration: ${dur}ms; animation-delay: ${delay}ms"></div>`;
   }
 }
