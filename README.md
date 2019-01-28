@@ -9,6 +9,8 @@ Motivations for this project:
 **💬 Why "Project Batcomputer"?**  
 The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like a fun way to make using such a prediction model more interesting. 
 
+![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg)
+
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
 - Continuous integration with *Azure Pipelines*
@@ -18,7 +20,7 @@ Some of the main themes that make up the project:
 
 ## Core Building Blocks
 This shows a high level view of the core functional aspects of the project
-![pic](docs/high-level.png){: .framed .padded}
+![High level project building blocks](docs/high-level.png){: .framed .padded}
 
 ## Model Registry
 The integration point between the training and the deployment as the API service app is the "model registry". The training process is expected to output pickled files (i.e. serialized objects) and upload them into *Azure Blob storage*. 
@@ -109,17 +111,18 @@ The model API wrapper is a Python Flask app, designed to wrap the model with a R
 # DevOps CI/CD
 
 ## Azure DevOps Pipelines
-YAML pipelines [are provided](/devops) for both the build of the API wrapper app and using DataBricks with continuous integration for running the training
+Azure Pipelines (part of Azure DevOps) is used to provide CI/CD automation. These carry out the Docker build of the model API image and also integrates with DataBricks for running the training jobs via a CI trigger
+#### [📃 Pipelines](/devops)
 
 ## Infrastructure as Code - Helm Chart
-[Included is a Helm chart to deploy into Kubernetes](/kubernetes/helm). This will deploy the wrapper API app and configure an Ingress to route traffic to it
+This Helm chart will deploy the wrapper model API app and configure a Kubernetes Ingress to route traffic to it.
+#### [📃 Helm Chart](/kubernetes/helm). 
 
 ## Infrastructure as Code - ARM Templates
-ARM Template for standing up the wrapper API app using Azure Container Instances, is in the [azure folder](/azure)
+ARM Template(s) for standing up the wrapper API app using Azure Container Instances
+#### [ARM Templates](/azure)
 
 ---
 
 # End To End Flow
 
-## Blah
-Yesy
