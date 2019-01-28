@@ -40,16 +40,24 @@ steps:
 - script: |
     jobid=`databricks jobs list --output JSON|jq '.jobs[] | select(.settings.name == "$(job-name)").job_id'`
     runid=`databricks jobs run-now --job-id $jobid --notebook-params '$(job-params)' | jq .run_id`
+    echo "***** Job $(job-name) job-id:$jobid started run with run-id:$runid *****"
     while [ : ]
     do
       echo "Sleeping for 20 seconds..."
       sleep 20s
       state=`databricks runs list --job-id $jobid --output JSON | jq -r --argjson rid "$runid" '.runs[] | select(.run_id == $rid).state.life_cycle_state'`
-      echo "Status of job-id: $jobid, run-id: $runid is $state"
+      echo "Status of job-id:$jobid, run-id:$runid is $state"
       if [[ "$state" == 'TERMINATED' ]]; then
         break
       fi
     done
     databricks runs get --run-id $runid
+    result=`databricks runs get --run-id $runid | jq -r .state.result_state`
+    if [[ "$result" != 'SUCCESS' ]]; then
+      echo "ERROR! Job run result was not SUCCESS"
+      exit 125
+    fi
   displayName: 'Start DataBricks job run'
+  failOnStderr: true
+  
 
