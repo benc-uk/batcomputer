@@ -33,7 +33,7 @@ Very high level basic setup tasks. Assuming the storage account for the model re
   - Select **Use the visual designer** 
   - Pick GitHub (Link Azure DevOps to your GitHub if not already)
   - Select your Batcomputer repo
-  - Pick YAML under 'Configuration as code'
+  - Pick YAML as the template under 'Configuration as code'
   - Use the 'YAML file path' to select the relevant YAML file
 
 ## Azure Pipelines

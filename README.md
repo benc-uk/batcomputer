@@ -9,7 +9,7 @@ Motivations for this project:
 **💬 Why "Project Batcomputer"?**  
 The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like a fun way to make using such a prediction model more interesting. 
 
-![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg)
+![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg){: .framed .padded}
 
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
@@ -41,12 +41,11 @@ Where `{model-name}` is a Blob storage container for the model, e.g. "batcompute
 It was a design goal of the project not to present a dumb wrapper around the scoring function i.e. `model.predict_proba(features)` where a raw array of numbers is the expected input to the API. The `lookup.pkl` file provides a means for the developer working on training the model, to pass the encoded labels to the app and from there a more human friendly API can be exposed. And `flags.pkl` is used correspondingly to providing meaningful names for the results/scores
 
 ## Project Index
-As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into standalone sections:
+As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into three sections, and to make those sections as standalone as possible:
 
 - [Model training & machine learning in DataBricks](#machine-learning--training)
 - [Wrapping the model in an API service](#model-api-service--wrapper-app)
 - [DevOps CI/CD automation & pipelines](#devops-cicd)
-- [Complete end to end flow](#end-to-end-flow)
 
 ## Repo Structure
 The project doesn't represent a single codebase, there are multiple sets of artifacts, configuration files and sourcecode held here. The top level folders are as follows:
@@ -65,7 +64,12 @@ The project doesn't represent a single codebase, there are multiple sets of arti
  └ pipelines - Azure DevOps Pipelines 
 ```
 
-### Presentation Deck
+## Working With This Project
+**⚡ Important!**  
+It is strongly advised to fork this repo to your own GitHub account before proceeding, and then clone it.  
+For the DevOps CI flows this is a requirement as webhooks and other git configuration is required
+
+## Presentation Deck
 [Full background and documentation can be found in the provided slides](docs/Project-Bat-Computer-Slides.pdf)  
 (Work in progress)
 
@@ -110,19 +114,16 @@ The model API wrapper is a Python Flask app, designed to wrap the model with a R
 
 # DevOps CI/CD
 
+![End to end DevOps flow](docs/devops-flow.png){: .framed .padded}
+
 ## Azure DevOps Pipelines
 Azure Pipelines (part of Azure DevOps) is used to provide CI/CD automation. These carry out the Docker build of the model API image and also integrates with DataBricks for running the training jobs via a CI trigger
-#### [📃 Pipelines](/devops)
+#### [📃 DevOps Pipelines - Full Docs](/devops)
 
-## Infrastructure as Code - Helm Chart
+## Infrastructure as Code
+
 This Helm chart will deploy the wrapper model API app and configure a Kubernetes Ingress to route traffic to it.
-#### [📃 Helm Chart](/kubernetes/helm)
+#### [📃 Helm Chart - Full Docs](/kubernetes/helm)
 
-## Infrastructure as Code - ARM Templates
 ARM Template(s) for standing up the wrapper API app using Azure Container Instances
-#### [ARM Templates](/azure)
-
----
-
-# End To End Flow
-
+#### [📃 ARM Templates - Full Docs](/azure)
