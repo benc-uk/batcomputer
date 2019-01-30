@@ -1,11 +1,9 @@
-
-#FROM smizy/scikit-learn:0.18-alpine
-FROM bencuk/python-scikit:0.18.1
+FROM bencuk/python-scikit:0.20.2
 
 # Model version, not critical it is correct, used for status reporting
 ARG VERSION=1.0.0
 
-LABEL Name=batcomputer-api AppVersion=2.1.0 ModelVersion=${VERSION}
+LABEL Name=batcomputer-api AppVersion=2.2.0 ModelVersion=${VERSION}
 
 # Install Python requirements
 ADD requirements.txt .

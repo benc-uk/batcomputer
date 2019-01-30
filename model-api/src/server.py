@@ -24,6 +24,7 @@ predictor = Predictor(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 generate_swagger(predictor.lookup, predictor.flags)
 register_swagger_ui(application)
 
+
 #
 # API route - for prediction
 #

@@ -11,8 +11,15 @@ In order to connect the CLI to your DataBricks instance, a PAT first needs to be
 This is a very simple one node cluster
 ```
 databricks clusters create --json-file databricks/cluster.json
+CLUSTER_ID=`databricks clusters list --output JSON | jq -r '.clusters[] | select (.cluster_name == "main-cluster").cluster_id'`
+echo "Your cluster id: $CLUSTER_ID"
 ```
 
+## Install Libraries
+```
+databricks libraries install --cluster-id $CLUSTER_ID --pypi-package azure-storage-blob
+databricks libraries install --cluster-id $CLUSTER_ID --pypi-package scikit-learn==0.20.2
+```
 
 ## Create jobs
  **IMPORTANT!** Before running, edit the JSON files and put the cluster id in the `existing_cluster_id` field
@@ -20,7 +27,6 @@ databricks clusters create --json-file databricks/cluster.json
 databricks clusters create --json-file databricks/job-train-batcomputer-model.json
 databricks clusters create --json-file databricks/job-train-titanic-model.json
 ```
-
 
 # Import Notebooks
 Decide where you want to put the Notebooks and import them

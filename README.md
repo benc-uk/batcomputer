@@ -9,14 +9,14 @@ Motivations for this project:
 **💬 Why "Project Batcomputer"?**  
 The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like a fun way to make using such a prediction model more interesting. 
 
-![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg){: .framed .padded}
+![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg){: .framed}
 
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
 - Continuous integration with *Azure Pipelines*
 - Training Python notebooks that carry out the machine learning using Scikit-Learn 
-- Infrastructure as code based deployments into Azure
-- Used of containers and Kubernetes
+- Infrastructure as code deployments into Azure
+- Use of containers and Kubernetes
 
 ## Core Building Blocks
 This shows a high level view of the core functional aspects of the project
@@ -33,15 +33,16 @@ Not only is the model pickled and stored, but two other files are output from th
 
 The naming convention used in the storage account is:
 ```
-/{model-name}/{version}/{file}.pkl
+/{model-name}/{model-version}/{file}.pkl
+  ↑            ↑               ↑ 
+ container    version-prefix   filename   
 ```
-Where `{model-name}` is a Blob storage container for the model, e.g. "batcomputer" and `{version}` is our version string as a virtual directory, e.g. "1.0.0"
 
 **💬 Why the extra files & complexity?**  
-It was a design goal of the project not to present a dumb wrapper around the scoring function i.e. `model.predict_proba(features)` where a raw array of numbers is the expected input to the API. The `lookup.pkl` file provides a means for the developer working on training the model, to pass the encoded labels to the app and from there a more human friendly API can be exposed. And `flags.pkl` is used correspondingly to providing meaningful names for the results/scores
+It was a design goal of the project not to present a dumb wrapper around the scoring function i.e. `model.predict_proba(features)` where a raw array of feature numbers is the expected input to the API. The `lookup.pkl` file provides a means for the developer working on training the model, to pass the encoded labels to the app and from there a more human friendly API can be exposed. And `flags.pkl` is used correspondingly to providing meaningful names for the results/scores
 
 ## Project Index
-As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into three sections, and to make those sections as standalone as possible:
+As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into three main sections, and to make those sections as standalone as possible:
 
 - [Model training & machine learning in DataBricks](#machine-learning--training)
 - [Wrapping the model in an API service](#model-api-service--wrapper-app)
