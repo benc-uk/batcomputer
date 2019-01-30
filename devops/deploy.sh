@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # CHANGE THESE
-resGroup="temp.batcomputer4"
+resGroup="temp.batcomputer"
 region="westeurope"
 
 # CHANGE THESE - Resource names and prefixes

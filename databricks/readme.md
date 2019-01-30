@@ -24,13 +24,30 @@ databricks libraries install --cluster-id $CLUSTER_ID --pypi-package scikit-lear
 ## Create jobs
  **IMPORTANT!** Before running, edit the JSON files and put the cluster id in the `existing_cluster_id` field
 ```
-databricks clusters create --json-file databricks/job-train-batcomputer-model.json
-databricks clusters create --json-file databricks/job-train-titanic-model.json
+databricks jobs create --json-file databricks/job-train-batcomputer-model.json
+databricks jobs create --json-file databricks/job-train-titanic-model.json
 ```
 
 # Import Notebooks
 Decide where you want to put the Notebooks and import them
 ```
-databricks workspace import notebooks/scikit-batcomputer.py /Users/changeme/scikit-batcomputer -l python -o
-databricks workspace import notebooks/scikit-titanic.py /Users/changeme/scikit-titanic -l python -o
+databricks workspace import notebooks/scikit-batcomputer.py /Shared/scikit-batcomputer -l python -o
+databricks workspace import notebooks/scikit-titanic.py /Shared/scikit-titanic -l python -o
+```
+
+# Create KeyVault Secret Scope
+You will need details of both your Key Vault and storage key for this step
+If you deployed everything using the `deploy.sh` script then please use the output of that script
+
+Create a secret scope, and link it to the Key Vault you deployed or wish to use. This has to be done in the DataBricks web UI. See this guide https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html
+
+For the values to enter on that page, run this command:
+```
+az keyvault show --name <<VAULT_NAME>> --query "{resourceId:id, dnsName:properties.vaultUri}"
+```
+**Important!** You must name the secret scope **keyvault-secrets**
+
+Lastly create a secret in your Key Vault called **storage-key**, and place your model registry storage account key as the value
+```
+az keyvault secret set --vault-name <<VAULT_NAME>> --name "storage-key" --value "<<STORAGE_KEY>>"
 ```
