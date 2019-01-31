@@ -12,7 +12,7 @@ variables:
   - group: shared-variables
   - group: shared-secrets
   - name: scikit-ver
-    value: "0.18.1"
+    value: "0.20.2"
   - name: dockerhub-user
     value: bencuk
 
