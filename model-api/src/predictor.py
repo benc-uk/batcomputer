@@ -1,6 +1,7 @@
 import pickle
 import sklearn
 import pprint
+from timeit import default_timer as timer
 
 class Predictor:
   model = None
@@ -53,8 +54,11 @@ class Predictor:
       features.append(val)
 
     # This is where it all happens
+    start = timer()
     prediction = self.model.predict_proba([features]) 
+    end = timer()
     prediction_list = dict(zip(self.flags, prediction[0]))
     print("### Prediction result:", prediction_list)
+    print("### Prediction took:", round((end - start) * 1000), "millsecs")
 
     return prediction_list
