@@ -67,7 +67,7 @@ These pipelines carry out several tasks
 The pipeline YAML files define variables specific to that model & Notebook, the actual task steps are held in a template called `pipelines/templates/run-databricks-job.yaml` 
 
 ### Trigger
-These pipelines are set to trigger on specific files, `notebooks/scikit-batcomputer.py` and `notebooks/scikit-titanic.py` so they only perform CI when those Notebooks are saved/synced from DataBricks to the git repo
+These pipelines are set to trigger on specific files, `notebooks/scikit-batcomputer.py` and `notebooks/scikit-titanic.py` so they only perform CI when those Notebooks are saved/synced from DataBricks and pushed to the git repo
 
 ## Continuous Integration - Build API Model App Container Image
 Two pipelines are provided to train the models via CI
@@ -83,10 +83,4 @@ These pipelines carry out several tasks
 The pipeline YAML files define variables specific to that image, the actual task steps are held in a template called `pipelines/templates/build-image.yaml` 
 
 ### Trigger
-These pipelines are set not to trigger, and currently they are run manually
-
-## Continuous Integration - Build Scikit Base Image
-This pipeline builds the Scikit base image used by model API image, you probably can ignore this and simply use the pre-built version on public Dockerhub
-```
-bencuk/python-scikit:0.20.2
-```
+These pipelines are set not to trigger on anything, and currently they are run manually
