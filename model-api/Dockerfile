@@ -1,4 +1,5 @@
-FROM bencuk/python-scikit:0.20.2
+ARG PYTHON_VERSION=3.5.6
+FROM python:${PYTHON_VERSION}-slim-stretch
 
 # Model version, not critical it is correct, used for status reporting
 ARG VERSION=1.0.0
