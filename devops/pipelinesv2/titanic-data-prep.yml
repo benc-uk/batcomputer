@@ -6,6 +6,8 @@ queue:
 variables:
   - group: shared-variables
   - group: shared-secrets
+  - name: AZML_DATAPATH
+    value: titanic-data
 
 steps:
 - task: AzureCLI@1
