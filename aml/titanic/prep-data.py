@@ -10,7 +10,7 @@ from amllib.utils import connectToAML, createComputeAML
 load_dotenv()
 
 # Some consts
-localDataPath = '../../data/titanic'
+localDataPath = 'data/titanic'
 dataPathRemote = os.environ['AZML_DATAPATH']
 
 # You must run `az login` before running locally
