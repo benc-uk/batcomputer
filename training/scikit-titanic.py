@@ -5,6 +5,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 from azureml.core import Run
 from collections import OrderedDict
+import pickle
 
 # let user feed in parameters, the location of the data files (from datastore)
 parser = argparse.ArgumentParser()
@@ -57,7 +58,10 @@ run.log('estimators', np.float(n_estimators))
 
 # note file saved in the outputs folder is automatically uploaded into experiment record
 os.makedirs('outputs', exist_ok=True)
-joblib.dump(value=model, filename='outputs/model.pkl')
+#joblib.dump(value=model, filename='outputs/model.pkl')
+with open("outputs/model.pkl" , 'wb') as file:  
+    pickle.dump(model, file)
+    file.close()
 
 # Metadata: lookup & flags
 lookup = OrderedDict()
@@ -70,5 +74,13 @@ lookup["Gender"] = {"male": 1, "female": 0}
 lookup["Port"] = {"Cherbourg": 1, "Southampton": 2, "Queenstown": 3}
 flags = ["died_proba", "survived_proba"]
 
-joblib.dump(value=lookup, filename='outputs/lookup.pkl')
-joblib.dump(value=flags, filename='outputs/flags.pkl')
+with open("outputs/lookup.pkl" , 'wb') as file:  
+    pickle.dump(lookup, file)
+    file.close()
+    
+with open("outputs/flags.pkl" , 'wb') as file:  
+    pickle.dump(flags, file)
+    file.close()
+
+# joblib.dump(value=lookup, filename='outputs/lookup.pkl')
+# joblib.dump(value=flags, filename='outputs/flags.pkl')
