@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# CHANGE THESE
+# DEFINITELY CHANGE THESE
 resGroup="temp.batcomputer"
 region="westeurope"
 
-# CHANGE THESE - Resource names and prefixes
+# PROBABLY CHANGE THESE - Resource names and prefixes
 databricksName="batcomputer"
 modelRegPrefix="modelreg"
 acrPrefix="modelimages"
