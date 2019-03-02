@@ -1,0 +1,19 @@
+steps:
+- task: UsePythonVersion@0
+  displayName: Use Python 3.6
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+
+- bash: |
+    pip3 install -r requirements.txt
+  workingDirectory: aml
+  displayName: Install pip package requirements
+
+- task: AzureCLI@1
+  displayName: Start AML data prep script
+  inputs:
+    azureSubscription: $(azure-connection-name)
+    scriptLocation: inlineScript
+    inlineScript: python3 $(script-name)
+    workingDirectory: $(script-path)
