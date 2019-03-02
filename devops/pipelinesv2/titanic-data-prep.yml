@@ -3,6 +3,10 @@ trigger: none
 queue:
   name: Hosted Ubuntu 1604
 
+variables:
+  - group: shared-variables
+  - group: shared-secrets
+
 steps:
 - task: AzureCLI@1
   displayName: 'Login to Azure CLI'
@@ -11,11 +15,13 @@ steps:
     scriptLocation: inlineScript
     inlineScript: 'az account list'
 
-- bash: |
-    pip3 install setuptools
-    pip3 install -r requirements.txt
-  workingDirectory: aml
+# - bash: |
+#     pip3 install setuptools
+#     pip3 install -r requirements.txt
+#   workingDirectory: aml
 
-- bash: |
-    python3 prep-data.py
-  workingDirectory: aml/titanic
+- task: PythonScript@0
+  inputs:
+    scriptSource: filePath
+    scriptPath: prep-data.py
+    workingDirectory: aml/titanic
