@@ -8,9 +8,10 @@ from azureml.core.compute import AmlCompute, ComputeTarget
 
 def connectToAML(subId, resGrp, ws):
   try:
-    cli_auth = AzureCliAuthentication()
+    #cli_auth = AzureCliAuthentication()
 
-    ws = Workspace(subscription_id = subId, resource_group = resGrp, workspace_name = ws, auth=cli_auth)
+    #ws = Workspace(subscription_id = subId, resource_group = resGrp, workspace_name = ws, auth=cli_auth)
+    ws = Workspace.get(name = ws, subscription_id = subId, resource_group = resGrp)
     print(f"### Connected to Azure ML workspace '{ws.name}'")
     return ws
   except:
