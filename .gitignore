@@ -109,6 +109,6 @@ venv.bak/
 swagger.json
 
 # Ignore CSVs too large for GitHub
-/data/**/*.csv
-/data/*.csv
+#/data/**/*.csv
+/data/crime/**
 /data/crime.zip

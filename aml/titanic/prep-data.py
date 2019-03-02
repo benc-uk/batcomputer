@@ -10,10 +10,10 @@ from amllib.utils import connectToAML, createComputeAML
 load_dotenv()
 
 # Some consts
-localDataPath = sys.argv[1] #'../../data/titanic'
-if not localDataPath:
-  print('### localDataPath not provided')
-  exit(1)
+localDataPath = '../../data/titanic'
+# if not localDataPath:
+#   print('### localDataPath not provided, bye!')
+#   exit(1)
 
 dataPathRemote = os.environ['AZML_DATAPATH']
 
@@ -23,10 +23,10 @@ if not ws:
   print('### Failed! Bye!')
   exit(1)
 
-# localFolder = os.path.join('.', localDataPath)
-# print(f"### Local path resolves to {localFolder}")
+localFolder = os.path.join(os.getcwd(), localDataPath)
+print(f"### Local path resolves to {localFolder}")
 
 ds = ws.get_default_datastore()
 print(f"### Remote DS path is {dataPathRemote}")
 print(f"### Uploading data to {ds.datastore_type}, {ds.account_name}, {ds.container_name}")
-ds.upload(src_dir=localDataPath, target_path=dataPathRemote, overwrite=True, show_progress=True)
+ds.upload(src_dir=localFolder, target_path=dataPathRemote, overwrite=True, show_progress=True)
