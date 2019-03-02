@@ -58,7 +58,8 @@ run.log('estimators', np.float(n_estimators))
 
 # note file saved in the outputs folder is automatically uploaded into experiment record
 os.makedirs('outputs', exist_ok=True)
-#joblib.dump(value=model, filename='outputs/model.pkl')
+
+# SAVE THE MODEL!
 with open("outputs/model.pkl" , 'wb') as file:  
     pickle.dump(model, file)
     file.close()
@@ -81,6 +82,3 @@ with open("outputs/lookup.pkl" , 'wb') as file:
 with open("outputs/flags.pkl" , 'wb') as file:  
     pickle.dump(flags, file)
     file.close()
-
-# joblib.dump(value=lookup, filename='outputs/lookup.pkl')
-# joblib.dump(value=flags, filename='outputs/flags.pkl')
