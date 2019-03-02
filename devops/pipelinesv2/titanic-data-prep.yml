@@ -25,7 +25,7 @@ steps:
 - bash: |
     pip3 install -r requirements.txt
   workingDirectory: aml
-  displayName: Update Python libs and prereqs
+  displayName: Install pip package requirements
     
 - task: PythonScript@0
   displayName: Start AML data prep script
