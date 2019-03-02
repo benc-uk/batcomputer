@@ -11,25 +11,25 @@ variables:
     value: titanic-data
 
 steps:
-- task: AzureCLI@1
-  displayName: Login to Azure CLI
-  inputs:
-    azureSubscription: 'Microsoft (AIRS) (52512f28-c6ed-403e-9569-82a9fb9fec91)'
-    scriptLocation: inlineScript
-    inlineScript: 'printenv'
-    useGlobalConfig: true
-    addSpnToEnvironment: true
-
-# - task: UsePythonVersion@0
-#   displayName: Use Python 3.6
+# - task: AzureCLI@1
+#   displayName: Login to Azure CLI
 #   inputs:
-#     versionSpec: '3.6'
-#     addToPath: true 
+#     azureSubscription: 'Microsoft (AIRS) (52512f28-c6ed-403e-9569-82a9fb9fec91)'
+#     scriptLocation: inlineScript
+#     inlineScript: 'printenv'
+#     useGlobalConfig: true
+#     addSpnToEnvironment: true
 
-# - bash: |
-#     pip3 install -r requirements.txt
-#   workingDirectory: aml
-#   displayName: Install pip package requirements
+- task: UsePythonVersion@0
+  displayName: Use Python 3.6
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+
+- bash: |
+    pip3 install -r requirements.txt
+  workingDirectory: aml
+  displayName: Install pip package requirements
     
 # - task: PythonScript@0
 #   displayName: Start AML data prep script
@@ -43,6 +43,5 @@ steps:
   inputs:
     azureSubscription: 'Microsoft (AIRS) (52512f28-c6ed-403e-9569-82a9fb9fec91)'
     scriptLocation: inlineScript
-    inlineScript: printenv 
-    #python3 prep-data.py
+    inlineScript: python3 prep-data.py
     workingDirectory: aml/titanic
