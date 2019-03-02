@@ -112,3 +112,5 @@ swagger.json
 #/data/**/*.csv
 /data/crime/**
 /data/crime.zip
+training/aml_config/**
+training/assets
