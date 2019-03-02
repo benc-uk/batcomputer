@@ -10,7 +10,7 @@ from amllib.utils import connectToAML, createComputeAML
 load_dotenv()
 
 # Some consts
-localDataPath = 'data/titanic'
+localDataPath = '../../data/titanic'
 dataPathRemote = os.environ['AZML_DATAPATH']
 
 # You must run `az login` before running locally
@@ -19,7 +19,8 @@ if not ws:
   print('### Failed! Bye!')
   exit(1)
 
-localFolder = os.path.join(os.getcwd(), localDataPath)
+localFolder = os.path.join('.', localDataPath)
+print(f"### Local path resolves to {localFolder}")
 
 ds = ws.get_default_datastore()
 print(f"### Remote DS path is {dataPathRemote}")
