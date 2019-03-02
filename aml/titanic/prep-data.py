@@ -17,7 +17,7 @@ dataPathRemote = os.environ['AZML_DATAPATH']
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
 if not ws:
   print('### Failed! Bye!')
-  exit()
+  exit(1)
 
 localFolder = os.path.join(os.getcwd(), localDataPath)
 
