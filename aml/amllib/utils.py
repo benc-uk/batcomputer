@@ -41,7 +41,7 @@ def downloadPickles(ws, modelName, outputPath="./pickles"):
       run.download_file(name=f, output_file_path=output_file_path)
 
 
-def createComputeAML(ws, name="amlcluster", nodesMin=0, nodesMax=3, vmSize="Standard_D3_v2"):
+def getComputeAML(ws, name="amlcluster"):
   # Azure ML compute configuration
   if name in ws.compute_targets:
       compute_target = ws.compute_targets[name]
@@ -49,6 +49,10 @@ def createComputeAML(ws, name="amlcluster", nodesMin=0, nodesMax=3, vmSize="Stan
           print(f"### Found existing cluster '{name}' so will use it")
           return compute_target
   else:
+      nodesMin = int(os.environ.get('AZML_COMPUTE_MIN_NODES', "0"))
+      nodesMax = int(os.environ.get('AZML_COMPUTE_MAX_NODES', "3"))
+      vmSize = int(os.environ.get('AZML_COMPUTE_VMSIZE', "Standard_D3_v2"))
+
       print(f"### Creating cluster '{name}' this could take time...")
       provisioning_config = AmlCompute.provisioning_configuration(vm_size = vmSize, min_nodes = nodesMin, max_nodes = nodesMax)
 

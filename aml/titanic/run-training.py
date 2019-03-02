@@ -1,7 +1,7 @@
 import os, sys
 sys.path.append("..")
 from dotenv import load_dotenv
-from amllib.utils import connectToAML, createComputeAML
+from amllib.utils import connectToAML, getComputeAML
 from azureml.core import Experiment, ScriptRunConfig
 from azureml.core.model import Model
 from azureml.core.conda_dependencies import CondaDependencies
@@ -29,7 +29,7 @@ if not ws:
   exit()
 
 # Create or get existing AML compute cluster 
-computeTarget = createComputeAML(ws, os.environ['AZML_COMPUTE_NAME'], os.environ['AZML_COMPUTE_MIN_NODES'], os.environ['AZML_COMPUTE_MAX_NODES'], os.environ['AZML_COMPUTE_VMSIZE'])
+computeTarget = getComputeAML(ws, os.environ['AZML_COMPUTE_NAME'])
 if not computeTarget:
   print('### Failed! Bye!')
   exit()
