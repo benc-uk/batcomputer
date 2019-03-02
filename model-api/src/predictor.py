@@ -59,6 +59,6 @@ class Predictor:
     end = timer()
     prediction_list = dict(zip(self.flags, prediction[0]))
     print("### Prediction result:", prediction_list)
-    print("### Prediction took:", round((end - start) * 1000), "millsecs")
+    print("### Prediction took:", round((end - start) * 1000, 2), "millsecs")
 
     return prediction_list
