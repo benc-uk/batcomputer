@@ -32,4 +32,4 @@ steps:
   inputs:
     scriptSource: filePath
     scriptPath: aml/titanic/prep-data.py
-    #workingDirectory: aml/titanic
+    workingDirectory: aml/titanic
