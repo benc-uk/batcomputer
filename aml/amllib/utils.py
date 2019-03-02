@@ -19,8 +19,14 @@ def connectToAML(subId, resGrp, ws):
     return None
 
 
-def downloadPickles(ws, modelName, outputPath="./pickles"):
-  model = Model(ws, modelName)
+def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
+  if modelVer is not None:
+    model = Model(ws, modelName, version=modelVer)
+  else:
+    model = Model(ws, modelName)
+
+  print(f"### Using model version {model.version}")
+
   # These are special tags, lets us get back to the run that created the model 
   runId = model.tags['aml-runid']
   experimentName = model.tags['aml-experiment']

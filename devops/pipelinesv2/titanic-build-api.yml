@@ -1,0 +1,38 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - model-api/*
+
+queue:
+  name: Hosted Ubuntu 1604
+
+variables:
+  # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
+  - group: shared-variables
+
+  - name: azure-connection-name
+    value: Microsoft (AIRS) (52512f28-c6ed-403e-9569-82a9fb9fec91)
+
+  - name: script-name
+    value: fetch-model.py
+
+  - name: script-path
+    value: aml/titanic
+
+  - name: AZML_MODEL
+    value: titanic-model
+
+steps:
+- template: templates/run-aml-python.yml
+
+- script: |
+    docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(version) -t $(acr-name).azurecr.io/$(AZML_MODEL)-api:$(version)
+  displayName: 'Build API container image'
+
+- script: |
+    docker login $(acr-name).azurecr.io -u $(acr-name) -p $(acr-password)
+    docker push $(acr-name).azurecr.io/$(AZML_MODEL)-api
+  displayName: 'Push image into ACR'

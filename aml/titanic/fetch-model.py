@@ -21,4 +21,8 @@ if not ws:
   print('### Failed! Bye!')
   exit()
 
-downloadPickles(ws, os.environ['AZML_MODEL'], '../../model-api/pickles')
+if len(sys.argv) > 1:
+  downloadPickles(ws, os.environ['AZML_MODEL'], '../../model-api/pickles', int(sys.argv[1]))
+else:
+  print(f"### No model version specified, latest will be used")
+  downloadPickles(ws, os.environ['AZML_MODEL'], '../../model-api/pickles')
