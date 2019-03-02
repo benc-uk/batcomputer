@@ -20,6 +20,11 @@ steps:
 #     pip3 install -r requirements.txt
 #   workingDirectory: aml
 
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+    
 - task: PythonScript@0
   inputs:
     scriptSource: filePath
