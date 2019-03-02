@@ -23,5 +23,5 @@ steps:
 - task: PythonScript@0
   inputs:
     scriptSource: filePath
-    scriptPath: prep-data.py
-    workingDirectory: aml/titanic
+    scriptPath: aml/titanic/prep-data.py
+    #workingDirectory: aml/titanic
