@@ -1,4 +1,11 @@
-trigger: none
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - training/scikit-titanic.py
+    - aml/titanic/run-training.py
 
 queue:
   name: Hosted Ubuntu 1604

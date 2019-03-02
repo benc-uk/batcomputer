@@ -11,7 +11,7 @@ steps:
   displayName: Install pip package requirements
 
 - task: AzureCLI@1
-  displayName: Start AML data prep script
+  displayName: Start AML orchestration script
   inputs:
     azureSubscription: $(azure-connection-name)
     scriptLocation: inlineScript
