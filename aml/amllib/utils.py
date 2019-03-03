@@ -3,13 +3,13 @@ import azureml
 from azureml.core import Workspace, Experiment, Run
 from azureml.core.model import Model
 from azureml.core.authentication import AzureCliAuthentication
-from azureml.core.compute import AmlCompute, ComputeTarget
+from azureml.core.compute import AmlCompute, ComputeTarget, DatabricksCompute
+from azureml.exceptions import ComputeTargetException
 
 
 def connectToAML(subId, resGrp, ws):
   try:
     #cli_auth = AzureCliAuthentication()
-
     #ws = Workspace(subscription_id = subId, resource_group = resGrp, workspace_name = ws, auth=cli_auth)
     ws = Workspace.get(name = ws, subscription_id = subId, resource_group = resGrp)
     print(f"### Connected to Azure ML workspace '{ws.name}'")
@@ -72,3 +72,19 @@ def getComputeAML(ws, name="amlcluster"):
       # For a more detailed view of current AmlCompute status, use get_status()
       print(compute_target.get_status().serialize())
       return compute_target
+
+
+def getComputeDataBricks(ws, dbComputeName):
+  try:
+    databricks_compute = DatabricksCompute(workspace=ws, name=dbComputeName)
+    print(f"### Found existing attached DataBricks '{dbComputeName}' will use it")
+    return databricks_compute
+  except ComputeTargetException:
+    print(f'### Attaching to DataBricks {dbComputeName}...')
+    config = DatabricksCompute.attach_configuration(
+        resource_group = os.environ.get('AZML_DATABRICKS_RESGRP'),
+        workspace_name = os.environ.get('AZML_DATABRICKS_WSNAME'),
+        access_token= os.environ.get('AZML_DATABRICKS_TOKEN'))
+    databricks_compute=ComputeTarget.attach(ws, dbComputeName, config)
+    databricks_compute.wait_for_completion(True)
+    return databricks_compute

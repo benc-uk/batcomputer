@@ -21,7 +21,7 @@ variables:
     value: fetch-model.py
 
   - name: script-path
-    value: aml/titanic
+    value: aml
 
   - name: AZML_MODEL
     value: titanic-model

@@ -3,7 +3,6 @@ sys.path.append("..")
 from dotenv import load_dotenv
 from amllib.utils import connectToAML, getComputeAML
 from azureml.core import Experiment, ScriptRunConfig
-from azureml.core.model import Model
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataReferenceConfiguration
 
