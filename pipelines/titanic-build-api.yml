@@ -5,6 +5,7 @@ trigger:
   paths:
     include:
     - model-api/*
+    - pipelines/titanic-build-api.yml
 
 queue:
   name: Hosted Ubuntu 1604
