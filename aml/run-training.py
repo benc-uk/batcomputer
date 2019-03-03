@@ -1,4 +1,4 @@
-import os, sys, argparse
+import os, sys
 sys.path.append("..")
 from dotenv import load_dotenv
 from amllib.utils import connectToAML, getComputeAML

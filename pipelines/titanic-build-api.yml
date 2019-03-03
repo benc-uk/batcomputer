@@ -17,18 +17,19 @@ variables:
   - name: SCRIPT_NAME
     value: fetch-model.py
 
+  - name: SCRIPT_ARGS
+    value: fetch-model.py
+
   - name: AZML_MODEL
     value: titanic-model
 
   - name: AZML_EXPERIMENT
     value: titanic
 
-  - name: AZML_MODEL_VER # Default fallback version
-    value: "1"
-
 steps:
 - template: templates/run-aml-python.yml
 
+# Note. AZML_MODEL_VER will be set after running fetch-model.py
 - script: |
     docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:latest
   displayName: 'Build API container image'

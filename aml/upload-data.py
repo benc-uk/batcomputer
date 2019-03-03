@@ -1,4 +1,4 @@
-import os, sys, urllib.request, argparse
+import os, sys, argparse
 from dotenv import load_dotenv
 from amllib.utils import connectToAML
 
