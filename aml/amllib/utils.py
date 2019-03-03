@@ -26,7 +26,9 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
     model = Model(ws, modelName)
 
   print(f"### Using model version {model.version}")
-  print("##vso[task.setvariable variable=AZML_MODEL_VER]{model.version}")
+  # Echo'ing out this magic string sets an output variable in Azure DevOps pipeline
+  # Set AZML_MODEL_VER for use by subsequent steps
+  print(f"##vso[task.setvariable variable=AZML_MODEL_VER]{model.version}")
 
   # These are special tags, lets us get back to the run that created the model 
   runId = model.tags['aml-runid']
