@@ -1,10 +1,10 @@
-ARG PYTHON_VERSION=3.5.6
+ARG PYTHON_VERSION=3.6
 FROM python:${PYTHON_VERSION}-slim-stretch
 
 # Model version, not critical it is correct, used for status reporting
-ARG VERSION=1.0.0
+ARG VERSION=1
 
-LABEL Name=batcomputer-api AppVersion=2.2.0 ModelVersion=${VERSION}
+LABEL Name=batcomputer-api AppVersion=3.0.0 ModelVersion=${VERSION}
 
 # Install Python requirements
 ADD requirements.txt .
