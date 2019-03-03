@@ -11,9 +11,13 @@ The main model trained and used as the foundation of the project is based on cri
 
 ![Batcomputer in the 60s Batman TV show](docs/bc-batcave.jpg){: .framed}
 
+# !!! 🔥 THIS REPO IS UNDERGOING A MAJOR REWRITE 🔥 !!! 
+## Excuse the dust while things are being re-written to use Azure ML and remove DataBricks
+
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
 - Continuous integration with *Azure Pipelines*
+- Use of Azure ML Service and Python SDK
 - Training Python notebooks that carry out the machine learning using Scikit-Learn 
 - Infrastructure as code deployments into Azure
 - Use of containers and Kubernetes
