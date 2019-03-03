@@ -11,9 +11,9 @@ steps:
   displayName: Install pip package requirements
 
 - task: AzureCLI@1
-  displayName: Run AML script $(script-name)
+  displayName: Run AML script $(SCRIPT_NAME)
   inputs:
-    azureSubscription: $(azure-connection-name)
+    azureSubscription: $(AZURE_SVC_CONNECTION)
     scriptLocation: inlineScript
-    inlineScript: python3 $(script-name) $(script-args)
+    inlineScript: python3 $(SCRIPT_NAME) $(SCRIPT_ARGS)
     workingDirectory: aml
