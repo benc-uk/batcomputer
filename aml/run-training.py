@@ -7,7 +7,7 @@ from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataReferenceConfiguration
 
 # *** Expected external env variables ***
-# AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL, AZML_EXPERIMENT, AZML_DATAPATH
+# AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL, AZML_EXPERIMENT, AZML_DATAPATH, AZML_SCRIPT, AZML_COMPUTE_NAME
 
 # For local dev and testing, using .env files. 
 load_dotenv()

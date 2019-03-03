@@ -5,6 +5,7 @@ trigger:
   paths:
     include:
     - training/scikit-titanic.py
+    - pipelines/titanic-training.yml
     - aml/run-training.py
 
 queue:
@@ -25,6 +26,9 @@ variables:
 
   - name: AZML_EXPERIMENT
     value: titanic
+
+  - name: AZML_SCRIPT
+    value: scikit-titanic.py
 
 steps:
 - template: templates/run-aml-python.yml
