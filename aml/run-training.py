@@ -81,3 +81,5 @@ modelTags = {'aml-runid': run.id,
 model = run.register_model(model_path = 'outputs/model.pkl',
                            model_name = os.environ['AZML_MODEL'],
                            tags = modelTags)
+
+print(f"### Created model '{os.environ['AZML_MODEL']}' version: {model.version}")
