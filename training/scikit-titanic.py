@@ -2,7 +2,7 @@ import argparse, os
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.externals import joblib
+from sklearn.metrics import accuracy_score
 from azureml.core import Run
 from collections import OrderedDict
 import pickle
@@ -11,13 +11,17 @@ import pickle
 parser = argparse.ArgumentParser()
 parser.add_argument('--data-path', type=str, dest='data_path', help='data folder mounting point')
 parser.add_argument('--estimators', type=int, dest='estimators', help='number of estimators')
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 
-data_folder = args.data_path
-n_estimators = args.estimators
+data_folder = args.data_path or "../data/titanic/"
+n_estimators = args.estimators or 800
+
+# Get the AML run
+run = Run.get_context()
 
 # Load data from CSV
 data = pd.read_csv(f"{data_folder}/titanic.csv")
+
 
 # Drop rubbish columns we don't need
 try:
@@ -39,19 +43,31 @@ cols = data.columns.tolist()
 cols = [cols[1]] + cols[0:1] + cols[2:]
 data = data[cols]
 
+print("### Training and fitting the model...")
+
 # Get our training data in NumPy format
-train_data = data.values
+all_data = data.values
+
+# Shuffle data, and split into train and test 90% vs 10%
+np.random.shuffle(all_data)
+split_point = int(all_data.shape[0] / 1.1)
+train = all_data[0:split_point]
+test = all_data[split_point:]
 
 # Use RandomForestClassifier
+X = train[0:, 2:]
+y = train[0:, 0]
 clf = RandomForestClassifier(n_estimators = n_estimators)
-model = clf.fit(train_data[0:,2:], train_data[0:,0])
+model = clf.fit(X, y)
 
-# Find prediction accuracy for:
-# 16,1,2,"Hewlett, Mrs. (Mary D Kingcome) ",female,55,0,0,248706,16,,S
-answer = model.predict_proba([[2, 55, 0, 0, 16, 0, 2]])
-# get hold of the current run and log data
-run = Run.get_context()
-run.log('accuracy', np.float(answer[0][1]))
+print("### Testing predictions on", test.shape[0], "samples...")
+Xtest = test[0:, 2:]
+ytest = test[0:, 0]
+preds = model.predict(Xtest)
+accuracy = accuracy_score(ytest, preds)
+print("### Accuracy was:", accuracy)
+
+run.log('accuracy', np.float(accuracy))
 run.log('estimators', np.float(n_estimators))
 
 # Done! Now upload results as pickles

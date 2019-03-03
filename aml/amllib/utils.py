@@ -57,7 +57,7 @@ def getComputeAML(ws, name="amlcluster"):
   else:
       nodesMin = int(os.environ.get('AZML_COMPUTE_MIN_NODES', "0"))
       nodesMax = int(os.environ.get('AZML_COMPUTE_MAX_NODES', "3"))
-      vmSize = int(os.environ.get('AZML_COMPUTE_VMSIZE', "Standard_D3_v2"))
+      vmSize = os.environ.get('AZML_COMPUTE_VMSIZE', "Standard_D3_v2")
 
       print(f"### Creating cluster '{name}' this could take time...")
       provisioning_config = AmlCompute.provisioning_configuration(vm_size = vmSize, min_nodes = nodesMin, max_nodes = nodesMax)

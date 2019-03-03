@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, argparse
 sys.path.append("..")
 from dotenv import load_dotenv
 from amllib.utils import connectToAML, getComputeAML
@@ -12,14 +12,15 @@ from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataRefe
 # For local dev and testing, using .env files. 
 load_dotenv()
 
-if not all(k in os.environ for k in ['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL', 'AZML_EXPERIMENT', 'AZML_DATAPATH']):
+if not all(k in os.environ for k in ['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL', 'AZML_EXPERIMENT', 'AZML_DATAPATH', 'AZML_SCRIPT', 'AZML_COMPUTE_NAME']):
   print('### Required AZML env vars are not set, we gotta leave...')
   exit()
 
 # Some consts
 dataPathRemote = os.environ['AZML_DATAPATH']
-trainingScriptDir = '../../training'
-trainingScript = 'scikit-titanic.py'
+trainingScriptDir = "../training"
+trainingScript = os.environ['AZML_SCRIPT']
+estimators = 50
 
 # You must run `az login` before running locally
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
@@ -62,7 +63,8 @@ runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda
 # runConfig.environment.python.user_managed_dependencies = True
 # runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/bin/python3"
 
-scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", 600]
+print(f"### Will execute script {trainingScriptDir}/{trainingScript} on remote compute")
+scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", estimators]
 scriptRunConf = ScriptRunConfig(source_directory = trainingScriptDir, script = trainingScript, arguments = scriptArgs, run_config = runConfig)
 run = exp.submit(scriptRunConf)
 print(f"### Run '{run.id}' submitted and started...")

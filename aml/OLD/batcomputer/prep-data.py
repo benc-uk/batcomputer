@@ -34,10 +34,9 @@ if not computeTarget:
 
 # Create AML experiment and connect to default data store
 exp = Experiment(workspace=ws, name=os.environ['AZML_EXPERIMENT'])
-ds = ws.get_default_datastore()
 print(f"### Working with experiment name '{exp.name}'")
 
-python_script_name = "scikit-batcomputer.py"
+python_script_name = "dataprep-batcomputer.py"
 source_directory = "../../training/"
 
 dbPythonInLocalMachineStep = DatabricksStep(
@@ -45,7 +44,7 @@ dbPythonInLocalMachineStep = DatabricksStep(
   num_workers=1,
   python_script_name=python_script_name,
   source_directory=source_directory,
-  run_name='batcomputer-training',
+  run_name='batcomputer-dataprep',
   compute_target=computeTarget,
   allow_reuse=True,
   existing_cluster_id="0125-150225-khans508"

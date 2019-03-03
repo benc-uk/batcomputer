@@ -111,6 +111,7 @@ swagger.json
 # Ignore CSVs too large for GitHub
 #/data/**/*.csv
 /data/crime/**
-/data/crime.zip
+/data/**/crime.zip
 training/aml_config/**
 training/assets
+**.pkl
