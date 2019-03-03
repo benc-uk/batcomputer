@@ -26,6 +26,7 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
     model = Model(ws, modelName)
 
   print(f"### Using model version {model.version}")
+  print("##vso[task.setvariable variable=AZML_MODEL_VER]{model.version}")
 
   # These are special tags, lets us get back to the run that created the model 
   runId = model.tags['aml-runid']
