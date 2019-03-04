@@ -1,9 +1,12 @@
+#
+# Azure ML Orchestration Script, Ben C 2019
+# Upload data from local machine to Azure ML workspace in default datastore
+# - Requires env vars: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_DATAPATH
+#
+
 import os, sys, argparse
 from dotenv import load_dotenv
 from amllib.utils import connectToAML
-
-# *** Expected external env variables ***
-# AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_DATAPATH
 
 # For local dev and testing, using .env files. 
 load_dotenv()
@@ -12,6 +15,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--data-dir', type=str, dest='data_dir', help='Directory holding local data to upload')
 args, unknown = parser.parse_known_args()
 
+# --data-dir is a mandatory arg
 if not args.data_dir:
   parser.print_help()
   exit(1)

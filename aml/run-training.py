@@ -1,13 +1,16 @@
+#
+# Azure ML Orchestration Script, Ben C 2019
+# Run a Python training script in remote Azure ML computer cluster
+# - Requires env vars: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL
+#   AZML_EXPERIMENT, AZML_DATAPATH, AZML_SCRIPT, AZML_COMPUTE_NAME
+#
+
 import os, sys
-sys.path.append("..")
 from dotenv import load_dotenv
 from amllib.utils import connectToAML, getComputeAML
 from azureml.core import Experiment, ScriptRunConfig
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataReferenceConfiguration
-
-# *** Expected external env variables ***
-# AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL, AZML_EXPERIMENT, AZML_DATAPATH, AZML_SCRIPT, AZML_COMPUTE_NAME
 
 # For local dev and testing, using .env files. 
 load_dotenv()

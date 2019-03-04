@@ -1,0 +1,40 @@
+tertrigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - model-api/*
+    - pipelines/batcomputer-build-api.yml
+
+queue:
+  name: Hosted Ubuntu 1604
+
+variables:
+  # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
+  - group: shared-variables
+
+  - name: SCRIPT_NAME
+    value: fetch-model.py
+
+  - name: SCRIPT_ARGS
+    value: fetch-model.py
+
+  - name: AZML_MODEL
+    value: batcomputer-model
+
+  - name: AZML_EXPERIMENT
+    value: batcomputer
+
+steps:
+- template: templates/run-aml-python.yml
+
+# Note. AZML_MODEL_VER will be set after running fetch-model.py
+- script: |
+    docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:latest
+  displayName: 'Build API container image'
+
+- script: |
+    docker login $(ACR_NAME).azurecr.io -u $(ACR_NAME) -p $(ACR_PASSWORD)
+    docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
+  displayName: 'Push image into ACR'

@@ -1,0 +1,34 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - training/scikit-batcomputer.py
+    - pipelines/batcomputer-training.yml
+    - aml/run-training.py
+
+queue:
+  name: Hosted Ubuntu 1604
+
+variables:
+  # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_COMPUTE_NAME
+  - group: shared-variables
+
+  - name: SCRIPT_NAME
+    value: run-training.py
+
+  - name: AZML_DATAPATH
+    value: batcomputer-data
+
+  - name: AZML_MODEL
+    value: batcomputer-model
+
+  - name: AZML_EXPERIMENT
+    value: batcomputer
+
+  - name: AZML_SCRIPT
+    value: scikit-batcomputer.py
+
+steps:
+- template: templates/run-aml-python.yml

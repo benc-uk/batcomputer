@@ -1,0 +1,20 @@
+trigger: none
+
+queue:
+  name: Hosted Ubuntu 1604
+
+variables:
+  # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
+  - group: shared-variables
+
+  - name: SCRIPT_NAME
+    value: upload-data.py
+
+  - name: SCRIPT_ARGS
+    value: --data-dir ../data/batcomputer
+
+  - name: AZML_DATAPATH
+    value: batcomputer-data
+    
+steps:
+- template: templates/run-aml-python.yml
