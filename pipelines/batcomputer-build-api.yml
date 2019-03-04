@@ -1,4 +1,4 @@
-tertrigger:
+trigger:
   branches:
     include:
     - master

@@ -24,7 +24,7 @@ n_estimators = args.estimators or 100
 run = Run.get_context()
 
 # =============================================================
-# Data loading and inital prep & clean up
+# Data loading and initial prep & clean up
 # =============================================================
 
 import zipfile
@@ -46,7 +46,7 @@ data = pd.concat(list_, axis = 0, ignore_index = True)
 data = data.drop(['Falls within', 'Latitude', 'Longitude', 'Context', 'Location', 'LSOA code', 'LSOA name', 'Crime ID'], axis=1)
 data = data.dropna()
 
-print("### Working with training set of", data.shape[0], "rows")
+print("### Working with training set of {:,} rows".format(data.shape[0]))
 run.log("training_rows", data.shape[0], description='Number of rows of training data')
 
 # =============================================================
