@@ -6,7 +6,18 @@ from azureml.core.authentication import AzureCliAuthentication
 from azureml.core.compute import AmlCompute, ComputeTarget, DatabricksCompute
 from azureml.exceptions import ComputeTargetException
 
+#
+#
+#
+def checkVars(envVars):
+  for var in envVars:
+    if var not in os.environ:
+      print(f"### ERROR: Environmental variable '{var}' not set! Exiting now, bye...")
+      exit(1)
 
+#
+#
+#
 def connectToAML(subId, resGrp, ws):
   try:
     #cli_auth = AzureCliAuthentication()
@@ -15,10 +26,12 @@ def connectToAML(subId, resGrp, ws):
     print(f"### Connected to Azure ML workspace '{ws.name}'")
     return ws
   except:
-    print('### ERROR: Unable to connect to workspace')
-    return None
+    print('### ERROR: Unable to connect to workspace! Exiting now, bye...')
+    exit(1)
 
-
+#
+#
+#
 def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
   if modelVer is not None:
     model = Model(ws, modelName, version=modelVer)
@@ -49,7 +62,9 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
       print('### Downloading from {} to {} ...'.format(f, output_file_path))
       run.download_file(name=f, output_file_path=output_file_path)
 
-
+#
+#
+#
 def getComputeAML(ws, name="amlcluster"):
   # Azure ML compute configuration
   if name in ws.compute_targets:
@@ -75,19 +90,3 @@ def getComputeAML(ws, name="amlcluster"):
       # For a more detailed view of current AmlCompute status, use get_status()
       print(compute_target.get_status().serialize())
       return compute_target
-
-
-def getComputeDataBricks(ws, dbComputeName):
-  try:
-    databricks_compute = DatabricksCompute(workspace=ws, name=dbComputeName)
-    print(f"### Found existing attached DataBricks '{dbComputeName}' will use it")
-    return databricks_compute
-  except ComputeTargetException:
-    print(f'### Attaching to DataBricks {dbComputeName}...')
-    config = DatabricksCompute.attach_configuration(
-        resource_group = os.environ.get('AZML_DATABRICKS_RESGRP'),
-        workspace_name = os.environ.get('AZML_DATABRICKS_WSNAME'),
-        access_token= os.environ.get('AZML_DATABRICKS_TOKEN'))
-    databricks_compute=ComputeTarget.attach(ws, dbComputeName, config)
-    databricks_compute.wait_for_completion(True)
-    return databricks_compute

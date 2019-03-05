@@ -1,21 +1,19 @@
-import os, sys
+#
+# Azure ML Orchestration Script, Ben C 2019
+# ** WARNING ** Cleanup. Removes all models from the workspace
+# - Requires env vars: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL
+#
+
+import os
 from dotenv import load_dotenv
-from amllib.utils import connectToAML
+from amllib.utils import connectToAML, checkVars
 from azureml.core.model import Model
-from azureml.core import Experiment, Run
 
-# For local dev and testing, using .env files. 
+# When local testing, load .env files for convenience
 load_dotenv()
+checkVars(['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL'])
 
-if not all(k in os.environ for k in ['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL']):
-  print('### Required AZML env vars are not set, we gotta leave...')
-  exit()
-
-# You must run `az login` before running locally
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
-if not ws:
-  print('### Failed! Bye!')
-  exit()
 
 models = Model.list(ws)
 for model in models:

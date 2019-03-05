@@ -7,17 +7,14 @@
 
 import os, sys
 from dotenv import load_dotenv
-from amllib.utils import connectToAML, getComputeAML
+from amllib.utils import connectToAML, getComputeAML, checkVars
 from azureml.core import Experiment, ScriptRunConfig
 from azureml.core.conda_dependencies import CondaDependencies
 from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataReferenceConfiguration
 
-# For local dev and testing, using .env files. 
+# When local testing, load .env files for convenience
 load_dotenv()
-
-if not all(k in os.environ for k in ['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL', 'AZML_EXPERIMENT', 'AZML_DATAPATH', 'AZML_SCRIPT', 'AZML_COMPUTE_NAME']):
-  print('### Required AZML env vars are not set, we gotta leave...')
-  exit()
+checkVars(['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL', 'AZML_EXPERIMENT', 'AZML_DATAPATH', 'AZML_SCRIPT', 'AZML_COMPUTE_NAME'])
 
 # Some consts
 dataPathRemote = os.environ['AZML_DATAPATH']
@@ -25,11 +22,7 @@ trainingScriptDir = "../training"
 trainingScript = os.environ['AZML_SCRIPT']
 estimators = 50
 
-# You must run `az login` before running locally
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
-if not ws:
-  print('### Failed! Bye!')
-  exit()
 
 # Create or get existing AML compute cluster 
 computeTarget = getComputeAML(ws, os.environ['AZML_COMPUTE_NAME'])
