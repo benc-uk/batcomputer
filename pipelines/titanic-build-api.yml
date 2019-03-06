@@ -29,7 +29,7 @@ variables:
 steps:
 - template: templates/run-aml-python.yml
 
-# Note. AZML_MODEL_VER will be set after running fetch-model.py
+# Note. AZML_MODEL_VER will be set after running fetch-model.py in above step
 - script: |
     docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:latest
   displayName: 'Build API container image'

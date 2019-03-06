@@ -5,22 +5,26 @@
 #   AZML_EXPERIMENT, AZML_DATAPATH, AZML_SCRIPT, AZML_COMPUTE_NAME
 #
 
-import os, sys
+import os, argparse
 from dotenv import load_dotenv
 from amllib.utils import connectToAML, getComputeAML, checkVars
 from azureml.core import Experiment, ScriptRunConfig
 from azureml.core.conda_dependencies import CondaDependencies
-from azureml.core.runconfig import DEFAULT_CPU_IMAGE, RunConfiguration, DataReferenceConfiguration
+from azureml.core.runconfig import RunConfiguration, DataReferenceConfiguration
 
 # When local testing, load .env files for convenience
 load_dotenv()
 checkVars(['AZML_SUBID', 'AZML_RESGRP', 'AZML_WORKSPACE', 'AZML_MODEL', 'AZML_EXPERIMENT', 'AZML_DATAPATH', 'AZML_SCRIPT', 'AZML_COMPUTE_NAME'])
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--estimators', type=int, dest='estimators', help='Number of estimators', default=40)
+args, unknown = parser.parse_known_args()
+
 # Some consts
-dataPathRemote = os.environ['AZML_DATAPATH']
 trainingScriptDir = "../training"
+dataPathRemote = os.environ['AZML_DATAPATH']
 trainingScript = os.environ['AZML_SCRIPT']
-estimators = 50
+estimators = args.estimators
 
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
 
@@ -37,21 +41,21 @@ print(f"### Working with experiment name '{exp.name}'")
 
 # This allows us to mount/upload data to remote compute job
 print(f"### Will mount datapath '{dataPathRemote}' on remote compute")
-dataRef = DataReferenceConfiguration(datastore_name=ds.name, 
-                  path_on_datastore=dataPathRemote, 
-                  path_on_compute='/tmp',
-                  mode='download',
-                  overwrite=False)
+dataRef = DataReferenceConfiguration(
+  datastore_name=ds.name, 
+  path_on_datastore=dataPathRemote, 
+  path_on_compute='/tmp',
+  mode='download',
+  overwrite=False
+)
 
-# Create a new RunConfiguration 
+# Create a new RunConfiguration and attach data
 runConfig = RunConfiguration()
-runConfig.data_references = { ds.name: dataRef } 
+runConfig.data_references = { ds.name: dataRef } # This syntax is not documented!
 
 # Set it up for running in Azure ML compute
 runConfig.target = computeTarget
 runConfig.environment.docker.enabled = True
-runConfig.environment.docker.base_image = DEFAULT_CPU_IMAGE
-runConfig.environment.python.user_managed_dependencies = False
 runConfig.auto_prepare_environment = True
 runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
 
@@ -72,10 +76,13 @@ if run.status == "Failed":
   print(f'### ERROR! Run did not complete. Training failed!')
   exit(1)
 
-modelTags = {'aml-runid': run.id, 
-             'aml-experiment': os.environ['AZML_EXPERIMENT']}
-model = run.register_model(model_path = 'outputs/model.pkl',
-                           model_name = os.environ['AZML_MODEL'],
-                           tags = modelTags)
+model = run.register_model(
+  model_path = 'outputs/model.pkl',
+  model_name = os.environ['AZML_MODEL'],
+  tags = {
+    'aml-runid': run.id, 
+    'aml-experiment': os.environ['AZML_EXPERIMENT']
+  }
+)
 
 print(f"### Created model '{os.environ['AZML_MODEL']}' version: {model.version}")

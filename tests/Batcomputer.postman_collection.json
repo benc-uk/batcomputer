@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "8265f500-822e-4a9e-ab2d-4eea6d24ae8b",
+		"name": "Batcomputer",
+		"description": "API tests for the Batcomputer crime model. Make sure the 'api-host' variable is set before running",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Predict Force",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f7e0223-68a8-4d2b-8f4a-356172ca6dab",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response must be valid and have a JSON body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Validate prediction result\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.caughtProb).to.exist;",
+							"    pm.expect(jsonData.notCaughtProb).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Validate prediction values\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.caughtProb).gt(0.1);",
+							"    pm.expect(jsonData.caughtProb).lt(0.9);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e310284c-0e2e-4840-a930-e0376de4bdb1",
+						"exec": [
+							"forces = [",
+							"    \"Avon and Somerset Constabulary\",",
+							"    \"Bedfordshire Police\",",
+							"    \"Cambridgeshire Constabulary\",",
+							"    \"Cheshire Constabulary\",",
+							"    \"City of London Police\",",
+							"    \"Cleveland Police\",",
+							"    \"Cumbria Constabulary\",",
+							"    \"Derbyshire Constabulary\",",
+							"    \"Devon & Cornwall Police\",",
+							"    \"Dorset Police\",",
+							"    \"Durham Constabulary\",",
+							"    \"Dyfed-Powys Police\",",
+							"    \"Essex Police\",",
+							"    \"Gloucestershire Constabulary\",",
+							"    \"Greater Manchester Police\",",
+							"    \"Gwent Police\",",
+							"    \"Hampshire Constabulary\",",
+							"    \"Hertfordshire Constabulary\",",
+							"    \"Humberside Police\",",
+							"    \"Kent Police\",",
+							"    \"Lancashire Constabulary\",",
+							"    \"Leicestershire Police\",",
+							"    \"Lincolnshire Police\",",
+							"    \"Merseyside Police\",",
+							"    \"Metropolitan Police Service\",",
+							"    \"Norfolk Constabulary\",",
+							"    \"North Wales Police\",",
+							"    \"North Yorkshire Police\",",
+							"    \"Northamptonshire Police\",",
+							"    \"Northumbria Police\",",
+							"    \"Nottinghamshire Police\",",
+							"    \"South Wales Police\",",
+							"    \"South Yorkshire Police\",",
+							"    \"Staffordshire Police\",",
+							"    \"Suffolk Constabulary\",",
+							"    \"Surrey Police\",",
+							"    \"Sussex Police\",",
+							"    \"Thames Valley Police\",",
+							"    \"Warwickshire Police\",",
+							"    \"West Mercia Police\",",
+							"    \"West Midlands Police\",",
+							"    \"West Yorkshire Police\",",
+							"    \"Wiltshire Police\"",
+							"];",
+							"    ",
+							"forceName = forces[Math.floor(Math.random() * forces.length)]",
+							"pm.environment.set(\"FORCE_NAME\", forceName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"force\": \"{{FORCE_NAME}}\",\n\t\"crime\": \"Drugs\",\n\t\"month\": 3\n}"
+				},
+				"url": {
+					"raw": "http://{{api-host}}/api/predict",
+					"protocol": "http",
+					"host": [
+						"{{api-host}}"
+					],
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Make a prediction where crime is 'Drugs' but with a random force"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Swagger JSON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99bc5ec7-4e0e-4001-8c1f-95568f3801a1",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response must be valid and have a JSON body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{api-host}}/swagger.json",
+					"protocol": "http",
+					"host": [
+						"{{api-host}}"
+					],
+					"path": [
+						"swagger.json"
+					]
+				},
+				"description": "Get raw Swagger JSON"
+			},
+			"response": []
+		},
+		{
+			"name": "Predict Crime",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f7e0223-68a8-4d2b-8f4a-356172ca6dab",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response must be valid and have a JSON body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Validate prediction result\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.caughtProb).to.exist;",
+							"    pm.expect(jsonData.notCaughtProb).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Validate prediction values\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.caughtProb).gt(0.001);",
+							"    pm.expect(jsonData.caughtProb).lt(0.999);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e310284c-0e2e-4840-a930-e0376de4bdb1",
+						"exec": [
+							"crimes = [",
+							"    \"Bicycle theft\",",
+							"    \"Burglary\",",
+							"    \"Criminal damage and arson\",",
+							"    \"Drugs\",",
+							"    \"Other crime\",",
+							"    \"Other theft\",",
+							"    \"Possession of weapons\",",
+							"    \"Public order\",",
+							"    \"Robbery\",",
+							"    \"Shoplifting\",",
+							"    \"Theft from the person\",",
+							"    \"Vehicle crime\",",
+							"    \"Violence and sexual offences\"",
+							"];",
+							"    ",
+							"crimeName = crimes[Math.floor(Math.random() * crimes.length)]",
+							"pm.environment.set(\"CRIME_NAME\", crimeName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"force\": \"Metropolitan Police Service\",\n\t\"crime\": \"{{CRIME_NAME}}\",\n\t\"month\": 3\n}"
+				},
+				"url": {
+					"raw": "http://{{api-host}}/api/predict",
+					"protocol": "http",
+					"host": [
+						"{{api-host}}"
+					],
+					"path": [
+						"api",
+						"predict"
+					]
+				},
+				"description": "Make a prediction where force is \"Metropolitan Police Service\" but with a random crime"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "17c40b52-4921-45d0-a835-7c081d7e74c5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Response must be valid and have a JSON body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Validate prediction params\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.force).to.exist;",
+							"    pm.expect(jsonData.force.length).to.gt(20);",
+							"    pm.expect(jsonData.crime).to.exist;",
+							"    pm.expect(jsonData.crime.length).to.gt(10);",
+							"    pm.expect(jsonData.month).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{api-host}}/api/predict/params",
+					"protocol": "http",
+					"host": [
+						"{{api-host}}"
+					],
+					"path": [
+						"api",
+						"predict",
+						"params"
+					]
+				},
+				"description": "Fetch the prediction parameters"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7af40076-2894-498f-afea-7e280dd7a5e5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f458f73d-df12-44ab-8bb7-b30d7b4c0203",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
