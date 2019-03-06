@@ -72,18 +72,17 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
 
   print(f'### Will download from run {runId} in {experimentName}')
 
-  
-  # Some metadata, handy to have
-  metadata = { 'name': model.name, 'version': model.version, 'tags': model.tags }
-  with open(f"{outputPath}/metadata.json", 'w') as metadata_file:
-    json.dump(metadata, metadata_file)
-
   # Now we can get all the files created with the run, grab all the .pkls
   for f in run.get_file_names():
     if f.endswith('.pkl'):
       output_file_path = os.path.join(outputPath, f.split('/')[-1])
       print('### Downloading from {} to {} ...'.format(f, output_file_path))
       run.download_file(name=f, output_file_path=output_file_path)
+
+  # Add some extra metadata, handy to have
+  metadata = { 'name': model.name, 'version': model.version, 'tags': model.tags }
+  with open(f"{outputPath}/metadata.json", 'w') as metadata_file:
+    json.dump(metadata, metadata_file)
 
 #
 #
