@@ -177,6 +177,63 @@
 			"response": []
 		},
 		{
+			"name": "Get Info Metadata",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99bc5ec7-4e0e-4001-8c1f-95568f3801a1",
+						"exec": [
+							"pm.test(\"Get Metadata: Successful GET request\", function () {",
+							"    pm.response.to.be.ok;",
+							"});",
+							"",
+							"pm.test(\"Get Metadata: Response valid & JSON body\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.withBody;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Get Metadata: Validate status & model ver\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eq(\"alive\");",
+							"    pm.expect(jsonData.metadata.version).gt(0)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{api-host}}/api/info",
+					"protocol": "http",
+					"host": [
+						"{{api-host}}"
+					],
+					"path": [
+						"api",
+						"info"
+					]
+				},
+				"description": "Get raw Swagger JSON"
+			},
+			"response": []
+		},
+		{
 			"name": "Predict Crime",
 			"event": [
 				{

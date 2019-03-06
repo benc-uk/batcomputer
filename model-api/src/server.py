@@ -12,6 +12,7 @@ from predictor import Predictor
 MODEL_NAME  = './pickles/model.pkl'
 LOOKUP_NAME = './pickles/lookup.pkl'
 FLAGS_NAME  = './pickles/flags.pkl'
+METADATA_NAME  = './pickles/metadata.json'
 
 # Set up Flask
 application = Flask(__name__)
@@ -48,7 +49,14 @@ def main_api(project=None):
 #
 @application.route('/api/info', methods=['GET'])
 def info_api(project=None):
-  return Response(json.dumps({'status': 'alive', 'model_ver': os.getenv('VERSION')}), status=200, mimetype='application/json')
+  metadata = {}
+  try:
+    with open(METADATA_NAME) as f:
+      metadata = json.load(f)
+  except Exception as err:
+    print('### EXCEPTION:', str(err))
+    return Response(json.dumps({'error': str(err)}), status=500, mimetype='application/json')
+  return Response(json.dumps({'status': 'alive', 'metadata': metadata}), status=200, mimetype='application/json')
 
 
 #

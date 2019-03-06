@@ -1,5 +1,4 @@
-import os
-import azureml
+import os, json
 from azureml.core import Workspace, Experiment, Run
 from azureml.core.model import Model
 from azureml.core.authentication import AzureCliAuthentication
@@ -72,6 +71,12 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
     return
 
   print(f'### Will download from run {runId} in {experimentName}')
+
+  
+  # Some metadata, handy to have
+  metadata = { 'name': model.name, 'version': model.version, 'tags': model.tags }
+  with open(f"{outputPath}/metadata.json", 'w') as metadata_file:
+    json.dump(metadata, metadata_file)
 
   # Now we can get all the files created with the run, grab all the .pkls
   for f in run.get_file_names():
