@@ -33,7 +33,21 @@ def connectToAML(subId, resGrp, ws):
 #
 #
 def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
-  if modelVer is not None:
+  if modelVer == 'best':
+    bestModel = None
+    maxAcc = -1
+    for model in Model.list(ws, modelName, ["accuracy"]):
+      modelAcc = float(model.tags["accuracy"])
+      if modelAcc > maxAcc:
+        bestModel = model
+        maxAcc = modelAcc
+    
+    print(f"### Best model with highest accuracy of {maxAcc} found")
+
+    if not bestModel:
+      model = Model(ws, modelName)
+      print("### WARNING! No best model found, using latest instead")
+  elif modelVer is not None:
     model = Model(ws, modelName, version=modelVer)
   else:
     model = Model(ws, modelName)
@@ -44,8 +58,12 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
   print(f"##vso[task.setvariable variable=AZML_MODEL_VER]{model.version}")
 
   # These are special tags, lets us get back to the run that created the model 
-  runId = model.tags['aml-runid']
-  experimentName = model.tags['aml-experiment']
+  try:
+    runId = model.tags['aml-runid']
+    experimentName = model.tags['aml-experimentX']
+  except:
+    print("### ERROR! Model missing `aml-runid` and `aml-experiment` tags, Can't continue!")
+    exit()
 
   exp = Experiment(workspace=ws, name=experimentName)
   run = Run(exp, runId)
