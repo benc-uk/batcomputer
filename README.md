@@ -75,8 +75,7 @@ It is strongly advised to fork this repo to your own GitHub account before proce
 For the DevOps CI flows this is a requirement as webhooks and other git configuration is required
 
 ## Presentation Deck
-[Full background and documentation can be found in the provided slides](docs/Project-Bat-Computer-Slides.pdf)  
-(Work in progress)
+REMOVED PENDING UPDATE
 
 ---
 

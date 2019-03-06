@@ -10,10 +10,11 @@ LABEL Name=batcomputer-api AppVersion=3.0.0 ModelVersion=${VERSION}
 ADD requirements.txt .
 RUN pip3 install -r requirements.txt
 
-# Add in our app and the pickle files
+# Add in our app and the pickle & metadata files
 WORKDIR /app
 ADD src .
 ADD pickles/*.pkl ./pickles/
+ADD pickles/*.json ./pickles/
 
 # Runtime configuration & settings
 ENV VERSION $VERSION

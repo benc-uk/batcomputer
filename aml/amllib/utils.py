@@ -82,6 +82,7 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
   # Add some extra metadata, handy to have
   metadata = { 'name': model.name, 'version': model.version, 'tags': model.tags }
   with open(f"{outputPath}/metadata.json", 'w') as metadata_file:
+    print(f"### Storing metadata in {outputPath}/metadata.json")
     json.dump(metadata, metadata_file)
 
 #
