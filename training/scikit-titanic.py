@@ -22,7 +22,6 @@ run = Run.get_context()
 # Load data from CSV
 data = pd.read_csv(f"{data_folder}/titanic.csv")
 
-
 # Drop rubbish columns we don't need
 try:
     data = data.drop(['Name', 'Ticket', 'Cabin'], axis=1)
