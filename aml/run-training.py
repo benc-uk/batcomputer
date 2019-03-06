@@ -76,10 +76,13 @@ if run.status == "Failed":
   print(f'### ERROR! Run did not complete. Training failed!')
   exit(1)
 
+accuracy = run.get_metrics('accuracy') or 0
+
 model = run.register_model(
   model_path = 'outputs/model.pkl',
   model_name = os.environ['AZML_MODEL'],
   tags = {
+    'accuracy': accuracy, 
     'aml-runid': run.id, 
     'aml-experiment': os.environ['AZML_EXPERIMENT']
   }
