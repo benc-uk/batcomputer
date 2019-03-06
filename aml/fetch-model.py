@@ -26,7 +26,7 @@ if args.best:
   downloadPickles(ws, os.environ['AZML_MODEL'], outputPath, "best")
 if args.ver:
   downloadPickles(ws, os.environ['AZML_MODEL'], outputPath, int(args.ver))
-else:
+elif not args.best:
   print(f"### No model version specified, latest will be used")
   downloadPickles(ws, os.environ['AZML_MODEL'], outputPath)
 
