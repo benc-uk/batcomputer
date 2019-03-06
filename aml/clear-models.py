@@ -18,4 +18,4 @@ ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.enviro
 models = Model.list(ws)
 for model in models:
   model.delete()
-  print("### Deleted model", model.version)
+  print("### Deleted model", model.name, model.version)
