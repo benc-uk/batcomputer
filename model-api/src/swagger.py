@@ -70,9 +70,8 @@ def format_swagger(lookup, flags):
   swagger_template = {
     "swagger": "2.0",
     "info": {
-      "version": os.getenv('VERSION', '1.0.0'),
       "title": "Batcomputer API",
-      "description": "REST API getting predictions from the Batcomputer ML model. Model version: "+os.getenv('VERSION', '1.0.0')
+      "description": "REST API getting predictions from the an ML model"
     },
     "basePath": "/api",
     "schemes": [
@@ -114,7 +113,7 @@ def format_swagger(lookup, flags):
       "/info": {
         "get": {
           "tags": ["Info"],
-          "description": "Get system info, health check",
+          "description": "Get system info, and model metadata",
           "operationId": "info",
           "produces": [
             "application/json"
@@ -122,7 +121,7 @@ def format_swagger(lookup, flags):
           "parameters": [],        
           "responses": {
             "200": {
-              "description": "Simple system information in JSON format"
+              "description": "System information and model metadata in JSON format"
             }
           }
         }
