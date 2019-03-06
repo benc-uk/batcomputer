@@ -60,7 +60,7 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
   # These are special tags, lets us get back to the run that created the model 
   try:
     runId = model.tags['aml-runid']
-    experimentName = model.tags['aml-experimentX']
+    experimentName = model.tags['aml-experiment']
   except:
     print("### ERROR! Model missing `aml-runid` and `aml-experiment` tags, Can't continue!")
     exit()
