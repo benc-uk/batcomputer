@@ -1,3 +1,8 @@
+#
+# Simple RandomForest machine learning using scikit
+# Ben C, 2019
+#
+
 import argparse, os, glob, pickle
 import numpy as np
 import pandas as pd
