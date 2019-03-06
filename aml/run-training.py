@@ -54,14 +54,14 @@ runConfig = RunConfiguration()
 runConfig.data_references = { ds.name: dataRef } # This syntax is not documented!
 
 # Set it up for running in Azure ML compute
-runConfig.target = computeTarget
-runConfig.environment.docker.enabled = True
-runConfig.auto_prepare_environment = True
-runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
+# runConfig.target = computeTarget
+# runConfig.environment.docker.enabled = True
+# runConfig.auto_prepare_environment = True
+# runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
 
 # OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env
-# runConfig.environment.python.user_managed_dependencies = True
-# runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/bin/python3"
+runConfig.environment.python.user_managed_dependencies = True
+runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/bin/python3"
 
 print(f"### Will execute script {trainingScriptDir}/{trainingScript} on remote compute")
 scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", estimators]
@@ -76,7 +76,7 @@ if run.status == "Failed":
   print(f'### ERROR! Run did not complete. Training failed!')
   exit(1)
 
-accuracy = run.get_metrics('accuracy') or 0
+accuracy = run.get_metrics()['accuracy'] or 0.0
 
 model = run.register_model(
   model_path = 'outputs/model.pkl',
