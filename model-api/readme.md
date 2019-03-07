@@ -2,11 +2,11 @@
 
 The model API wrapper is a Python Flask app, designed to wrap the model with a REST based API. It is standalone, lightweight and designed to run in a container
 
-The app will load the trained model and other pickle files at startup from the local filesystem, located in the `./pickles/` directory. A helper script `./scripts/get-pickles.sh` is provided which uses the Azure CLI to fetch the pickles from Azure Blob storage (aka the model registry)
+The app will load the trained model and other pickle files at startup from the local filesystem, located in the `./pickles/` directory. To fetch these from Azure ML, use the `aml/fetch-model.py` script which will connect to to the service and download the files for any given model version. See the [AML scripts docs](#) for more details
 
 The app has been designed to be as re-usable and generic as possible, so it can serve a range of models, assuming they have been developed and trained with Scikit-learn, and the corresponding `lookup.pkl` and `flags.pkl` are also provided
 
-For more info on the pickle files and the model registry [please refer to the main docs](../#model-registry)
+!TOUPDATE! For more info on the pickle files and the model registry [please refer to the main docs](../#model-registry)
 
 ## Source Code
 Source is located in the [`./src`](./src) directory
@@ -19,14 +19,10 @@ When running as a container Gunicorn is used as a WSGI HTTP server protecting Fl
 The Flask server ignores CORS and will accept requests from any origin
 
 ## Local Development
-If you want to build locally you will need Python 3.6 and/or Docker. These steps all assume the model pickle files have already been trained and pushed into Blob storage (by the training job/Notebook) for the corresponding version you are trying to run and build
+If you want to build locally you will need Python 3.6 and/or Docker.  
+These steps all assume the model pickle files have **already been trained and are held in Azure ML, and you have downloaded them locally using `fetch-model.py` script**, resulting in a `pickles/` directory being created and populated with four files (3 .pkl and metadata.json) in the `/model-api` directory
 
 You must work from the `/model-api` directory not the root of the project
-
-Create a `.env` file based from a copy of the provided `.env.sample` and configure the values as per your environment
-
-- Set the model version you are working to in the `.env` file as described above
-- Run `./scripts/get-pickles.sh` to fetch the pickle files to your local system
 
 ## Running Directly in Python
 - Create Python virtual environment `python3 -m venv pyvenv`
@@ -47,7 +43,7 @@ The wrapper app dynamically creates a Swagger definition from the provided `look
 The Swagger definition provides guidance to callers of the API on what parameters are expected and allowed values in the request 
 
 API and routes exposed by the app are:
-- **GET** `/api/info` - Return simple status as JSON, for status checking
+- **GET** `/api/info` - Return status and model metadata (name, version, tags)
 - **GET** `/api/docs` - Swagger UI
 - **GET** `/swagger.json` - Base Swagger definition file describing the API
 - **POST** `/api/predict` - Payload body should be JSON, will return prediction response in JSON. See the Swagger file for example payload
@@ -57,7 +53,7 @@ e.g.
 GET /api/predict/params
 {
   "gender": [ "male", "female" ],
-  "age: 0
+  "age: 0,
   "location": [ "London", "New York", "Bognor Regis" ]
 }
 ```

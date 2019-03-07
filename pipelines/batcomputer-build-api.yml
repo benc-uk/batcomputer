@@ -17,8 +17,8 @@ variables:
   - name: SCRIPT_NAME
     value: fetch-model.py
 
-  - name: SCRIPT_ARGS
-    value: --use-best
+  # - name: SCRIPT_ARGS
+  #   value: --use-best
 
   - name: AZML_MODEL
     value: batcomputer-model
