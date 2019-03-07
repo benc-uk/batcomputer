@@ -1,11 +1,10 @@
-registryPrefix: modelsacr.azurecr.io/
-domainSuffix: batcomputer.7e28d40aaab5415089e6.northeurope.aksapp.io
-#cmCertIssuer: letsencrypt-prod
+registryPrefix: bencmldemo3408602738.azurecr.io/
+domainSuffix: batcomputer.56539f01234e4e00981e.westeurope.aksapp.io
+#cmCertIssuer: letsencrypt-staging
 cmCertIssuer: 
 
 api:
   image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
-
-modelVersion: "1.0.0"
+  imageTag: 1

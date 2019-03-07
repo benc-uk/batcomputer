@@ -19,5 +19,4 @@ api:
   image: 
   replicas: 1
   imagePullPolicy: Always
-
-modelVersion: "1.0.0"
+  imageTag: 1
