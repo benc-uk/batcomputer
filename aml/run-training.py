@@ -3,7 +3,7 @@
 # Run a Python training script in remote Azure ML computer cluster
 # - Requires env vars: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_MODEL
 #   AZML_EXPERIMENT, AZML_DATAPATH, AZML_SCRIPT, AZML_COMPUTE_NAME
-#
+# - Optional: AZML_RUN_LOCAL set to "true" in order to run training locally
 
 import os, argparse
 from dotenv import load_dotenv
@@ -53,17 +53,20 @@ dataRef = DataReferenceConfiguration(
 runConfig = RunConfiguration()
 runConfig.data_references = { ds.name: dataRef } # This syntax is not documented!
 
-# Set it up for running in Azure ML compute
-# runConfig.target = computeTarget
-# runConfig.environment.docker.enabled = True
-# runConfig.auto_prepare_environment = True
-# runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
+if not os.environ.get('AZML_RUN_LOCAL', 'false') == "true":
+  # Set it up for running in Azure ML compute
+  runConfig.target = computeTarget
+  runConfig.environment.docker.enabled = True
+  runConfig.auto_prepare_environment = True
+  runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
+  print(f"### Will execute script {trainingScriptDir}/{trainingScript} on REMOTE compute")
+else:
+  # OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env
+  runConfig.environment.python.user_managed_dependencies = True
+  runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/linux/bin/python3"
+  print(f"### Will execute script {trainingScriptDir}/{trainingScript} on LOCAL compute")
 
-# OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env
-runConfig.environment.python.user_managed_dependencies = True
-runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/linux/bin/python3"
 
-print(f"### Will execute script {trainingScriptDir}/{trainingScript} on remote compute")
 scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", estimators]
 scriptRunConf = ScriptRunConfig(source_directory = trainingScriptDir, script = trainingScript, arguments = scriptArgs, run_config = runConfig)
 
