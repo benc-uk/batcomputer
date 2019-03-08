@@ -4,7 +4,8 @@ Project Batcomputer is a working example of DevOps applied to machine learning a
 Motivations for this project:
 - Understand the challenges in operationisation of ML models
 - Attempt to make a reality of “DevOps for AI” 
-- Existing processes (e.g. Azure Machine Learning Service) deemed problematic
+- Integration of "closed box” processes (Azure ML Service) with real DevOps approach
+
 
 **💬 Why "Project Batcomputer"?**  
 The main model trained and used as the foundation of the project is based on crime data, and predictions of outcomes of crimes (convictions etc). The [Batman Batcomputer](https://en.wikipedia.org/wiki/Batcomputer) seemed like a fun way to make using such a prediction model more interesting. 
