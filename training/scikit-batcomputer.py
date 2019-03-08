@@ -3,6 +3,7 @@
 # Ben C, 2019
 #
 
+#%%
 import argparse, os, glob, pickle
 import numpy as np
 import pandas as pd
@@ -28,6 +29,7 @@ n_estimators = args.estimators or 100
 # Get the AML run
 run = Run.get_context()
 
+#%%
 # =============================================================
 # Data loading and initial prep & clean up
 # =============================================================
@@ -54,6 +56,7 @@ data = data.dropna()
 print("### Working with training set of {:,} rows".format(data.shape[0]))
 run.log("training_rows", data.shape[0], description='Number of rows of training data')
 
+#%%
 # =============================================================
 # Data encoding 
 # =============================================================
@@ -80,6 +83,7 @@ data["Month_e"] = data["Month"].map(mapMonth)
 
 #print(data.head(100))
 
+#%%
 # =============================================================
 # Training and fitting the model
 # =============================================================
@@ -108,6 +112,7 @@ preds = model.predict(Xtest)
 accuracy = accuracy_score(ytest, preds)
 print("#### Accuracy was:", accuracy)
 
+#%%
 # =============================================================
 # Testing & checking
 # =============================================================
@@ -123,6 +128,7 @@ for ci, crime in enumerate(crime_encoder.classes_):
     run.log_row(name='Crime Index', force=fi, caught=ans[1], crime=crime)
     #print(crime, force, ans)
 
+#%%
 # =============================================================
 # Send results to AML
 # =============================================================

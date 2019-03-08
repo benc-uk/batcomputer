@@ -3,6 +3,7 @@
 # Ben C, 2019
 #
 
+#%%
 import argparse, os
 import numpy as np
 import pandas as pd
@@ -24,6 +25,7 @@ n_estimators = args.estimators or 800
 # Get the AML run
 run = Run.get_context()
 
+#%%
 # Load data from CSV
 data = pd.read_csv(f"{data_folder}/titanic.csv")
 
@@ -47,6 +49,7 @@ cols = data.columns.tolist()
 cols = [cols[1]] + cols[0:1] + cols[2:]
 data = data[cols]
 
+#%%
 print("### Training and fitting the model...")
 
 # Get our training data in NumPy format
@@ -74,6 +77,7 @@ print("### Accuracy was:", accuracy)
 run.log('accuracy', np.float(accuracy))
 run.log('estimators', np.float(n_estimators))
 
+#%%
 # Done! Now upload results as pickles
 
 # note file saved in the outputs folder is automatically uploaded into experiment record
