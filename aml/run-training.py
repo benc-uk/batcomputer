@@ -54,18 +54,19 @@ runConfig = RunConfiguration()
 runConfig.data_references = { ds.name: dataRef } # This syntax is not documented!
 
 # Set it up for running in Azure ML compute
-runConfig.target = computeTarget
-runConfig.environment.docker.enabled = True
-runConfig.auto_prepare_environment = True
-runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
+# runConfig.target = computeTarget
+# runConfig.environment.docker.enabled = True
+# runConfig.auto_prepare_environment = True
+# runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
 
 # OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env
-# runConfig.environment.python.user_managed_dependencies = True
-# runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/bin/python3"
+runConfig.environment.python.user_managed_dependencies = True
+runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/linux/bin/python3"
 
 print(f"### Will execute script {trainingScriptDir}/{trainingScript} on remote compute")
 scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", estimators]
 scriptRunConf = ScriptRunConfig(source_directory = trainingScriptDir, script = trainingScript, arguments = scriptArgs, run_config = runConfig)
+
 run = exp.submit(scriptRunConf)
 print(f"### Run '{run.id}' submitted and started...")
 run.wait_for_completion(show_output = True, wait_post_processing = True)

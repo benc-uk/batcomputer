@@ -110,6 +110,7 @@ swagger.json
 
 .amlignore
 /data/**/*.zip
+/data/batcomputer/**/*.csv
 training/aml_config/**
 training/assets
 **.pkl
