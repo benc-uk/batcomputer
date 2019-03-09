@@ -9,7 +9,7 @@
       "value": "change-me"
     },
     "modelVersion": {
-      "value": "1.0.0"
+      "value": "1"
     },
     "imageName": {
       "value": "foo/myimage"

@@ -1,5 +1,5 @@
 # Azure Scripts / Templates
 
-## [ACI Deployment ARM Template](./https://github.com/benc-uk/batcomputer/tree/master/azure/aci-arm-template)
+#### [ARM Template - Deploy to ACI](./aci-arm-template)
 
-## [Deploy Azure ML Script](./aml-script)
+#### [Deploy Azure ML Workspace Script](./aml-script)

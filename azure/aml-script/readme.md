@@ -12,3 +12,5 @@ This is a simple bash script to setup a new Azure ML Workspace
   - `resGroup="CHANGEME"`
   - `region="westeurope"`
 - Run `./deploy.sh`
+
+The script should output your container registry password and other values, you will need these for setting up the Azure ML scripts and Azure DevOps pipelines

@@ -89,8 +89,8 @@
     }
   ],
   "outputs": {
-    "batcomputerAPI": {
-      "value": "[concat('http://', variables('dnsPrefix'), '.', resourceGroup().location, '.azurecontainer.io', ':', variables('port'), '/api/predict')]",
+    "apiEndpoint": {
+      "value": "[concat('http://', variables('dnsPrefix'), '.', resourceGroup().location, '.azurecontainer.io', ':', variables('port'), '/api')]",
       "type": "string"
     }
   }
