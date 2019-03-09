@@ -4,7 +4,7 @@ Project Batcomputer is a working example of DevOps applied to machine learning a
 Motivations for this project:
 - Understand the challenges in operationisation of ML models
 - Attempt to make a reality of “DevOps for AI” 
-- Integration of "closed box” processes (Azure ML Service) with real DevOps approach
+- Integration of "closed box" processes (e.g. *Azure ML Services*) with real DevOps approach
 
 
 **💬 Why "Project Batcomputer"?**  
@@ -18,7 +18,7 @@ The main model trained and used as the foundation of the project is based on cri
 Some of the main themes that make up the project:
 - Wrapper app that allows the model to be run as a RESTful web API
 - Continuous integration with *Azure Pipelines*
-- Use of Azure ML Service and Python SDK
+- Use of *Azure ML Service* and Python SDK
 - Training Python notebooks that carry out the machine learning using Scikit-Learn 
 - Infrastructure as code deployments into Azure
 - Use of containers and Kubernetes
@@ -80,24 +80,33 @@ If your main interest is in the ML and training side of things, I suggest you lo
 
 ## Technology Stack
 - [Azure Machine Learning Service](https://docs.microsoft.com/en-gb/azure/machine-learning/service/)
-- [Python 3]((https://www.python.org/))
+- [Python 3](https://www.python.org/)
 - [Scikit-Learn](https://scikit-learn.org/stable/)
 - [Pandas](https://pandas.pydata.org/)
 
+## Use of Azure ML Service
+!TODO!
+
 ## Full Documentation
+
+#### [📃 Azure ML Orchestration Scripts](/aml)
 
 #### [📃 Python Training Scripts](/training)
 
 ---
 
-# Model API service / Wrapper App
-The model API wrapper is a Python Flask app, designed to wrap the model with a REST based API. It is standalone, lightweight and designed to run in a container
+# Model API / Wrapper App
+The model API wrapper is a Python *Flask* app, designed to wrap and "serve" the model over a HTTP REST based API. It is standalone, lightweight and designed to run in a container
 
 ## Technology Stack
-![Model API technology stack](docs/api-stack.png){: .framed .padded}
+- [Flask](http://flask.pocoo.org/)
+- [Gunicorn](https://gunicorn.org/)
+- [Pickle](https://docs.python.org/3.6/library/pickle.html)
+- [Swagger](https://swagger.io/docs/specification/about/)
+- [Python 3](https://www.python.org/)
 
 ## Full Documentation
-#### [📃 Model API service - Full Docs](/model-api)
+#### [📃 Model API - Full Docs](/model-api)
 
 ---
 

@@ -25,15 +25,15 @@ These steps all assume the model pickle files have **already been trained and ar
 You must work from the `/model-api` directory not the root of the project
 
 ## Running Directly in Python
-- Create Python virtual environment `python3 -m venv pyvenv`
-- Activate virtual environment `source ./pyvenv/bin/activate`
-- Install requirements `pip3 install -r requirements.txt`
-- Run `python3 src/server.py`
+- Follow the [Python Environment steps in the setup guide](../docs/setup#python-environment)
+- `python ../aml/fetch-model.py`
+- Run `python src/server.py`
 
 ## Building Container Image
 Manually building and tagging the container locally is done as follows:
 
-- Carry out the steps in [Local Development](#local-development) above
+- Follow the [Python Environment steps in the setup guide](../docs/setup#python-environment)
+- `python ../aml/fetch-model.py`
 - `docker build . -f Dockerfile -t batcomputer-api`
 - `docker run -p 8000:8000 batcomputer-api`
 
