@@ -63,10 +63,10 @@ if not os.environ.get('AZML_RUN_LOCAL', 'false') == "true":
 else:
   # OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env
   runConfig.environment.python.user_managed_dependencies = True
-  runConfig.environment.python.interpreter_path = "/home/ben/dev/py-venv/linux/bin/python3"
+  runConfig.environment.python.interpreter_path = os.environ['VIRTUAL_ENV'] + "/bin/python"
   print(f"### Will execute script {trainingScriptDir}/{trainingScript} on LOCAL compute")
 
-
+# Pass two args to the training script
 scriptArgs = ["--data-path", "/tmp/"+dataPathRemote, "--estimators", estimators]
 scriptRunConf = ScriptRunConfig(source_directory = trainingScriptDir, script = trainingScript, arguments = scriptArgs, run_config = runConfig)
 
