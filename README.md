@@ -37,7 +37,7 @@ It was a design goal of the project not to present a dumb wrapper around the sco
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into three main sections, and to make those sections as standalone as possible:
 
 - [Model training & machine learning](#machine-learning--training)
-- [Wrapping the model in an API service](#model-api-service--wrapper-app)
+- [Wrapping the model in an API service](#model-api--wrapper-app)
 - [DevOps CI/CD automation & pipelines](#devops-cicd)
 
 ## Repo Structure
