@@ -1,3 +1,5 @@
-# Azure Resource Manager Templates
+# Azure Scripts / Templates
 
-Work in progress
+## [ACI Deployment ARM Template](./aci-arm-template)
+
+## [Deploy Azure ML SCript](./aml-script)

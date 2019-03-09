@@ -36,7 +36,7 @@ It was a design goal of the project not to present a dumb wrapper around the sco
 ## Project Index
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into three main sections, and to make those sections as standalone as possible:
 
-- [Model training & machine learning in DataBricks](#machine-learning--training)
+- [Model training & machine learning](#machine-learning--training)
 - [Wrapping the model in an API service](#model-api-service--wrapper-app)
 - [DevOps CI/CD automation & pipelines](#devops-cicd)
 
@@ -79,7 +79,7 @@ The provided code has been written by someone learning ML and trying it for the 
 If your main interest is in the ML and training side of things, I suggest you look elsewhere, there are thousands of excellent resources available on this topic
 
 ## Technology Stack
-- [Azure DataBricks](https://docs.microsoft.com/en-gb/azure/machine-learning/service/)
+- [Azure Machine Learning Service](https://docs.microsoft.com/en-gb/azure/machine-learning/service/)
 - [Python 3]((https://www.python.org/))
 - [Scikit-Learn](https://scikit-learn.org/stable/)
 - [Pandas](https://pandas.pydata.org/)
@@ -106,7 +106,7 @@ The model API wrapper is a Python Flask app, designed to wrap the model with a R
 ![End to end DevOps flow](docs/devops-flow.png){: .framed .padded}
 
 ## Azure DevOps Pipelines
-Azure Pipelines (part of Azure DevOps) is used to provide CI/CD automation. These carry out the Docker build of the model API image and also integrates with DataBricks for running the training jobs via a CI trigger
+Azure Pipelines (part of Azure DevOps) is used to provide CI/CD automation. These drive the whole process; data-prep, training and building of the API - plus deployment
 #### [📃 DevOps Pipelines - Full Docs](/pipelines)
 
 ## Infrastructure as Code
