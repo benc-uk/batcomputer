@@ -25,20 +25,20 @@ You can use the [provided script](../azure) to create one or use the Azure Porta
 ## Environmental Variables
 The scripts make heavy use of system environmental variables, this allows them to used in Azure DevOps pipelines, where pipeline variables are automatically passed into scripts as environmental variables
 
-|Variable Name|Purpose|Required By|
-|---|---|---|---|
-|`AZML_WORKSPACE`|Name of your AML workspace|All scripts|
-|`AZML_RESGRP`|Resource group containing your workspace|All scripts|
-|`AZML_SUBID`|Azure subscription ID|All scripts|
-|`AZML_DATAPATH`|Location in remote AML datastore to hold data, can simply be a name, e.g. `batcomputer-data`|upload-data.py, run-training.py|
-|`AZML_SCRIPT`|Model training script to be run by AML, must be located in the `training/` directory, e.g. `scikit-batcomputer.py` |run-training.py|
-|`AZML_EXPERIMENT`|Name of experiment in AML, will be created if doesn't exist. e.g. `batcomputer` |run-training.py|
-|`AZML_MODEL`|Name of model to be registered in AML, will be created if doesn't exist. e.g. `batcomputer-model` |run-training.py, fetch-model.py|
-|`AZML_RUN_LOCAL`|When set to `true` run the training through AML but execute locally|run-training.py (OPTIONAL)|
-|`AZML_COMPUTE_NAME`|Name of AML Compute cluster, will be created if it doesn't exist, e.g. `demo-cluster`|run-training.py|
-|`AZML_COMPUTE_VMSIZE`|VM size used by AML Compute cluster, e.g. `Standard_D3_v2`|run-training.py|
-|`AZML_COMPUTE_MAX_NODES`|Max number of nodes in the cluster, e.g. `3`|run-training.py|
-|`AZML_COMPUTE_MIN_NODES`|Min number of nodes in the cluster, e.g. `0`|run-training.py|
+| Variable Name            | Purpose                                                                                                            | Required By                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
+| `AZML_WORKSPACE`         | Name of your AML workspace                                                                                         | All scripts                     |
+| `AZML_RESGRP`            | Resource group containing your workspace                                                                           | All scripts                     |
+| `AZML_SUBID`             | Azure subscription ID                                                                                              | All scripts                     |
+| `AZML_DATAPATH`          | Location in remote AML datastore to hold data, can simply be a name, e.g. `batcomputer-data`                       | upload-data.py, run-training.py |
+| `AZML_SCRIPT`            | Model training script to be run by AML, must be located in the `training/` directory, e.g. `scikit-batcomputer.py` | run-training.py                 |
+| `AZML_EXPERIMENT`        | Name of experiment in AML, will be created if doesn't exist. e.g. `batcomputer`                                    | run-training.py                 |
+| `AZML_MODEL`             | Name of model to be registered in AML, will be created if doesn't exist. e.g. `batcomputer-model`                  | run-training.py, fetch-model.py |
+| `AZML_RUN_LOCAL`         | When set to `true` run the training through AML but execute locally                                                | run-training.py (OPTIONAL)      |
+| `AZML_COMPUTE_NAME`      | Name of AML Compute cluster, will be created if it doesn't exist, e.g. `demo-cluster`                              | run-training.py                 |
+| `AZML_COMPUTE_VMSIZE`    | VM size used by AML Compute cluster, e.g. `Standard_D3_v2`                                                         | run-training.py                 |
+| `AZML_COMPUTE_MAX_NODES` | Max number of nodes in the cluster, e.g. `3`                                                                       | run-training.py                 |
+| `AZML_COMPUTE_MIN_NODES` | Min number of nodes in the cluster, e.g. `0`                                                                       | run-training.py                 |
 
 When running locally these variables should be set in the `.env` file
 

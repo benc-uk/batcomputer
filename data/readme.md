@@ -9,7 +9,7 @@ The data used for training the Batcomputer model was obtained from https://data.
 
 This data is too large to commit into Git, so the data has been zipped and put on Blob storage here: 
 
-#### https://bcmisc.blob.core.windows.net/shared/crime.zip 
+#### [https://bcmisc.blob.core.windows.net/shared/crime.zip](https://bcmisc.blob.core.windows.net/shared/crime.zip)
 
 This is the data downloaded from the the above URL, for all forces, for all of 2017.  
 There is no need to unzip the data, this is done by the training script
