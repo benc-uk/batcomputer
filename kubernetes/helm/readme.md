@@ -1,9 +1,13 @@
 # Batcomputer Helm Chart
 
-Simple *Helm* chart to deploy the model API image from *Azure Container Registry* to Kubernetes, and expose using an Ignress
+Simple *Helm* chart to deploy the model API image from *Azure Container Registry* to Azure Kubernetes Service, and expose using an Ignress
+
+# Prereqs
+Make sure Helm is setup in your cluster, [follow this guide](https://docs.microsoft.com/azure/aks/kubernetes-helm)
 
 Make a copy of `values.sample.yaml` and name it something like `myvalues.yaml`
 
+# Chart Values
 The values used by the chart are explained in the comments
 Values that must be set are `registryPrefix`, `image` and `modelVersion`. If you built the image using the supplied Azure Pipeline then `image` will not need to change
 
@@ -29,13 +33,14 @@ api:
   modelVersion: 1
 ```
 
+# Installing the Chart
 Deploy using Helm with a released called "demo"
 ```
 cd kubernetes/helm
 helm upgrade demo batcomputer -i -f myvalues.yaml
 ```
 
-## Continuous Deployment
+# Continuous Deployment
 The steps to deploy using *Azure Pipelines* are as follows:
 ```yaml
 steps:
