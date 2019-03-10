@@ -2,7 +2,7 @@
 {{- $ingressName := (printf "%s-ingress" (include "batcomputer.fullname" .)) -}}
 {{- $certName := (printf "%s-cert" (include "batcomputer.fullname" .)) -}}
 
-{{ if .Values.domainSuffix }}
+{{ if .Values.domainName }}
 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -21,11 +21,11 @@ spec:
   {{ if .Values.cmCertIssuer }}
   tls:
   - hosts:
-    - "{{ .Values.domainSuffix }}"
+    - "{{ .Values.domainName }}"
     secretName: "{{ $certName }}"
   {{ end }}
   rules:
-  - host: "{{ .Values.domainSuffix }}"
+  - host: "{{ .Values.domainName }}"
     http:
       paths:
       - path: "/{{ .Release.Name }}"

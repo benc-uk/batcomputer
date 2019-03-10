@@ -34,13 +34,13 @@ This project took an approach of not just serializing the trained/fitted model a
 Using these two files, the model API wrapper has enough information that can present a more RESTful and developer friendly API
 
 For example, rather than:
-```http
+```
 POST /api/predict
 { [27, 19, 10] }
 ```
 
 Batcomputer API looks like:
-```http
+```
 POST /api/predict
 {  
   "force": "Thames Valley Police",
@@ -115,8 +115,6 @@ ARM Template(s) for standing up the wrapper API app using Azure Container Instan
 A Helm chart will deploy the wrapper model API app and configure a Kubernetes Ingress to route traffic to it.
 #### [📃 Helm Chart - Docs](/kubernetes/helm)
 
-
-
 ---
 
 # Machine Learning & Training
@@ -127,7 +125,7 @@ Two ML use cases are provided; one for Batcomputer (based on the crime data desc
 The scripts for training can either be run locally, or run within Azure ML Service as a experiment
 
 **⚡ Important!**  
-The provided code has been written by someone learning ML and trying it for the first time. It was not developed by a data scientist or someone with a background in AI. It does not represent any sort of best practice or optimal way of training a ML model with Scikit/Python or analyzing the data. However it is functional, and the resulting models serves the purposes of this project adequately 
+The provided code has been written by someone learning ML and trying it for the first time. It was not developed by a data scientist or someone with a background in AI. It does not represent any sort of best practice or exemplary way of training a classifier model with Scikit/Python or analyzing the data. However it is functional, and the resulting models serves the purposes of this project adequately 
 
 If your main interest is in the ML and training side of things, I suggest you look elsewhere, there are thousands of excellent resources available on this topic
 

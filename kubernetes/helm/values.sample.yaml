@@ -1,20 +1,23 @@
 #
-# SAMPLE FILE - make a copy of this with your values in
+# SAMPLE FILE - Make a copy of this with your values in!
 #
 
-# Change to blank string to pull from Docker Hub
+# Change to the name of your ACR instance
 registryPrefix: changeme.azurecr.io/
 
 # Leave blank if not using DNS with your ingress
-# Get the name of your AKS DNS zone by running `az network dns zone list -o table`
+# If you have enabled the HTTP routing add on you may set the DNS zone here
 domainSuffix: batcomputer.changeme.region.aksapp.io
 
-# If using cert-manager to issue TLS certs for HTTPS support 
-# Leave blank if you haven't set up cert-manager to disable HTTPS
+# Change if not using AKS with HTTP routing add on, otherwise ignore
+ingressClass: addon-http-application-routing
+
+# Leave blank if you haven't set up cert-manager, and HTTPS will not be used
 cmCertIssuer: 
 
+# Model API settings, change image and modelVersion as required
 api:
-  image: devops-ai/foobar
+  image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
-  imageTag: 1
+  modelVersion: 1

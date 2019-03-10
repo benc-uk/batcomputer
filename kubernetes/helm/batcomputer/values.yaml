@@ -6,7 +6,7 @@
 registryPrefix: 
 
 # Leave blank if not using DNS with your ingress
-domainSuffix: 
+domainName: 
 
 # Change if not using AKS with HTTP routing 
 ingressClass: addon-http-application-routing
@@ -19,4 +19,4 @@ api:
   image: 
   replicas: 1
   imagePullPolicy: Always
-  imageTag: 1
+  modelVersion: 1

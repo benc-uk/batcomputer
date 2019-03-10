@@ -25,7 +25,7 @@ spec:
       containers:
       - name: {{ $name }}
 
-        image: "{{ .Values.registryPrefix }}{{ .Values.api.image }}:{{ .Values.api.imageTag }}"
+        image: "{{ .Values.registryPrefix }}{{ .Values.api.image }}:{{ .Values.api.modelVersion }}"
         imagePullPolicy: {{ .Values.api.imagePullPolicy }}
 
         ports:

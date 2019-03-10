@@ -6,7 +6,7 @@ The app will load the trained model and other pickle files at startup from the l
 
 The app has been designed to be as re-usable and generic as possible, so it can serve a range of models, assuming they have been developed and trained with Scikit-learn, and the corresponding `lookup.pkl` and `flags.pkl` are also provided
 
-For more info on the model, pickle files and this project's approach to model metadata [please refer to the main docs](../#models-metadata-and-api-design)
+For more information on the model, pickle files and this project's approach to metadata [please refer to the main docs](../#models-metadata-and-api-design)
 
 ## Source Code
 Source is located in the [`./src`](./src) directory

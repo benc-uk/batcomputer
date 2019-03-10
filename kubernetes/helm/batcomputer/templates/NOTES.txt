@@ -1,10 +1,16 @@
-Batcomputer has been deployed! Wow that was easy!
-===========================================
-{{ if .Values.domainSuffix }}
+Batcomputer API has been deployed! Wow that was easy!
+=====================================================
+{{ if .Values.domainName }}
 {{ if .Values.cmCertIssuer }} 
-The app is accessible at https://{{ .Values.domainSuffix }}/{{ .Release.Name }} 
+The app is accessible at https://{{ .Values.domainName }}/{{ .Release.Name }}/api 
 {{ else }}
-The app is accessible at http://{{ .Values.domainSuffix }}/{{ .Release.Name }}
+The app is accessible at http://{{ .Values.domainName }}/{{ .Release.Name }}/api
 {{ end }}
 It might take a while for the DNS record to be created & propagate, so please wait.
+{{ else }}
+No domainName specified, access the API with the IP of your Ingress controller
+Get the IP address of your Ingress by running these two commands:
+
+export INGRESS_IP=$(kubectl get svc addon-http-application-routing-nginx-ingress -n kube-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}{"\n"}')
+echo "The app is accessible at http://$INGRESS_IP/{{ .Release.Name }}/api"
 {{ end }}

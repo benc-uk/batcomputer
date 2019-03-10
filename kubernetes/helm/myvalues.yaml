@@ -1,10 +1,9 @@
 registryPrefix: bencmldemo3408602738.azurecr.io/
-domainSuffix: batcomputer.56539f01234e4e00981e.westeurope.aksapp.io
+domainName: batcomputer.56539f01234e4e00981e.westeurope.aksapp.io
 #cmCertIssuer: letsencrypt-staging
-cmCertIssuer: 
 
 api:
   image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
-  imageTag: 1
+  modelVersion: 44
