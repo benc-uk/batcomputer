@@ -7,14 +7,25 @@ variables:
   # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
   - group: shared-variables
 
-  - name: SCRIPT_NAME
-    value: upload-data.py
-
-  - name: SCRIPT_ARGS
-    value: --data-dir ../data/batcomputer
-
   - name: AZML_DATAPATH
     value: batcomputer-data
     
 steps:
-- template: templates/run-aml-python.yml
+- task: UsePythonVersion@0
+  displayName: Use Python 3.6
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+
+- bash: |
+    pip3 install -r requirements.txt
+  workingDirectory: aml
+  displayName: Install pip package requirements
+
+- task: AzureCLI@1
+  displayName: Run AML upload data script
+  inputs:
+    azureSubscription: $(AZURE_SVC_CONNECTION)
+    scriptLocation: inlineScript
+    inlineScript: python upload-data.py --data-dir ../data/batcomputer
+    workingDirectory: aml

@@ -15,9 +15,6 @@ variables:
   # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_COMPUTE_NAME
   - group: shared-variables
 
-  - name: SCRIPT_NAME
-    value: run-training.py
-
   - name: AZML_DATAPATH
     value: batcomputer-data
 
@@ -31,4 +28,21 @@ variables:
     value: scikit-batcomputer.py
 
 steps:
-- template: templates/run-aml-python.yml
+- task: UsePythonVersion@0
+  displayName: Use Python 3.6
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+
+- bash: |
+    pip3 install -r requirements.txt
+  workingDirectory: aml
+  displayName: Install pip package requirements
+
+- task: AzureCLI@1
+  displayName: Run AML training script
+  inputs:
+    azureSubscription: $(AZURE_SVC_CONNECTION)
+    scriptLocation: inlineScript
+    inlineScript: python run-training.py --estimators 120
+    workingDirectory: aml

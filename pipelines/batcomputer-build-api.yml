@@ -14,12 +14,6 @@ variables:
   # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
   - group: shared-variables
 
-  - name: SCRIPT_NAME
-    value: fetch-model.py
-
-  # - name: SCRIPT_ARGS
-  #   value: --use-best
-
   - name: AZML_MODEL
     value: batcomputer-model
 
@@ -27,7 +21,24 @@ variables:
     value: batcomputer
 
 steps:
-- template: templates/run-aml-python.yml
+- task: UsePythonVersion@0
+  displayName: Use Python 3.6
+  inputs:
+    versionSpec: '3.6'
+    addToPath: true 
+
+- bash: |
+    pip3 install -r requirements.txt
+  workingDirectory: aml
+  displayName: Install pip package requirements
+
+- task: AzureCLI@1
+  displayName: Run AML fetch model script
+  inputs:
+    azureSubscription: $(AZURE_SVC_CONNECTION)
+    scriptLocation: inlineScript
+    inlineScript: python fetch-model.py 
+    workingDirectory: aml
 
 # Note. AZML_MODEL_VER will be set after running fetch-model.py in above step
 - script: |
