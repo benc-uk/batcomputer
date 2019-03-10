@@ -40,6 +40,7 @@ The steps to do this are always the same in all of the pipelines:
   - Run `pip install -r aml/requirements`
 - **Run AML script**
   - Runs `python <<script>>.py`
+  - ⚡ Note! This step is run as an 'Azure CLI' task. This might seem an unusual way to run a Python script but it provides a convenient way to authenticate with Azure. The Azure ML SDK will use Azure CLI credential tokens if it finds them, so using this task omits the need to setup a dedicated service principal
 
 ## Pipeline: data-load.yml
 This runs the `upload-data.py` AML script, required environmental variables are set to run the script as outlined in the [AML script documentation](../aml) and calls the script with a corresponding `--data-dir` argument
