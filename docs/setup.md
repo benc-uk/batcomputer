@@ -12,6 +12,7 @@ You MUST fork this repo to your own GitHub account before proceeding, and then c
 - Azure Subscription
 - Azure DevOps Account, you can [create a new free account here](https://azure.microsoft.com/en-gb/services/devops/)
 
+
 # Python Environment
 It's strongly advised to use a Python [virtual environment](https://docs.python.org/3.6/tutorial/venv.html), but it is not mandatory. If you are comfortable with using Python or have an existing virtual environment setup that you use, then that can used instead.
 
@@ -24,6 +25,7 @@ From root of batcomputer project directory
 - `.\pyenv\Scripts\activate` (Windows)
 - `pip install -r aml/requirements.txt`
 - `pip install -r model-api/requirements.txt`
+
 
 # Azure Setup
 The only resource required in Azure is an 'Azure Machine Learning workspace', to create one of these, there are several options:
@@ -42,13 +44,17 @@ When deployment is complete, make a note of the following things they will be ne
 - **Container Registry name**. Find this in the same resource group your deployed the workspace to, it will have an auto generated number prefix
 - **Container Registry password**. If you deployed using the provided script this will have been shown to you. If you didn't, then find it via the portal, it's under the 'Access keys' blade
 
+
 # Prepare Data
 Assuming you are training the Batcomputer model you will need to download the source/training data. For the Titanic model, data is included in the Git repo
 
 #### [Source Data Prep](../data)
 
+
 # Locally Test Azure ML Orchestration Scripts
-Detailed documentation is found in the [Azure ML Orchestration Scripts guide](../aml)
+Detailed documentation for this section is found in the docs for the 'Azure ML Orchestration Scripts'
+
+#### [Azure ML Orchestration Scripts - Docs](../aml)
 
 We assume the Batcomputer model is the training target, for the Titanic model modify the `.env` file and change the `--data-dir` path
 
@@ -62,15 +68,22 @@ In summary, the steps are:
   - **NOTE.** This will take about 10-15 minutes the first time you run it, as it creates a new cluster and builds Docker images for use with it, as well as the actual training.
 - Run `python fetch-model.py`
  
+
 # Locally Test Model API
-Detailed documentation is found in the [Model API guide](../model-api)
+Detailed documentation for this section is found in the docs for the 'model API'
+
+#### [Model API - Docs](../model-api)
 
 In summary, the steps are:
 - Remember to have the Python virtual environment enabled/activated
-- Ensure that `python fetch-model.py` from the above section has run
+- Ensure that training and `python fetch-model.py` from the above section has run
 - Work from the `model-api/` directory
 - Run `python src/server`
-- Open browser and access: `http://localhost:8000/api/info`
-- Test the model, the simplest way is using the Swagger UI `http://localhost:8000/api/docs` and using the "Try it out" option under the `/predict` API operation
-- For further testing use [Postman](https://www.getpostman.com/) and the provided [Postman Collection](../tests)
+- Open a browser and access: `http://localhost:8000/api/info`
 - Open the [Batcomputer client](../batclient) and test using the model from a Real Working Batcomputer!
+- For further testing use [Postman](https://www.getpostman.com/) and the provided [Postman Collection](../tests)
+
+
+# Setup Azure DevOps
+
+!TODO!
