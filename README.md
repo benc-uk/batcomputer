@@ -81,7 +81,7 @@ As there are a significant number of components, interactions & products involve
 - [DevOps CI/CD automation & pipelines](#devops-cicd)
 - [Model training & machine learning](#machine-learning--training)
 - [Wrapping the model in an API service](#model-api--wrapper-app)
-- [Batcomputer Client](#)
+- [Batcomputer Client](batclient/)
 
 ---
 
