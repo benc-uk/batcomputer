@@ -1,10 +1,16 @@
 # Deploy Azure ML
 This is a simple bash script to setup a new Azure ML Workspace
 
+If you don't fancy using this script, just [use the portal](https://docs.microsoft.com/en-us/azure/machine-learning/service/quickstart-get-started#create-a-workspace), see if I care...
+
 # Prereqs
-- Azure CLI
-- [WSL bash/zsh](https://docs.microsoft.com/en-us/windows/wsl/install-win10) prompt
-  - If you don't use WSL then [Azure Cloud Shell](https://shell.azure.com) can be used
+- [Linux bash, e.g. WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest)
+
+If you don't use WSL and/or don't have the Azure CLI installed then [Azure Cloud Shell](https://shell.azure.com) can be used
+
+⚠️ IMPORTANT [Install the 'CLI extension for Azure Machine Learning service'](https://docs.microsoft.com/en-us/azure/machine-learning/service/reference-azure-machine-learning-cli)
+
 
 # Usage
 - Edit deploy.sh and change

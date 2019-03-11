@@ -66,9 +66,7 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 ```
 
 ## Setup
-If you wish to setup this project in your own Azure subscription, a full guide is provided  
-**⚡ Important!**  
-It is strongly advised to fork this repo to your own GitHub account before proceeding, and then clone it. For the DevOps CI flows this is a requirement as webhooks and other git configuration is required
+This is a guide to setting this project up in your own Azure subscription and Azure DevOps account should you wish to learn from it or use it in demos.
 
 #### [📃 Setup Guide](/docs/setup)
 

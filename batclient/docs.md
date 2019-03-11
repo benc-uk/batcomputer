@@ -8,6 +8,6 @@ The app makes use of many recent CSS3 features such as animations, and has been 
 
 On start you will be prompted for the API endpoint URL, as the "connection to the mainframe" (this URL must end /api). After connecting you can then select a region, a crime and a month - and have Batcomputer use the model to predict the chances of getting caught for the crime.
 
-### [Batcomputer Client - GitHub](http://batcomputer.benco.io/batclient/)
+#### [Batcomputer Client - GitHub](http://batcomputer.benco.io/batclient/)
 
 ![Batcomputer Client Screenshot](../docs/batclient.png)
