@@ -43,7 +43,11 @@ The steps to do this are always the same in all of the pipelines:
   - ⚡ Note! This step is run as an 'Azure CLI' task. This might seem an unusual way to run a Python script but it provides a convenient way to authenticate with Azure. The Azure ML SDK will use Azure CLI credential tokens if it finds them, so using this task omits the need to setup a dedicated service principal
 
 ## Pipeline: data-load.yml
-This runs the `upload-data.py` AML script, required environmental variables are set to run the script as outlined in the [AML script documentation](../aml) and calls the script with a corresponding `--data-dir` argument
+First the zipped data is fetched from Blob storage with wget.
+
+Then runs the `upload-data.py` AML script, required environmental variables are set to run the script as outlined in the [AML script documentation](../aml) and calls the script with a corresponding `--data-dir` argument
+
+**Trigger:** None
 
 ## Pipeline: run-training.yml
 This runs the `run-training.py` AML script, required environmental variables are set to run the script as outlined in the [AML script documentation](../aml). As this is a pipeline that calls a script, which in turn runs another script up in AML, it can be confusing. 
@@ -52,6 +56,8 @@ For clarity:
 - The AML Python script `aml/run-training.py` ***runs inside the Azure DevOps build agent***, but the actual training is not taking place there.
 - `AZML_SCRIPT` The Python training script located in the `training/` directory, that will be executed by AML, ***runs on the remote compute cluster in Azure ML***
 
+**Trigger:** CI trigger, on code changes to: training/scikit-batcomputer.py, pipelines/batcomputer-training.yml & aml/run-training.py
+
 ## Pipeline: build-api.yml
 This runs the `fetch-model.py` AML script, required environmental variables are set to run the script as outlined in the [AML script documentation](../aml), no arguments are passed so the script will always fetch the latest model.
 
@@ -59,6 +65,7 @@ After this two more steps are carried out:
 - Runs `docker build` from the staged `model-api` directory and tag the image to be placed into ACR
 - Runs `docker login` and `docker push` to push the new image up to ACR
 
+**Trigger:** Dependency triggered after run-training pipeline, also CI trigger, on code changes to: model-api/*, pipelines/batcomputer-build-api.yml
 
 # Release Pipelines
 This section is on hold until YAML release pipelines are supported by Azure DevOps.  

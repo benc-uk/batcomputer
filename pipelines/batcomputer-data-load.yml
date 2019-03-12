@@ -11,6 +11,10 @@ variables:
     value: batcomputer-data
     
 steps:
+- bash: |
+    wget https://bcmisc.blob.core.windows.net/shared/crime.zip -O data/batcomputer/crime.zip
+  displayName: Download crime data from Blob store
+
 - task: UsePythonVersion@0
   displayName: Use Python 3.6
   inputs:
