@@ -2,7 +2,7 @@
 Project Batcomputer is a working example of DevOps applied to machine learning and the field of AI
 
 Motivations for this project:
-- Understand the challenges in operationisation of ML models
+- Understand the challenges in operationalization of ML models
 - Attempt to make a reality of “DevOps for AI” 
 - Integration of "closed box" processes (e.g. *Azure ML Services*) with real DevOps approach
 
@@ -66,9 +66,9 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 ```
 
 ## Setup
-This is a guide to setting this project up in your own Azure subscription and Azure DevOps account should you wish to learn from it or use it in demos.
+If you wish to setup this project in your own Azure subscription and or Azure DevOps account, this guide provides of the steps to do so:
 
-#### [📃 Setup Guide](/docs/setup)
+#### [📃 End to End Setup Guide](/docs/setup)
 
 ## Presentation Deck
 REMOVED PENDING UPDATE
@@ -116,9 +116,11 @@ A Helm chart will deploy the wrapper model API app and configure a Kubernetes In
 ---
 
 # Machine Learning & Training
-The primary focus of this project is on the operationisation aspects of machine learning, rather than the actual machine learning and the models themselves. In fact from the perspective of the model-api app and the CI/CD deployment flows the quality of the model and how it was trained & created is irrelevant
+The primary focus of this project is on the operationalization aspects of machine learning, rather than the "science" of machine learning and act of training. In fact from the perspective of the model-api app and the CI/CD deployment flows the quality of the model and how it was trained & created is irrelevant
 
 Two ML use cases are provided; one for Batcomputer (based on the crime data described above) and one for the well known "would you survive the Titanic?" used in many ML training examples
+
+The primary model is Batcomputer, the Titanic model is provided to demonstrate how the approach extends with little effort to other models, and is not "hard coded"
 
 The scripts for training can either be run locally, or run within Azure ML Service as a experiment
 
@@ -134,11 +136,11 @@ If your main interest is in the ML and training side of things, I suggest you lo
 - [Pandas](https://pandas.pydata.org/)
 
 ## Use of Azure ML Service
-*Azure Machine Learning service* (*Azure ML* or AML) provides SDKs and services to prep data, train, and deploy machine learning models. AML has a complete end to end workflow, including operationalization and deployment, however it skips many of the best practices of DevOps and is in effect "a closed box" and does not take account of CI/CD
+*Azure Machine Learning service* (*Azure ML* or AML) provides SDKs and services to prep data, train, and deploy machine learning models. Azure ML has a complete end to end workflow, including operationalization and deployment, however it skips many of the best practices of DevOps and is in effect "a closed box" and does not take account of CI/CD
 
-For this project AML is only used for training the model and traceability of the experiments runs, the operationalization part is handled outside of AML, using Azure DevOps Pipelines and infrastructure as code
+For this project Azure ML is only used for training the model and traceability of the experiments runs, the operationalization part is handled outside of Azure ML, using Azure DevOps Pipelines and infrastructure as code. It's this approach that is unique to this project
 
-Here we drive AML via a series of 'orchestration scripts', and it's these scripts which are called and executed by *Azure DevOps Pipelines*, these scripts provide much of the glue and integrate the AML process with a true DevOps CI/CD approach
+Azure ML is driven via a series of 'orchestration scripts', and it's these scripts which are called and executed by *Azure DevOps Pipelines*. These orchestration scripts provide much of the glue and integrate the Azure ML process with a true DevOps CI/CD approach
 
 ## Full Documentation
 

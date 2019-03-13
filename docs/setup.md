@@ -1,11 +1,11 @@
 # Batcomputer - End to End Setup
 
-If you wish to setup this project in your own Azure subscription, this provides (most? all?) of the steps to do so.  
+If you wish to setup this project in your own Azure subscription, this guide provides of the steps to do so.  
 
 **⚡ Important!**  
 You MUST fork the [main repo](https://github.com/benc-uk/batcomputer) to your own GitHub account before proceeding, and then clone it if you want to work with it locally. For the DevOps Pipelines this is a requirement as webhooks and other git configuration is required
 
-Optionally you can [import this repo](https://docs.microsoft.com/en-gb/azure/devops/repos/git/import-git-repository?view=azure-devops) into an private Azure Repo, you need an Azure DevOps project first. See the steps below
+Alternatively you can [import this repo](https://docs.microsoft.com/en-gb/azure/devops/repos/git/import-git-repository?view=azure-devops) into an private Azure Repo, you need an Azure DevOps project first. See the steps below
 
 ## Prereqs
 - Python 3.6 
@@ -14,7 +14,7 @@ Optionally you can [import this repo](https://docs.microsoft.com/en-gb/azure/dev
 - Azure Subscription
 - Azure DevOps Account, you can [create a new free account here](https://azure.microsoft.com/en-gb/services/devops/)
 
-**💬 Note.** You can jump straight to the Azure DevOps part if you don't want to try to testing/running locally. This skips any requirement for Python 
+**💬 Note.** You can jump straight to the [Azure DevOps part](#setup-azure-devops) if you don't want to try to testing/running locally. This skips any requirement for Python 
 
 
 # Python Environment
@@ -34,7 +34,7 @@ From root of batcomputer project directory
 # Azure Setup
 The only resource required in Azure is an 'Azure Machine Learning workspace', to create one of these, there are several options:
 
-- A [Deployment Script](../azure/aml-script) is provided as a convenience
+- A [📃 Deployment Script](../azure/aml-script) is provided as a convenience
 - [The Azure Portal](https://docs.microsoft.com/en-us/azure/machine-learning/service/quickstart-get-started#create-a-workspace)
 - Azure CLI
 
@@ -52,41 +52,41 @@ When deployment is complete, make a note of the following things they will be ne
 # Prepare Data
 Assuming you are training the Batcomputer model you will need to download the source/training data. For the Titanic model, data is included in the Git repo
 
-#### [Source Data Prep](../data)
+#### [📃 Source Data Prep](../data)
 
 
 # Locally Test Azure ML Orchestration Scripts
 Detailed documentation for this section is found in the docs for the 'Azure ML Orchestration Scripts'
 
-#### [Azure ML Orchestration Scripts - Docs](../aml)
+#### [📃 Azure ML Orchestration Scripts - Docs](../aml)
 
-We assume the Batcomputer model is the training target, for the Titanic model modify the `.env` file and change the `--data-dir` path
+
 
 In summary, the steps are:
 - Create `.env` file and populate/update variables as described in the above guide
 - Remember to have the Python virtual environment enabled/activated
 - Work from the `aml/` directory
 - Run `python upload-data.py --data-dir ../data/batcomputer`  
-  - This make take several minutes as 250Mb is uploaded
+  - This may take several minutes as 250Mb is uploaded
 - Run `python run-training.py`
-  - **NOTE.** This will take about 10-15 minutes the first time you run it, as it creates a new cluster and builds Docker images for use with it, as well as the actual training. See notes below on ["What happens in AML?"]()
+  - **NOTE.** This will take about 10-15 minutes the first time you run it, as it creates a new cluster and builds Docker images for use with it, as well as the actual training. See notes below on ["What happens in AML?"](#what-happens-in-azure-ml)
 - Run `python fetch-model.py`
- 
+
+These steps are for having the Batcomputer model as the training target, for the Titanic model modify the values in the `.env` file and change the `--data-dir` path
 
 # Locally Test Model API
 Detailed documentation for this section is found in the docs for the 'model API'
 
-#### [Model API - Docs](../model-api)
+#### [📃 Model API - Docs](../model-api)
 
 In summary, the steps are:
 - Remember to have the Python virtual environment enabled/activated
 - Ensure that training and `python fetch-model.py` from the above section has run
 - Work from the `model-api/` directory
 - Run `python src/server`
-- Open a browser and access: `http://localhost:8000/api/info`
-- Open the [Batcomputer client](../batclient) and test using the model from a Real Working Batcomputer!
-- For further testing use [Postman](https://www.getpostman.com/) and the provided [Postman Collection](../tests)
+- Test and try out the model, see [📃 Using The Model](#using-the-model) below
 
+---
 
 # Setup Azure DevOps
 This part requires you to sign up to Azure DevOps (which is free) and create an organization and a project
@@ -119,7 +119,7 @@ Create a variable group which will be used a shared by all pipelines
 - [Create a variable group](https://docs.microsoft.com/en-gb/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml)
 - Name the group `shared-variables`
 - Enable "Allow access to all pipelines"
-- Populate with the following variables, these are described in the [AML Scripts doc](../aml/#environmental-variables)
+- Populate with the following variables, these are described in the [📃 AML scripts doc](../aml/#environmental-variables)
 
 ```
 AZML_WORKSPACE
@@ -152,11 +152,12 @@ Three pipelines need to be created, the process is the same for all three:
 - Rename the pipeline `Batcomputer Load Data` (You can rename the pipeline while it is running)
 
 Repeat the process for:
-- `/pipelines/batcomputer-training.yml`, renaming the pipeline `Batcomputer Run Training`
+- `/pipelines/batcomputer-training.yml`, renaming the pipeline `Batcomputer Run Training`. This might take some time to run, see notes below on ["What happens in AML?"](#what-happens-in-azure-ml)
 - `/pipelines/batcomputer-build-api.yml`, renaming the pipeline `Batcomputer Build API`
 
 **💬 Note.** There is no reason to run the "Load Data" pipeline more than once. It's included as a repeatable pipeline for completeness 
 
+After the pipelines are created & run once, they should automatically trigger based on code pushes to the repo
 
 # DevOps Release Pipelines
 As of March 2019 YAML release pipelines are not available in Azure DevOps making it borderline impossible to share a re-usable pipeline for release/deployment
@@ -167,7 +168,7 @@ As of March 2019 YAML release pipelines are not available in Azure DevOps making
 - [📃 Helm Chart - Docs](../kubernetes/helm)
 
 ## Manually Deploying the API
-In order to manually deploy the API, you can create an Azure Container Instance from the built image quite simply
+In order to manually deploy the API from the built Docker image, you can create an Azure Container Instance quite easily
 
 These steps use the Azure CLI and Bash, for this you can use the [Azure Cloud Shell](https://shell.azure.com), select 'Bash' when prompted. The Azure Portal is another choice for doing this
 
@@ -180,7 +181,7 @@ workspace=MY_AML_NAME
 modelVer=1
 ```
 
-Then copy and paste this snippet into the bash session
+Then copy and paste this whole snippet into the bash session
 ```
 ACR_ID=$(az ml workspace show -n $workspace -g $resGrp --query "containerRegistry" -o tsv)
 ACR_NAME=$(az resource show --id $ACR_ID --query "name" -o tsv)
@@ -199,16 +200,17 @@ az container create \
 
 When the deployment is complete (should take about a minute), the URL to the deployed API will be output, which you can copy and use later
 
-Open the URL in the browser, if you see a 'Not Found' error page that means deployment was successful. Append `/info` to the URL and a JSON response will display status info and the model metadata 
+Open the URL in the browser, if you see a 'Not Found' error page that means deployment was successful. 
 
+Test and try out the model, see [📃 Using The Model](#using-the-model) below
 
 # What Happens in Azure ML?
 When running the training process you might want to observe what happens in AML, either during or after the run
 
-Use the Azure Portal and navigate to your AML Workspace:
+Use the [Azure Portal](https://portal.azure.com) and navigate to your AML Workspace:
 - Under **Compute** you should see a single target called "aml-cluster" and the number of nodes. It might be resizing and scaling up (e.g. from 0 -> 1) or running with 1 or more nodes (most likely 1)
   - The first time the cluster is used, a Docker image is created with all of the Python packages, this is done automatically but it does take time so expect a 10 minute delay in addition to the training on first run
-  - The cluster will resize down to 0 nodes after an hour, which means no costs are being incurred
+  - The cluster will resize down to 0 nodes after an hour, which means no costs are being incurred, it will automatically scale back up when needed, but this scalling also adds some additional delay
 - Under **Experiments** you should see the name of the experiment, e.g. "batcomputer"
   - Under the experiment you can see a summary & history of all the runs
   - Clicking into a run you can access logs and other details
@@ -217,5 +219,15 @@ Use the Azure Portal and navigate to your AML Workspace:
 - Under **Models** you should see the model names e.g. "batcomputer-model" and all of the versions that have been created
 
 
-
 # Using The Model
+There are a few ways to test and use the Batcomputer model
+
+The api-host might be `localhost` if testing locally or a FQDN if you deployed the API using Azure Container Instances
+
+- Open a browser and access: `http://{{api-host}}:8000/api/info` various information and model metadata should be shown
+- Open the [📃 Batcomputer Client](../batclient) and test using the model with a recreation of the 1960s Batcomputer. You need to provide the URL to your API when you first open the client page
+- For further testing use [Postman](https://www.getpostman.com/) and the provided [📃 Postman Collection](../tests)
+- Make a basic cURL request to get a prediction
+  ```
+  curl http://{{api-host}}:8000/api/predict -d '{"force":"Surrey Police", "crime": "Drugs", "month": 7}'
+  ```
