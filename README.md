@@ -68,10 +68,12 @@ The project doesn't represent a single codebase, there are multiple sets of arti
 ## Setup
 If you wish to setup this project in your own Azure subscription and or Azure DevOps account, this guide provides of the steps to do so:
 
-#### [📃 End to End Setup Guide](/docs/setup)
+#### [📃 End to End Setup Guide](/docs/setup.md)
 
 ## Presentation Deck
-REMOVED PENDING UPDATE
+This slide deck goes into more details about some of the motivations and shape of the project, and also provides a more visual guide to how it hangs together
+
+#### [📗 Slide Deck](/docs/Project%20Bat%20Computer.pdf)
 
 ## Project Table of Contents
 As there are a significant number of components, interactions & products involved in this project. An attempt has been made to break the things into four main sections, and to make those sections as standalone as possible:

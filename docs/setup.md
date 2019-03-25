@@ -10,7 +10,7 @@ Alternatively you can [import this repo](https://docs.microsoft.com/en-gb/azure/
 ## Prereqs
 - Python 3.6 
   - Earlier versions of Python can **NOT** be used
-  - Python for Windows or the Python that comes with WSL can be used
+  - Python for Windows or the Python that comes with WSL is fine
 - Azure Subscription
 - Azure DevOps Account, you can [create a new free account here](https://azure.microsoft.com/en-gb/services/devops/)
 
@@ -32,7 +32,7 @@ From root of batcomputer project directory
 
 
 # Azure Setup
-The only resource required in Azure is an 'Azure Machine Learning workspace', to create one of these, there are several options:
+The only resource required in Azure is an 'Azure Machine Learning workspace', to create one there are several options:
 
 - A [📃 Deployment Script](../azure/aml-script) is provided as a convenience
 - [The Azure Portal](https://docs.microsoft.com/en-us/azure/machine-learning/service/quickstart-get-started#create-a-workspace)
