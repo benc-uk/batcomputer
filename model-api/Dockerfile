@@ -9,7 +9,7 @@ RUN pip3 install -r requirements.txt
 
 # Add in our app and the pickle & metadata files
 WORKDIR /app
-ADD src .
+ADD src ./src/
 ADD pickles/*.pkl ./pickles/
 ADD pickles/*.json ./pickles/
 
@@ -19,5 +19,5 @@ ENV GUNICORN_CMD_ARGS "--bind=0.0.0.0:8000"
 EXPOSE 8000
 
 # Start the app via Gunicorn WSGI server
-CMD ["gunicorn", "--access-logfile", "-", "server"]
+CMD ["gunicorn", "--access-logfile", "-", "--chdir", "src", "server"]
 #CMD ["python3", "server.py"]
