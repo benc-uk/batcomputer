@@ -1,6 +1,6 @@
 scipy>=1.2.0
 numpy>=1.16.0
-scikit-learn==0.20.2
+scikit-learn==0.20.3
 flask>=1.0.0
 flask-swagger-ui>=3.18.0
 gunicorn>=19.9.0

@@ -58,7 +58,7 @@ if not os.environ.get('AZML_RUN_LOCAL', 'false') == "true":
   runConfig.target = computeTarget
   runConfig.environment.docker.enabled = True
   runConfig.auto_prepare_environment = True
-  runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn', 'pandas'])
+  runConfig.environment.python.conda_dependencies = CondaDependencies.create(conda_packages=['scikit-learn==0.20.3', 'pandas'])
   print(f"### Will execute script {trainingScriptDir}/{trainingScript} on REMOTE compute")
 else:
   # OR set up RunConfig to run local, needs a pre-set up Python 3 virtual env

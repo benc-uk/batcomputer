@@ -9,16 +9,17 @@ from swagger import register_swagger_ui, generate_swagger
 from predictor import Predictor
 
 # Pickle filenames
-MODEL_NAME  = './pickles/model.pkl'
-LOOKUP_NAME = './pickles/lookup.pkl'
-FLAGS_NAME  = './pickles/flags.pkl'
-METADATA_NAME  = './pickles/metadata.json'
+pickleFolder = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../pickles")
+print('### Looking for pickles in:', pickleFolder)
+MODEL_NAME  = pickleFolder + '/model.pkl'
+LOOKUP_NAME = pickleFolder + '/lookup.pkl'
+FLAGS_NAME  = pickleFolder + '/flags.pkl'
+METADATA_NAME  = pickleFolder + '/metadata.json'
 
 # Set up Flask
 application = Flask(__name__)
 
 # Load and initialize the model
-#initialize(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 predictor = Predictor(MODEL_NAME, LOOKUP_NAME, FLAGS_NAME)
 
 # Swagger stuff
