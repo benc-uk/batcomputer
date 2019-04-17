@@ -15,9 +15,8 @@ ADD pickles/*.json ./pickles/
 
 # Runtime configuration & settings
 ENV VERSION $VERSION
-ENV GUNICORN_CMD_ARGS "--bind=0.0.0.0:8000"
 EXPOSE 8000
 
 # Start the app via Gunicorn WSGI server
-CMD ["gunicorn", "--access-logfile", "-", "--chdir", "src", "server"]
-#CMD ["python3", "server.py"]
+CMD ["gunicorn", "--bind=0.0.0.0", "--access-logfile", "-", "--chdir", "src", "server"]
+#CMD ["python3", "src/server.py"]
