@@ -1,7 +1,7 @@
 # Project Batcomputer
-Project Batcomputer is a working example of DevOps applied to machine learning and the field of AI
-s
-Motivations for this project:
+Project Batcomputer is a working example of DevOps applied to machine learning and the field of AI.
+
+Some motivations behind this project:
 - Understand the challenges in operationalization of ML models
 - Attempt to make a reality of “DevOps for AI” 
 - Integration of "closed box" processes (e.g. *Azure ML Services*) with real DevOps approach
