@@ -22,7 +22,6 @@ databricks libraries install --cluster-id $CLUSTER_ID --pypi-package scikit-lear
 ```
 
 ## Create jobs
-REMOVE THIS SECTION FOR V2 AML EDITION!
  **IMPORTANT!** Before running, edit the JSON files and put the cluster id in the `existing_cluster_id` field
 ```
 databricks jobs create --json-file databricks/job-train-batcomputer-model.json
@@ -30,7 +29,6 @@ databricks jobs create --json-file databricks/job-train-titanic-model.json
 ```
 
 # Import Notebooks
-REMOVE THIS SECTION FOR V2 AML EDITION!
 Decide where you want to put the Notebooks and import them
 ```
 databricks workspace import notebooks/scikit-batcomputer.py /Shared/scikit-batcomputer -l python -o
@@ -38,7 +36,6 @@ databricks workspace import notebooks/scikit-titanic.py /Shared/scikit-titanic -
 ```
 
 # Create KeyVault Secret Scope
-REMOVE THIS SECTION FOR V2 AML EDITION!
 You will need details of both your Key Vault and storage key for this step
 If you deployed everything using the `deploy.sh` script then please use the output of that script
 

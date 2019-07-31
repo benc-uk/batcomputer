@@ -22,6 +22,8 @@ outputPath = args.output
 
 ws = connectToAML(os.environ['AZML_SUBID'], os.environ['AZML_RESGRP'], os.environ['AZML_WORKSPACE'])
 
+print(f"### Model name specified as: {os.environ['AZML_MODEL']}")
+
 if args.best:
   downloadPickles(ws, os.environ['AZML_MODEL'], outputPath, "best")
 if args.ver:
