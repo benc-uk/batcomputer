@@ -6,4 +6,5 @@ api:
   image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
-  modelVersion: 1 # ! DO NOT EDIT, CHANGED AT BUILD TIME !
+  # ! DO NOT EDIT, MODEL VERSION INJECTED AT BUILD TIME !
+  modelVersion: 1 
