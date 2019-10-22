@@ -50,7 +50,8 @@ steps:
     docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
   displayName: 'Push image into ACR'
 
-- bash: "sed 's/modelVersion: [0-9]\+/modelVersion: $(AZML_MODEL_VER)/' -i kubernetes/helm/release-values.yaml"
+- bash: |
+    sed 's/modelVersion: [0-9]\+/modelVersion: $(AZML_MODEL_VER)/' -i kubernetes/helm/release-values.yaml
   displayName: Inject model version into Helm value file
 
 - publish: kubernetes/helm
