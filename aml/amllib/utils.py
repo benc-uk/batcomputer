@@ -104,7 +104,7 @@ def getComputeAML(ws, name="amlcluster"):
       provisioning_config = AmlCompute.provisioning_configuration(vm_size = vmSize, 
                             min_nodes = nodesMin, 
                             max_nodes = nodesMax,
-                            idle_seconds_before_scaledown = 3600)
+                            idle_seconds_before_scaledown = 7200)
 
       # create the cluster
       compute_target = ComputeTarget.create(ws, name, provisioning_config)
