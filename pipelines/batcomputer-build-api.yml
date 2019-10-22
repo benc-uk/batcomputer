@@ -50,6 +50,6 @@ steps:
     docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
   displayName: 'Push image into ACR'
 
-- publish: kubernetes/
+- publish: kubernetes/helm
   artifact: helm-charts
   displayName: 'Publish Helm charts for release'
