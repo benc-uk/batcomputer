@@ -49,7 +49,17 @@ steps:
     docker login $(ACR_NAME).azurecr.io -u $(ACR_NAME) -p $(ACR_PASSWORD)
     docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
   displayName: 'Push image into ACR'
+  
+- bash: |
+    sed 's/modelVersion: [0-9]\+/modelVersion: $(AZML_MODEL_VER)/' -i kubernetes/helm/release-values.yaml
+  displayName: Inject model version into Helm value file
 
 - publish: kubernetes/helm
   artifact: helm-charts
   displayName: 'Publish Helm charts for release'
+- publish: azure/aci-arm-template
+  artifact: arm-template
+  displayName: 'Publish ARM template for release'
+- publish: tests
+  artifact: tests
+  displayName: 'Publish test definitions for release'  

@@ -57,3 +57,9 @@ steps:
 - publish: kubernetes/helm
   artifact: helm-charts
   displayName: 'Publish Helm charts for release'
+- publish: azure/aci-arm-template
+  artifact: arm-template
+  displayName: 'Publish ARM template for release'
+- publish: tests
+  artifact: tests
+  displayName: 'Publish test definitions for release'  
