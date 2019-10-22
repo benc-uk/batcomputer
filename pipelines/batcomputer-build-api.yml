@@ -49,3 +49,7 @@ steps:
     docker login $(ACR_NAME).azurecr.io -u $(ACR_NAME) -p $(ACR_PASSWORD)
     docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
   displayName: 'Push image into ACR'
+
+- publish: kubernetes/
+  artifact: helm-charts
+  displayName: 'Publish Helm charts for release'
