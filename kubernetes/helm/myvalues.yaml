@@ -1,5 +1,5 @@
 registryPrefix: bencmldemo3408602738.azurecr.io/
-domainName: batcomputer.56539f01234e4e00981e.westeurope.aksapp.io
+domainName: batcomputer.kube.benco.io
 #cmCertIssuer: letsencrypt-staging
 
 api:
