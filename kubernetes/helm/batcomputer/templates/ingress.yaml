@@ -13,7 +13,7 @@ metadata:
     kubernetes.io/ingress.class: {{ .Values.ingressClass }}
     {{ if .Values.cmCertIssuer }}
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    certmanager.k8s.io/cluster-issuer: {{ .Values.cmCertIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.cmCertIssuer }}
     {{ else }}
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     {{ end }}
