@@ -12,8 +12,14 @@ domainSuffix: batcomputer.changeme.region.aksapp.io
 # Change if not using AKS with HTTP routing add on, otherwise ignore
 ingressClass: addon-http-application-routing
 
-# Leave blank if you haven't set up cert-manager, and HTTPS will not be used
+# If using cert-manager to issue TLS certs for HTTPS support 
+# Leave blank if you haven't set up cert-manager to disable HTTPS
+# certName should be blank
 cmCertIssuer: 
+
+# If you have a static cert for domainName in a secret, put it here
+# cmCertIssuer should be blank
+certName:
 
 # Model API settings, change image and modelVersion as required
 api:

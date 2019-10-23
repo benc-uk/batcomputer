@@ -18,11 +18,15 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     {{ end }}
 spec:
-  {{ if .Values.cmCertIssuer }}
+  {{ if or .Values.cmCertIssuer .Values.certName }}
   tls:
   - hosts:
     - "{{ .Values.domainName }}"
+    {{ if .Values.certName }}
+    secretName: {{ .Values.certName }}
+    {{ else }}
     secretName: "{{ .Values.domainName | replace "." "" }}-cert"
+    {{ end }}
   {{ end }}
   rules:
   - host: "{{ .Values.domainName }}"

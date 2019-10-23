@@ -13,7 +13,12 @@ ingressClass: addon-http-application-routing
 
 # If using cert-manager to issue TLS certs for HTTPS support 
 # Leave blank if you haven't set up cert-manager to disable HTTPS
+# certName should be blank
 cmCertIssuer: 
+
+# If you have a static cert for domainName in a secret, put it here
+# cmCertIssuer should be blank
+certName:
 
 api:
   image: 

@@ -1,10 +1,11 @@
 registryPrefix: bencmldemo3408602738.azurecr.io/
 domainName: batcomputer.kube.benco.io
-cmCertIssuer: letsencrypt-staging
+#cmCertIssuer: letsencrypt-staging
+certName: kube-benco-io-cert
 
 api:
   image: batcomputer-model-api
   replicas: 1
   imagePullPolicy: Always
   # ! DO NOT EDIT, MODEL VERSION INJECTED AT BUILD TIME !
-  modelVersion: 1 
+  modelVersion: 57
