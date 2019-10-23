@@ -1,7 +1,6 @@
 {{- $apifullName := (printf "%s-api" (include "batcomputer.fullname" .)) -}}
 {{- $ingressName := (printf "%s-ingress" (include "batcomputer.fullname" .)) -}}
-# {{- $certName := (printf "%s-cert" (include "batcomputer.fullname" .)) -}}
-{{- $certName := (printf "%s-cert" (include "batcomputer.name" .)) -}}
+{{- $certName := (printf "%s-cert" (include "batcomputer.fullname" .)) -}}
 
 {{ if .Values.domainName }}
 
@@ -13,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: {{ .Values.ingressClass }}
     {{ if .Values.cmCertIssuer }}
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: {{ .Values.cmCertIssuer }}
     {{ else }}
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -23,7 +22,7 @@ spec:
   tls:
   - hosts:
     - "{{ .Values.domainName }}"
-    secretName: "{{ $certName }}"
+    secretName: "{{ .Values.domainName | replace "." "" }}-cert"
   {{ end }}
   rules:
   - host: "{{ .Values.domainName }}"
