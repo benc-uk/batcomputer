@@ -8,4 +8,4 @@ api:
   replicas: 1
   imagePullPolicy: Always
   # ! DO NOT EDIT, MODEL VERSION INJECTED AT BUILD TIME !
-  modelVersion: 57
+  modelVersion: 1
