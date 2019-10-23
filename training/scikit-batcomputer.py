@@ -121,12 +121,26 @@ print("#### Accuracy was:", accuracy)
 #print({crime: ci for ci, crime in enumerate(crime_encoder.classes_)})
 
 #crime = 3
-month = 7
+# month = 7
+# for ci, crime in enumerate(crime_encoder.classes_):
+#   for fi, force in enumerate(reported_by_encoder.classes_):
+#     ans = model.predict_proba([[fi, ci, month]])[0]
+#     run.log_row(name='Crime Index', force=fi, caught=ans[1], crime=crime)
+#     #print(crime, force, ans)
+import matplotlib.pyplot as plt
+month = 11 # Pick a random month
 for ci, crime in enumerate(crime_encoder.classes_):
+  xx = []
+  yy = []
   for fi, force in enumerate(reported_by_encoder.classes_):
     ans = model.predict_proba([[fi, ci, month]])[0]
+    xx.append(fi)
+    yy.append(ans[1])
     run.log_row(name='Crime Index', force=fi, caught=ans[1], crime=crime)
-    #print(crime, force, ans)
+  plt.plot(xx, yy, 'o', label=crime)
+
+plt.legend(loc='upper center', bbox_to_anchor=(1.15, 1.0), shadow=True, ncol=1)
+run.log_image(name='Crime Chart', plot=plt, description="Crimes vs Forces")
 
 #%%
 # =============================================================
