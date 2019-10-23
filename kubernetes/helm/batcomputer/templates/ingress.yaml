@@ -1,6 +1,7 @@
 {{- $apifullName := (printf "%s-api" (include "batcomputer.fullname" .)) -}}
 {{- $ingressName := (printf "%s-ingress" (include "batcomputer.fullname" .)) -}}
-{{- $certName := (printf "%s-cert" (include "batcomputer.fullname" .)) -}}
+# {{- $certName := (printf "%s-cert" (include "batcomputer.fullname" .)) -}}
+{{- $certName := (printf "%s-cert" (include "batcomputer.name" .)) -}}
 
 {{ if .Values.domainName }}
 
