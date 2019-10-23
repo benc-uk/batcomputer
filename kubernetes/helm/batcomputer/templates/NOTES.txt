@@ -1,5 +1,9 @@
-Batcomputer API has been deployed! Wow that was easy!
-=====================================================
+Batcomputer API has been deployed!
+==================================
+
+The model version was: {{ .Values.api.modelVersion }}
+##vso[task.setvariable variable=MODEL_VER]{{ .Values.api.modelVersion }}cd 
+
 {{ if .Values.domainName }}
 {{ if .Values.cmCertIssuer }} 
 The app is accessible at https://{{ .Values.domainName }}/{{ .Release.Name }}/api 

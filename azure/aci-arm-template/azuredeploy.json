@@ -92,6 +92,10 @@
     "apiEndpoint": {
       "value": "[concat('http://', variables('dnsPrefix'), '.', resourceGroup().location, '.azurecontainer.io', ':', variables('port'), '/api')]",
       "type": "string"
+    },
+    "modelVer": {
+      "value": "parameters('modelVersion')",
+      "type": "string"
     }
   }
 }
