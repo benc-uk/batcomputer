@@ -2,7 +2,7 @@ Batcomputer API has been deployed!
 ==================================
 
 The model version was: {{ .Values.api.modelVersion }}
-##vso[task.setvariable variable=MODEL_VER]{{ .Values.api.modelVersion }}cd 
+##vso[task.setvariable variable=MODEL_VER]{{ .Values.api.modelVersion }}
 
 {{ if .Values.domainName }}
 {{ if .Values.cmCertIssuer }} 
