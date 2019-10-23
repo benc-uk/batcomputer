@@ -155,7 +155,7 @@ Azure ML is driven via a series of 'orchestration scripts', and it's these scrip
 ---
 
 # Model API / Wrapper App
-The model API wrapper is a Python *Flask* app, designed to wrap and "serve" the model over a HTTP REST based API. It is standalone, lightweight and designed to run in a container. It consumes the `model.pkl`, `lookup.pkl` and `flags.pkl` files described above, and loads them at runtime
+The model API wrapper is a Python *Flask* app, designed to wrap and "serve" the model over a HTTP REST based API. It is standalone, lightweight and designed to run in a container. It consumes the `model.pkl`, `lookup.pkl` and `flags.pkl` files described above, and loads them at runtime.
 
 For more details see the full docs below
 

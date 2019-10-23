@@ -51,11 +51,9 @@ steps:
   displayName: 'Push image into ACR'
   
 - bash: |
-    sed 's/modelVersion: [0-9]\+/modelVersion: $(AZML_MODEL_VER)/' -i kubernetes/helm/release-values.yaml
-  displayName: Inject model version into Helm value file
-- bash: |
-    sed 's/"value": "!!model_ver!!"/"value": "$(AZML_MODEL_VER)"/' -i azure/aci-arm-template/azuredeploy.release-params.json
-  displayName: Inject model version into ARM params file
+    echo "echo \"##vso[task.setvariable variable=MODEL_VER]$(AZML_MODEL_VER)\"" > kubernetes/helm/model-ver.sh
+    echo "echo \"##vso[task.setvariable variable=MODEL_VER]$(AZML_MODEL_VER)\"" > azure/aci-arm-template/model-ver.sh
+  displayName: Create model-ver.sh script in output artifacts
 
 - publish: kubernetes/helm
   artifact: helm-charts
