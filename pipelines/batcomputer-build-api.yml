@@ -53,6 +53,9 @@ steps:
 - bash: |
     sed 's/modelVersion: [0-9]\+/modelVersion: $(AZML_MODEL_VER)/' -i kubernetes/helm/release-values.yaml
   displayName: Inject model version into Helm value file
+- bash: |
+    sed 's/"value": "!!model_ver!!"/"value": "$(AZML_MODEL_VER)"/' -i azure/aci-arm-template/azuredeploy.release-params.json
+  displayName: Inject model version into ARM params file
 
 - publish: kubernetes/helm
   artifact: helm-charts
