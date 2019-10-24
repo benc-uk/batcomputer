@@ -7,15 +7,6 @@ trigger:
     - model-api/*
     - pipelines/batcomputer-build-api.yml
 
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - model-api/*
-    - pipelines/batcomputer-build-api.yml
-
 queue:
   name: Hosted Ubuntu 1604
 

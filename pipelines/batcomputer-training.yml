@@ -8,17 +8,6 @@ trigger:
     - pipelines/batcomputer-training.yml
     - aml/run-training.py
 
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - training/scikit-batcomputer.py
-    - pipelines/batcomputer-training.yml
-    - aml/run-training.py
-
-
 queue:
   name: Hosted Ubuntu 1604
 
