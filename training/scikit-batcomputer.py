@@ -1,5 +1,5 @@
 #
-# Simple RandomForest machine learning using scikit
+# Simple RandomForest classifier machine learning using scikit
 # Ben C, 2019
 #
 
