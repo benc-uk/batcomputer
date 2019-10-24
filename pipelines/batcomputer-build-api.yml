@@ -21,17 +21,27 @@ variables:
     value: batcomputer
 
 steps:
+#
+# Set version of Python
+#
 - task: UsePythonVersion@0
   displayName: Use Python 3.6
   inputs:
     versionSpec: '3.6'
     addToPath: true 
 
+#
+# Install Python modules/requirements with pip
+#
 - bash: |
     pip3 install -r requirements.txt
   workingDirectory: aml
   displayName: Install pip package requirements
 
+#
+# Fetch the model pickles from Azure ML with fetch-model.py 
+# Note. AZML_MODEL_VER will be set by this step 
+#
 - task: AzureCLI@1
   displayName: Run AML fetch model script
   inputs:
@@ -40,21 +50,28 @@ steps:
     inlineScript: python fetch-model.py 
     workingDirectory: aml
 
-# Note. AZML_MODEL_VER will be set after running fetch-model.py in above step
+#
+# Build the Docker container and push to Azure Container Registry
+#
 - bash: |
     docker build model-api -f model-api/Dockerfile --build-arg VERSION=$(AZML_MODEL_VER) -t $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api:$(AZML_MODEL_VER)
   displayName: 'Build API container image'
-
 - bash: |
     docker login $(ACR_NAME).azurecr.io -u $(ACR_NAME) -p $(ACR_PASSWORD)
     docker push $(ACR_NAME).azurecr.io/$(AZML_MODEL)-api
   displayName: 'Push image into ACR'
 
+#
+# Create script in artifact outputs to allow release pipeline(s) to get the model version for this build
+#
 - bash: |
     echo "echo \"##vso[task.setvariable variable=MODEL_VER]$(AZML_MODEL_VER)\"" > kubernetes/helm/model-ver.sh
     echo "echo \"##vso[task.setvariable variable=MODEL_VER]$(AZML_MODEL_VER)\"" > azure/aci-arm-template/model-ver.sh
   displayName: Create model-ver.sh script in output artifacts
 
+#
+# Publish artifacts needed at release time
+#
 - publish: kubernetes/helm
   artifact: helm-charts
   displayName: 'Publish Helm charts for release'
