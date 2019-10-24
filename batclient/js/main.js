@@ -134,3 +134,16 @@ computeDone()
 if(API_ENDPOINT) {
   connect(API_ENDPOINT)
 }
+
+//
+// Key handler for silly thank you message, when 't' is pressed
+//
+document.addEventListener('keypress', e => {
+
+  if(e.code == 'KeyT') {
+    computeDone()
+    document.getElementById('computePanel').style.visibility = 'visible'
+    document.getElementById('panelText').innerHTML = "         🦇 Project Batcomputer 🦇\n         -=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    printOut("Thank<br>You!")
+  }
+});
