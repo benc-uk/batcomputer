@@ -24,7 +24,7 @@ parser.add_argument('--estimators', type=int, dest='estimators', help='number of
 args, unknown = parser.parse_known_args()
 
 data_folder = args.data_path or "../data/batcomputer/"
-n_estimators = args.estimators or 100
+n_estimators = args.estimators or 120
 
 # Get the AML run
 run = Run.get_context()
