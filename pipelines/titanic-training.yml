@@ -7,7 +7,16 @@ trigger:
     - training/scikit-titanic.py
     - pipelines/titanic-training.yml
     - aml/run-training.py
-pr: [master]
+
+pr:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - training/scikit-titanic.py
+    - pipelines/titanic-training.yml
+    - aml/run-training.py
 
 queue:
   name: Hosted Ubuntu 1604
