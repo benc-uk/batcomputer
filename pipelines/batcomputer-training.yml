@@ -27,22 +27,26 @@ variables:
   - name: AZML_SCRIPT
     value: scikit-batcomputer.py
 
-steps:
-- task: UsePythonVersion@0
-  displayName: Use Python 3.6
-  inputs:
-    versionSpec: '3.6'
-    addToPath: true 
+jobs:
+- job: runTraining
+  displayName: Train model in Azure ML 
 
-- bash: |
-    pip3 install -r requirements.txt
-  workingDirectory: aml
-  displayName: Install pip package requirements
+  steps:
+  - task: UsePythonVersion@0
+    displayName: Use Python 3.6
+    inputs:
+      versionSpec: '3.6'
+      addToPath: true 
 
-- task: AzureCLI@1
-  displayName: Run AML training script
-  inputs:
-    azureSubscription: $(AZURE_SVC_CONNECTION)
-    scriptLocation: inlineScript
-    inlineScript: python run-training.py --estimators 120
+  - bash: |
+      pip3 install -r requirements.txt
     workingDirectory: aml
+    displayName: Install pip package requirements
+
+  - task: AzureCLI@1
+    displayName: Run AML training script
+    inputs:
+      azureSubscription: $(AZURE_SVC_CONNECTION)
+      scriptLocation: inlineScript
+      inlineScript: python run-training.py --estimators 120
+      workingDirectory: aml

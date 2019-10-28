@@ -1,5 +1,6 @@
-#@host = batcomputer-test-46.westeurope.azurecontainer.io:8000
-#@host = batcomputer-test-48.westeurope.azurecontainer.io:8000
+#
+### Change host as required
+#
 @host = localhost:8000
 
 #
