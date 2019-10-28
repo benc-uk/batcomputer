@@ -7,9 +7,6 @@ trigger:
     - model-api/*
     - pipelines/batcomputer-build-api.yml
 
-queue:
-  name: Hosted Ubuntu 1604
-
 variables:
   # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP
   - group: shared-variables
@@ -23,7 +20,9 @@ variables:
 jobs:
 - job: buildAPI
   displayName: Build API container image
-    
+  pool:
+    vmImage: ubuntu-latest
+
   steps:
   #
   # Set version of Python

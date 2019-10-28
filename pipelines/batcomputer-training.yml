@@ -8,9 +8,6 @@ trigger:
     - pipelines/batcomputer-training.yml
     - aml/run-training.py
 
-queue:
-  name: Hosted Ubuntu 1604
-
 variables:
   # shared-variables group MUST contain: AZML_WORKSPACE, AZML_SUBID, AZML_RESGRP, AZML_COMPUTE_NAME
   - group: shared-variables
@@ -30,6 +27,8 @@ variables:
 jobs:
 - job: runTraining
   displayName: Train model in Azure ML 
+  pool:
+    vmImage: ubuntu-latest
 
   steps:
   - task: UsePythonVersion@0
