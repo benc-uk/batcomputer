@@ -31,15 +31,13 @@ jobs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install azureml-sdk
+        pip install pip install -r aml/requirements.txt
         python ./aml/fetch-model.py --output-path ./model-api-functions/models  
 
     - name: 'Install Python dependencies'
       shell: bash
       run: |
-        pushd $FUNCTION_DIR
-        pip install -r requirements.txt --target=".python_packages/lib/python3.6/site-packages"
-        popd
+        pip install -r $FUNCTION_DIR/requirements.txt --target=".python_packages/lib/python3.6/site-packages"
 
     # This step will use the access token from the Azure login step
     - name: 'Azure Functions deployment'
