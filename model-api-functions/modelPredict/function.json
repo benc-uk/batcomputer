@@ -2,7 +2,7 @@
   "scriptFile": "function.py",
   "bindings": [
     {
-      "authLevel": "anonymous",
+      "authLevel": "admin",
       "type": "httpTrigger",
       "direction": "in",
       "route": "predict",
