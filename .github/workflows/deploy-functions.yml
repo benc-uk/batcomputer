@@ -2,6 +2,9 @@ name: Deploy to Azure Functions
 
 on: [push]
 
+env:
+  FUNCTION_DIR: 'model-api-functions'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -9,12 +12,23 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+
+    - name: Install dependencies
+      run: |
+        cd $FUNCTION_DIR
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
     - name: Azure Functions deployment
       uses: Azure/functions-action@v1.1.3
       with:
         # Name of the Azure Function App
         app-name: modelpredict
         # Path to package or folder. *.zip or a folder to deploy
-        package: model-api-functions
+        package: ${{ env.FUNCTION_DIR }}
         # Credentials to connect to app service
         publish-profile: ${{ secrets.FUNCTION_APP_PUBPROFILE }}
