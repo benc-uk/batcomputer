@@ -1,0 +1,26 @@
+{
+  // "python.pythonPath": "C:\\Temp\\winvenv\\Scripts\\python.exe",
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  // "python.pythonPath": "C:\\Dev\\py-venv\\windows\\Scripts\\python.exe",
+  "workbench.colorCustomizations": {
+    "terminal.background": "#0e1018",
+    "terminal.ansiBlack": "#000",
+    "terminal.ansiBlue": "#59a1ff"
+  },
+  "appService.defaultWebAppToDeploy": "None",
+  "appService.zipIgnorePattern": [
+    ".vscode{,/**}"
+  ],
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+  "python.pythonPath": "/home/ben/dev/batcomputer/model-api/.venv/bin/python3",
+  "debug.internalConsoleOptions": "neverOpen",
+
+  "azureFunctions.deploySubpath": "model-api-functions",
+  "azureFunctions.scmDoBuildDuringDeployment": true,
+  "azureFunctions.pythonVenv": ".venv",
+  "azureFunctions.projectLanguage": "Python",
+  "azureFunctions.projectRuntime": "~3",
+}
