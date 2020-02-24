@@ -17,13 +17,13 @@ jobs:
       with:
         python-version: 3.6
 
-    - name: Install dependencies
+    - name: Install Python dependencies
+      shell: bash
       run: |
-        cd $FUNCTION_DIR
-        python -m venv .venv
-        source ./.venv/bin/activate
+        pushd $FUNCTION_DIR
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements.txt --target=".python_packages/lib/python3.6/site-packages"
+        popd
 
     - name: Azure Functions deployment
       uses: Azure/functions-action@v1.1.3
