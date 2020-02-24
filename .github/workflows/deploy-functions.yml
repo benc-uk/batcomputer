@@ -31,7 +31,7 @@ jobs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install pip install -r aml/requirements.txt
+        pip install -r aml/requirements.txt
         python ./aml/fetch-model.py --output-path ./model-api-functions/models  
 
     - name: 'Install Python dependencies'
