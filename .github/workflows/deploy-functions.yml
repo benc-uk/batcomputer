@@ -4,6 +4,10 @@ on: [push]
 
 env:
   FUNCTION_DIR: 'model-api-functions'
+  AZML_SUBID: '52512f28-c6ed-403e-9569-82a9fb9fec91'
+  AZML_RESGRP: 'Demo.AzureML'
+  AZML_WORKSPACE: 'bencmldemo'
+  AZML_MODEL: 'batcomputer-model'
 
 jobs:
   deploy:
@@ -12,20 +16,33 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python 3.6
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: 'Set up Python 3.6'
       uses: actions/setup-python@v1
       with:
         python-version: 3.6
+        
+    # This step will use the access token from the Azure login step
+    - name: 'Fetch model from Azure ML'
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install azureml-sdk
+        python ./aml/fetch-model.py --output-path ./model-api-functions/models  
 
-    - name: Install Python dependencies
+    - name: 'Install Python dependencies'
       shell: bash
       run: |
         pushd $FUNCTION_DIR
-        python -m pip install --upgrade pip
         pip install -r requirements.txt --target=".python_packages/lib/python3.6/site-packages"
         popd
 
-    - name: Azure Functions deployment
+    # This step will use the access token from the Azure login step
+    - name: 'Azure Functions deployment'
       uses: Azure/functions-action@v1.1.3
       with:
         # Name of the Azure Function App
@@ -33,4 +50,4 @@ jobs:
         # Path to package or folder. *.zip or a folder to deploy
         package: ${{ env.FUNCTION_DIR }}
         # Credentials to connect to app service
-        publish-profile: ${{ secrets.FUNCTION_APP_PUBPROFILE }}
+        #publish-profile: ${{ secrets.FUNCTION_APP_PUBPROFILE }}

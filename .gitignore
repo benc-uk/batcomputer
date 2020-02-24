@@ -113,5 +113,6 @@ swagger.json
 training/aml_config/**
 training/assets
 **.pkl
+metadata.json
 
 pyenv
