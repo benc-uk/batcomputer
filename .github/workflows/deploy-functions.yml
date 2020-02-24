@@ -1,10 +1,9 @@
-name: deployFunctionsApp
+name: Deploy to Azure Functions
 
 on: [push]
 
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,3 +16,5 @@ jobs:
         app-name: modelpredict
         # Path to package or folder. *.zip or a folder to deploy
         package: model-api-functions
+        # Credentials to connect to app service
+        publish-profile: ${{ secrets.FUNCTION_APP_PUBPROFILE }}
