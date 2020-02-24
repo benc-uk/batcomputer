@@ -37,7 +37,9 @@ jobs:
     - name: 'Install Python dependencies'
       shell: bash
       run: |
-        pip install -r $FUNCTION_DIR/requirements.txt --target=".python_packages/lib/python3.6/site-packages"
+        pushd $FUNCTION_DIR
+        pip install -r requirements.txt --target=".python_packages/lib/python3.6/site-packages"
+        popd
 
     # This step will use the access token from the Azure login step
     - name: 'Azure Functions deployment'
