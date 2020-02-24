@@ -1,7 +1,7 @@
 #
 ### Change host as required
 #
-@host = localhost:8000
+@host = localhost:7071
 
 #
 ### Get model API parameters

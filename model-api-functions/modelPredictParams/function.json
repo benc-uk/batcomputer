@@ -2,13 +2,13 @@
   "scriptFile": "function.py",
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "route": "predict",
+      "route": "predict/params",
       "name": "req",
       "methods": [
-        "post"
+        "get"
       ]
     },
     {

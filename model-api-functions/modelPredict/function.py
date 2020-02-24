@@ -32,7 +32,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     results = predictor.predict(request_dict)
 
     # Pass back results as JSON
-    return json.dumps(results)
+    return func.HttpResponse(json.dumps(results), mimetype='application/json')
 
   except KeyError as key_error:
     print('### KEY_ERROR:', str(key_error))
