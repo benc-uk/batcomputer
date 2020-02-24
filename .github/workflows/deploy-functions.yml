@@ -35,7 +35,7 @@ jobs:
 
     - name: 'Install Python dependencies'
       run: |
-        pip install -r $FUNCTION_DIR/requirements.txt --target="$FUNCTION_DIR/python_packages/lib/python3.6/site-packages"
+        pip install -r $FUNCTION_DIR/requirements.txt --target="$FUNCTION_DIR/.python_packages/lib/python3.6/site-packages"
 
     # This step will use the access token from the Azure login step
     - name: 'Azure Functions deployment'
@@ -45,5 +45,3 @@ jobs:
         app-name: modelpredict
         # Path to package or folder. *.zip or a folder to deploy
         package: ${{ env.FUNCTION_DIR }}
-        # Credentials to connect to app service
-        #publish-profile: ${{ secrets.FUNCTION_APP_PUBPROFILE }}
