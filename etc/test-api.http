@@ -2,11 +2,14 @@
 ### Change host as required
 #
 @host = localhost:7071
+#@host = modelpredict.azurewebsites.net
+@code = 
+#@code = phf0AqooWf5495qHqGZ4Gx5KKfz2/hJ1XKM89rv6/wFEBLJDl3yKqQ==
 
 #
 ### Get model API parameters
 #
-GET http://{{host}}/api/predict/params
+GET http://{{host}}/api/predict/params?code={{code}}
 
 #
 ### Call the model for a prediction
@@ -16,6 +19,6 @@ Content-Type: application/json
 
 {
   "force": "Kent Police",
-  "crime": "Drugs",
-  "month": 4
+  "crime": "Burglary",
+  "month": 10
 }

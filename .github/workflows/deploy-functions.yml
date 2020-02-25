@@ -3,11 +3,11 @@ name: Deploy to Azure Functions
 on: [push]
 
 env:
-  FUNCTION_DIR: 'model-api-functions'
-  AZML_SUBID: '52512f28-c6ed-403e-9569-82a9fb9fec91'
-  AZML_RESGRP: 'Demo.AzureML'
+  FUNCTION_DIR:   'model-api-functions'
+  AZML_SUBID:     '52512f28-c6ed-403e-9569-82a9fb9fec91'
+  AZML_RESGRP:    'Demo.AzureML'
   AZML_WORKSPACE: 'bencmldemo'
-  AZML_MODEL: 'batcomputer-model'
+  AZML_MODEL:     'batcomputer-model'
 
 jobs:
   deploy:

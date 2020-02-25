@@ -1,6 +1,7 @@
 import pickle
 import sklearn
 import pprint
+import logging
 from timeit import default_timer as timer
 
 class Predictor:
@@ -16,28 +17,28 @@ class Predictor:
     with open(model_name, 'rb') as pickle_file:
       self.model = pickle.load(pickle_file)
       if not str(type(self.model).__module__).startswith("sklearn."):
-        print("### !ERROR: {} is not a sklearn object".format(model_name))
+        logging.error("### !ERROR: {} is not a sklearn object".format(model_name))
         exit()
 
     # Load lookup table and sanity check it's what we expect
     with open(lookup_name, 'rb') as pickle_file:
       self.lookup = pickle.load(pickle_file)
       if not str(type(self.lookup).__name__).startswith("OrderedDict"):
-        print("### !ERROR: {} is not a OrderedDict object".format(lookup_name))
+        logging.error("### !ERROR: {} is not a OrderedDict object".format(lookup_name))
         exit()
 
     # Load flags and sanity check it's what we expect
     with open(flags_name, 'rb') as pickle_file:
       self.flags = pickle.load(pickle_file)
       if not str(type(self.flags).__name__).startswith("list"):
-        print("### !ERROR: {} is not a list object".format(flags_name))
+        logging.error("### !ERROR: {} is not a list object".format(flags_name))
         exit()
 
   #
   # Call the scoring/prediction function
   #
   def predict(self, request):
-    print("### Prediction request for:", request)
+    logging.info("### Prediction request for:", request)
     features = []
 
     # Dynamically build params array from request and lookup table
@@ -58,7 +59,7 @@ class Predictor:
     prediction = self.model.predict_proba([features]) 
     end = timer()
     prediction_list = dict(zip(self.flags, prediction[0]))
-    print("### Prediction result:", prediction_list)
-    print("### Prediction took:", round((end - start) * 1000, 2), "millsecs")
+    logging.info("### Prediction result:", prediction_list)
+    logging.info("### Prediction took:", round((end - start) * 1000, 2), "millsecs")
 
     return prediction_list

@@ -30,13 +30,16 @@ for(let y = 0; y < 3; y++) {
 //
 function connect(endpoint) {
   API_ENDPOINT = endpoint.endsWith('/') ? endpoint.substring(0, endpoint.length - 1) : endpoint
-  let codeUrlQuery = API_CODE ? codeUrlQuery = `?code=${API_CODE}` : ''
+  let codeUrlQuery = API_CODE ? `?code=${API_CODE}` : ''
 
   document.getElementById('connectEndpoint').value = "Please wait..."
   document.getElementById('connectButton').style.visibility = "hidden"
 
   fetch(`${API_ENDPOINT}/predict/params${codeUrlQuery}`)
-  .then(resp => resp.json())
+  .then(resp => {
+    if (!resp.ok) throw new Error('HTTP status was '+resp.status);
+    return resp.json()
+  })
   .then(data => {
     forceSelect = document.getElementById('force');
     for(let force of data.force) {
@@ -72,13 +75,16 @@ function compute() {
       month: parseInt(document.getElementById('month').value)
     })
   }
-  let codeUrlQuery = API_CODE ? codeUrlQuery = `?code=${API_CODE}` : ''
+  let codeUrlQuery = API_CODE ? `?code=${API_CODE}` : ''
 
   computeStart()
   clearPrintout()
 
   fetch(`${API_ENDPOINT}/predict${codeUrlQuery}`, req)
-  .then(resp => resp.json())
+  .then(resp => {
+    if (!resp.ok) throw new Error('HTTP status was '+resp.status);
+    return resp.json()
+  })
   .then(data => {
     let caught = data.caughtProb * 100;
     caught = parseInt(caught);
