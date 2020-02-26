@@ -38,7 +38,7 @@ class Predictor:
   # Call the scoring/prediction function
   #
   def predict(self, request):
-    logging.info("### Prediction request for:", request)
+    #logging.info("### Prediction request for: {}".format(request))
     features = []
 
     # Dynamically build params array from request and lookup table
@@ -59,7 +59,7 @@ class Predictor:
     prediction = self.model.predict_proba([features]) 
     end = timer()
     prediction_list = dict(zip(self.flags, prediction[0]))
-    logging.info("### Prediction result:", prediction_list)
-    logging.info("### Prediction took:", round((end - start) * 1000, 2), "millsecs")
+    logging.info("### Prediction result: {}".format(prediction_list))
+    logging.info("### Prediction took: {} millsecs".format(round((end - start) * 1000, 2)))
 
     return prediction_list
