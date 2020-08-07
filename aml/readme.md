@@ -72,9 +72,8 @@ This script instructs the AML Service to carry out a training job. An overview o
 - Sets up other *RunConfiguration* configuration, e.g. required Python packages (pandas, scikit-learn)
 - Executes a *Run* using *ScriptRunConfig* pointing at `AZML_SCRIPT` training script
 - Waits for completion
-- On successful run, registers `outputs/model.pkl` with AML as a *Model*
-- *Model* is tagged with meta-data, ***aml-runid*** and ***aml-experiment*** which are used by `fetch-model.py`
- script
+- On successful run, registers all files in `outputs/` with AML as a *Model*
+- *Model* is tagged with meta-data
 
 ## Required Variables
 `AZML_SUBID`, `AZML_RESGRP`, `AZML_WORKSPACE`, `AZML_MODEL`, `AZML_EXPERIMENT`, `AZML_DATAPATH`, `AZML_SCRIPT`, `AZML_COMPUTE_NAME`
@@ -88,8 +87,7 @@ This script instructs the AML Service to carry out a training job. An overview o
 # Script: fetch-model.py
 This script accesses the AML Service to download a model as `model.pkl`, but also downloads associated `lookup.pkl` and `flags.pkl` files which are unique to the Batcomputer project and required for the model API
 
-The script requires that the model registered with AML is also tagged with two fields ***aml-runid*** and ***aml-experiment*** from the run that registered the model. This done automatically by the `run-training.py` script.  
-Using these references the script can get back to the source training run, and access the outputs of the run. Using the run output the script can download any and all files output by the training, which in this case will be `model.pkl`, `lookup.pkl` and `flags.pkl`
+The script requires that the model registered with AML is uploaded with the path "outputs", all files from the model are downloaded and anything found in the "outputs" folder moved to the target `--output-path`
 
 Along with the three .pkl files, a JSON file `metadata.json` is created with information such as the model version, which can then be used at runtime by the model API
 

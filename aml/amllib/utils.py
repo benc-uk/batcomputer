@@ -1,4 +1,4 @@
-import os, json
+import os, json, tempfile
 from azureml.core import Workspace, Experiment, Run
 from azureml.core.model import Model
 from azureml.core.authentication import AzureCliAuthentication
@@ -56,28 +56,13 @@ def downloadPickles(ws, modelName, outputPath="./pickles", modelVer=None):
   # Set AZML_MODEL_VER for use by subsequent steps
   print(f"##vso[task.setvariable variable=AZML_MODEL_VER]{model.version}")
 
-  # These are special tags, lets us get back to the run that created the model 
-  try:
-    runId = model.tags['aml-runid']
-    experimentName = model.tags['aml-experiment']
-  except:
-    print("### ERROR! Model missing `aml-runid` and `aml-experiment` tags, Can't continue!")
-    exit()
-
-  exp = Experiment(workspace=ws, name=experimentName)
-  run = Run(exp, runId)
-  if run.status != "Completed":
-    print(f'### ERROR! Run {runId} did not complete!')
-    return
-
-  print(f'### Will download from run {runId} in {experimentName}')
-
-  # Now we can get all the files created with the run, grab all the .pkls
-  for f in run.get_file_names():
-    if f.endswith('.pkl'):
-      output_file_path = os.path.join(outputPath, f.split('/')[-1])
-      print('### Downloading from {} to {} ...'.format(f, output_file_path))
-      run.download_file(name=f, output_file_path=output_file_path)
+  # The uploaded files will be in a subfolder "outputs", so download files to a temp location
+  # Then move to target output folder
+  model.download(f"{tempfile.gettempdir()}/aml", exist_ok=True)
+  output_files = os.listdir(f"{tempfile.gettempdir()}/aml/outputs")
+  os.makedirs(outputPath, exist_ok=True)
+  for output_file in output_files:
+    os.rename(f"{tempfile.gettempdir()}/aml/outputs/{output_file}", f"{outputPath}/{output_file}")
 
   # Add some extra metadata, handy to have
   metadata = { 'name': model.name, 'version': model.version, 'tags': model.tags }

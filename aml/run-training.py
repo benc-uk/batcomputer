@@ -83,12 +83,11 @@ if run.status == "Failed":
 accuracy = run.get_metrics()['accuracy'] or 0.0
 
 model = run.register_model(
-  model_path = 'outputs/model.pkl',
+  # NOTE! Must be called 'outputs' this is expected by training scripts and fetch model process
+  model_path = 'outputs/',
   model_name = os.environ['AZML_MODEL'],
   tags = {
-    'accuracy': accuracy, 
-    'aml-runid': run.id, 
-    'aml-experiment': os.environ['AZML_EXPERIMENT']
+    'accuracy': accuracy
   }
 )
 

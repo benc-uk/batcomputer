@@ -31,5 +31,3 @@ if args.ver:
 elif not args.best:
   print(f"### No model version specified, latest will be used")
   downloadPickles(ws, os.environ['AZML_MODEL'], outputPath)
-
-  

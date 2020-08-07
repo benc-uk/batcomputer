@@ -42,7 +42,7 @@ zip_ref.close()
 
 # Load data from CSVs
 print("### Loading CSV data...")
-allFiles = glob.glob(data_folder + "/2017-*/*.csv")
+allFiles = glob.glob(data_folder + "/2017-10/*.csv")
 list_ = []
 for file_ in allFiles:
     df = pd.read_csv(file_, index_col=None, header=0)

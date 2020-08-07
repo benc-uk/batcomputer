@@ -4,7 +4,7 @@ on: [push]
 
 # Sub-directory containing the Function app, or '.' if root of repo
 env:
-  FUNCTION_DIR:   'model-api-functions'
+  FUNCTION_DIR: 'model-api-functions'
 
 jobs:
   deploy:
@@ -27,8 +27,8 @@ jobs:
     - name: 'Fetch model from Azure ML'
       env:
         AZML_SUBID:     '52512f28-c6ed-403e-9569-82a9fb9fec91'
-        AZML_RESGRP:    'Demo.AzureML'
-        AZML_WORKSPACE: 'bencmldemo'
+        AZML_RESGRP:    'ai'
+        AZML_WORKSPACE: 'bencml'
         AZML_MODEL:     'batcomputer-model'
       run: |
         python -m pip install --upgrade pip

@@ -15,7 +15,7 @@
   ],
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
-  "python.pythonPath": "/home/ben/dev/batcomputer/model-api/.venv/bin/python3",
+  "python.pythonPath": ".venv/bin/python",
   "debug.internalConsoleOptions": "neverOpen",
 
   "azureFunctions.deploySubpath": "model-api-functions",
